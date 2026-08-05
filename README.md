@@ -35,7 +35,7 @@
 4. **第 3 章：环境安装与基础配置**
    - 工具类型表格与黄金公式、Claude Code CLI 全局安装、Claude Code + DeepSeek 模型配置示例、扩展插件清单、标准 VibeCoding 工程目录。
 5. **第 4 章：概念发展与实用技巧**
-   - 范式演进四部曲（Prompt -> Context -> Harness -> Loop Engineering）、Prompt 黄金公式与好坏对比、上下文与 Rules 文件配置、常用 Bash/Slash 命令、权限控制及 Token 防爆指南。
+   - 从 Prompt 到 Loop：AI 开发能力进阶四部曲（Prompt -> Context -> Harness -> Loop Engineering）、Prompt 黄金公式与好坏对比、上下文与 Rules 文件配置、常用 Bash/Slash 命令、权限控制及 Token 防爆指南。
 6. **第 5 章：心得体会与避坑指南**
    - 10 大实战黄金法则、3 个真实踩坑案例（幻觉包、上下文污染、一步到位越界）。
 7. **第 6 章：项目实战演示**
