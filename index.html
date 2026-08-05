@@ -405,7 +405,7 @@
     body { background-image: none !important; }
     #particles-canvas { display: none !important; }
     .panorama-band { position: fixed; top: 0; left: 0; width: 100%; height: 31vh; z-index: 3; pointer-events: none; background: #f7f0dc url('assets/vibecoding-panorama.png') center top / cover no-repeat; border-bottom: 3px solid var(--panel-border); }
-    .reveal { z-index: 2; color: var(--text-bright); font-size: 23px; }
+    .reveal { z-index: 2; color: var(--text-bright); font-size: 27.6px; }
     .reveal .slides > section, .reveal .slides > section > section { padding: 330px 58px 38px; box-sizing: border-box; }
     .reveal .slides > section > section { text-align: left; }
     .reveal .slides > section > section > :first-child { margin-top: 340px !important; }
@@ -433,8 +433,27 @@
     .quote-card { background: #f5d363; color: var(--text-bright); border: 3px solid var(--panel-border); border-left-width: 8px; border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; }
     .section-transition { background: transparent !important; border: 0 !important; box-shadow: none !important; overflow: visible; }
     .section-transition::after { display: none; }
-    .section-badge { display: inline-block; background: var(--accent-red); color: #1c1b17; border: 3px solid var(--panel-border); border-radius: 2px; box-shadow: 4px 4px 0 #1c1b17; font-family: var(--font-sans); font-size: .66rem; font-weight: 800; letter-spacing: .12em; }
-    .section-title-large { color: var(--text-bright) !important; background: none !important; -webkit-text-fill-color: var(--text-bright); font-size: 2.65rem !important; }
+    .section-badge { display: inline-block; background: var(--accent-red); color: #1c1b17; border: 3px solid var(--panel-border); border-radius: 2px; box-shadow: 4px 4px 0 #1c1b17; font-family: var(--font-sans); font-size: .8rem; font-weight: 800; letter-spacing: .12em; }
+    .section-title-large { color: var(--text-bright) !important; background: none !important; -webkit-text-fill-color: var(--text-bright); font-size: 3.2rem !important; }
+    .section-transition > p { font-size: 1.15em !important; }
+    .reveal .slides > section > section.section-transition {
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+    }
+    .reveal .slides > section > section.section-transition > .section-badge,
+    .reveal .slides > section > section.section-transition > .section-title-large,
+    .reveal .slides > section > section.section-transition > p {
+      align-self: center !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+    .reveal .slides > section > section.section-transition > .section-badge {
+      width: fit-content;
+      align-self: center !important;
+      margin: 0 auto 20px !important;
+      text-align: center;
+    }
     .badge, .badge-blue, .badge-green, .badge-purple, .badge-orange, .badge-red { color: #1c1b17; background: #f5d363; border: 2px solid var(--panel-border); border-radius: 3px; font-family: var(--font-sans); font-weight: 800; }
     .badge-red { background: #f3b1a2; } .badge-blue { background: #a9c8df; } .badge-green, .badge-purple { background: #b9dec5; } .badge-orange { background: #f8c96d; }
     .vibe-table { border: 3px solid var(--panel-border); border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; background: #fff9e9; }
@@ -443,9 +462,89 @@
     .timeline-wrapper::before { height: 4px; background: #1c1b17; }
     .timeline-step { background: #f5d363; border: 3px solid #1c1b17; color: #1c1b17; box-shadow: 3px 3px 0 #1c1b17; }
     .timeline-node .year { color: #1c1b17; } .timeline-node .desc { color: var(--text-muted); }
+    .timeline-wrapper {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+      margin: 34px 0 0 !important;
+      padding: 0;
+    }
+    .timeline-wrapper::before { display: none; }
+    .timeline-node {
+      display: flex;
+      position: relative;
+      flex: none;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+      padding: 16px 14px;
+      text-align: left;
+      background: #fff9e9;
+      border: 3px solid #1c1b17;
+      border-radius: 8px;
+      box-shadow: 4px 4px 0 #1c1b17;
+    }
+    .timeline-node:nth-child(3n + 1) { background: #f8c96d; }
+    .timeline-node:nth-child(3n + 2) { background: #b9dec5; }
+    .timeline-node:nth-child(3n) { background: #a9c8df; }
+    .timeline-node:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      top: 50%;
+      right: -25px;
+      z-index: 2;
+      width: 24px;
+      color: #1c1b17;
+      font-family: Arial, sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+      transform: translateY(-50%);
+    }
+    .timeline-step {
+      width: auto;
+      height: auto;
+      margin: 0 0 10px;
+      padding: 4px 7px;
+      border-radius: 4px;
+      box-shadow: none;
+      font-family: var(--font-code);
+      font-size: .62em;
+      line-height: 1;
+    }
+    .timeline-node .year { margin: 0 0 7px; font-family: Georgia, 'Songti SC', serif; font-size: 1em; font-weight: 800; }
+    .timeline-node .desc { margin-top: 0; font-size: .57em; line-height: 1.35; }
+    .timeline-sources { max-width: 1260px; margin: 18px auto 0; padding: 10px 14px; color: var(--text-muted); background: #fff9e9; border: 2px solid #1c1b17; border-radius: 6px; font-size: .46em; line-height: 1.55; text-align: left; }
+    .timeline-sources strong { color: #1c1b17; }
+    @media (max-width: 900px) {
+      .timeline-wrapper { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .timeline-node:not(:last-child)::after { display: none; }
+    }
     .chart-container { background: #fff9e9; border: 3px solid var(--panel-border); border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; }
     .chart-bar { background: #8ac9a5 !important; border: 3px solid #1c1b17; border-bottom: 0; border-radius: 5px 5px 0 0; color: #1c1b17; }
     .chart-label { color: #1c1b17; font-weight: 700; }
+    /* Survey snapshots: sources use different samples/questions, so avoid a misleading single trend line. */
+    .data-snapshot-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; max-width: 1260px; margin: 24px auto 0; text-align: left; }
+    .data-snapshot { min-height: 235px; padding: 18px 18px 16px; color: #1c1b17; background: #fff9e9; border: 3px solid #1c1b17; border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; }
+    .data-snapshot:nth-child(4n + 1) { background: #f8c96d; }
+    .data-snapshot:nth-child(4n + 2) { background: #b9dec5; }
+    .data-snapshot:nth-child(4n + 3) { background: #a9c8df; }
+    .data-snapshot:nth-child(4n) { background: #f39a79; }
+    .snapshot-year { display: inline-block; padding: 4px 8px; border: 2px solid #1c1b17; border-radius: 4px; background: #fff9e9; font-family: var(--font-code); font-size: .56em; font-weight: 900; letter-spacing: .04em; }
+    .metric-kind { display: inline-block; margin: 10px 0 0; padding: 3px 6px; border: 2px solid #1c1b17; border-radius: 999px; background: rgba(255,249,233,.78); font-size: .45em; font-weight: 900; letter-spacing: .04em; }
+    .snapshot-number { margin: 15px 0 6px; font-family: Georgia, 'Songti SC', serif; font-size: 2.1em; font-weight: 900; line-height: .9; }
+    .snapshot-number span { font-family: var(--font-sans); font-size: .4em; letter-spacing: 0; }
+    .snapshot-number-tools { font-family: var(--font-sans); font-size: 1.35em; line-height: 1.05; letter-spacing: -.03em; }
+    .snapshot-caption { min-height: 48px; font-size: .62em; font-weight: 700; line-height: 1.4; }
+    .country-chip-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+    .country-chip { display: inline-block; padding: 4px 6px; border: 2px solid #1c1b17; border-radius: 999px; background: #fff9e9; font-family: var(--font-code); font-size: .48em; font-weight: 800; white-space: nowrap; }
+    .snapshot-compare { margin-top: 13px; padding-top: 10px; border-top: 2px dashed rgba(28,27,23,.5); font-size: .52em; font-weight: 700; line-height: 1.35; }
+    .data-source-note { max-width: 1260px; margin: 18px auto 0; padding: 12px 14px; color: #534d45; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 6px; font-size: .52em; line-height: 1.55; text-align: left; }
+    .data-source-note strong { color: #1c1b17; }
+    .data-comparison-warning { display: flex; align-items: center; justify-content: center; gap: 8px; max-width: 1260px; margin: 16px auto 0; padding: 8px 12px; color: #1c1b17; background: #f8c96d; border: 2px solid #1c1b17; border-radius: 6px; font-size: .54em; font-weight: 800; line-height: 1.35; text-align: center; }
+    .data-comparison-warning i { font-size: 1.15em; }
     .reveal .progress { height: 5px; background: #e8deca; } .reveal .progress span { background: #e86652; }
     .reveal .controls { color: #1c1b17; }
     .reveal .slide-number { background: #fff9e9; color: #1c1b17; border: 2px solid var(--panel-border); border-radius: 3px; box-shadow: 3px 3px 0 #1c1b17; }
@@ -462,6 +561,7 @@
     .reveal [style*="linear-gradient"] { background-image: none !important; }
     .reveal [style*="border-radius: 50%"] { border: 3px solid #1c1b17; }
     @media (max-width: 900px) { .panorama-band { height: 22vh; } .reveal .slides > section, .reveal .slides > section > section { padding: 220px 24px 24px; } .reveal .slides > section > section.section-transition { padding-top: 270px; } .reveal { font-size: 16px; } }
+    @media (max-width: 900px) { .data-snapshot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .data-snapshot { min-height: 175px; padding: 14px; } }
 
     /* Keep the illustration as a light decorative cue, not a content-consuming banner. */
     .panorama-band {
@@ -543,7 +643,7 @@
         <p style="margin: 0; font-size: .9em; color: var(--text-muted);">从认知建立到工程化协作，按章节逐步进入实战。</p>
         <nav class="toc-grid" aria-label="培训目录">
           <a class="toc-item" href="#/2"><span class="toc-index">01</span><span class="toc-copy">VibeCoding 是什么？</span></a>
-          <a class="toc-item" href="#/3"><span class="toc-index">02</span><span class="toc-copy">发展历程与行业大势</span></a>
+          <a class="toc-item" href="#/3"><span class="toc-index">02</span><span class="toc-copy">VibeCoding 发展历程</span></a>
           <a class="toc-item" href="#/4"><span class="toc-index">03</span><span class="toc-copy">环境安装与基础配置</span></a>
           <a class="toc-item" href="#/5"><span class="toc-index">04</span><span class="toc-copy">概念演进与使用技巧</span></a>
           <a class="toc-item" href="#/6"><span class="toc-index">05</span><span class="toc-copy">心得体会与避坑指南</span></a>
@@ -577,9 +677,9 @@
               </h3>
               <ul style="font-size: 0.85em; line-height: 1.8; color: var(--text-bright);">
                 <li><strong>核心载体：</strong> 键盘手动输入每一行代码 / 语法</li>
-                <li><strong>思维瓶颈：</strong> 死记 API 参数、框架规范与配置</li>
+                <li><strong>思维瓶颈：</strong> 根据 API 参数、框架规范与配置</li>
                 <li><strong>排错方式：</strong> 肉眼调试、查 StackOverflow / 文档</li>
-                <li><strong>角色定位：</strong> 产出代码的“苦力工人”</li>
+                <li><strong>角色定位：</strong> 编程人员（Programming）代码产出者</li>
                 <li><strong>交付速度：</strong> 受限于打字速度与检索记忆成本</li>
               </ul>
             </div>
@@ -593,7 +693,7 @@
                 <li><strong>思维瓶颈：</strong> 需求拆解能力、架构设计与审查能力</li>
                 <li><strong>排错方式：</strong> 错误日志自动喂给 AI 快速迭代修复</li>
                 <li><strong>角色定位：</strong> 意图表达者 (Director) + 代码审查者 (Reviewer)</li>
-                <li><strong>交付速度：</strong> 意图理解即生成，效率提升 3-10 倍</li>
+                <li><strong>交付速度：</strong> 意图理解即生成，效率提升数倍，甚至数十倍</li>
               </ul>
             </div>
           </div>
@@ -632,41 +732,11 @@
           </div>
         </section>
 
-        <!-- 1.3 工具全景图 -->
-        <section>
-          <h2>主流 AI Coding 工具全景图</h2>
-          <div class="grid-3" style="margin-top: 35px;">
-            <div class="vibe-card fragment">
-              <span class="badge badge-blue">CLI Agent 类</span>
-              <h3 style="margin: 15px 0 10px 0;">Claude Code / Gemini CLI</h3>
-              <p style="font-size: 0.78em; color: var(--text-muted);">
-                运行于终端的强力 Agent，具备文件系统自主读写、Git 操作、命令执行及自动化闭环能力。
-              </p>
-            </div>
-
-            <div class="vibe-card fragment">
-              <span class="badge badge-purple">AI 架构 IDE 类</span>
-              <h3 style="margin: 15px 0 10px 0;">Cursor / Trae / CodeBuddy</h3>
-              <p style="font-size: 0.78em; color: var(--text-muted);">
-                深度定制的原生 IDE，原生支持 @代码库索引、规则文件解析、Composer 多文件并行编辑。
-              </p>
-            </div>
-
-            <div class="vibe-card fragment">
-              <span class="badge badge-green">插件 / 聊天客户端</span>
-              <h3 style="margin: 15px 0 10px 0;">Copilot / AntiGravity</h3>
-              <p style="font-size: 0.78em; color: var(--text-muted);">
-                传统 IDE 的增强插件或独立客户端，提供行内补全、侧边栏 Chat 及单模块重构助手。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <!-- 1.4 一句话定义金句 -->
+        <!-- 1.3 一句话定义金句 -->
         <section>
           <div style="text-align: center; padding: 60px 0;">
             <span class="badge badge-green" style="font-size: 1.1em; padding: 10px 24px;">CORE DEFINITION</span>
-            <h1 style="font-size: 3em; margin: 40px 0; color: #fff;">
+            <h1 style="font-size: 3em; margin: 40px 0; color: var(--text-bright);">
               “你描述<span style="color: var(--accent-blue);">意图</span>，AI 负责<span style="color: var(--accent-purple);">实现</span>，你负责<span style="color: var(--accent-green);">验收</span>”
             </h1>
             <p style="color: var(--text-muted); font-size: 1.1em;">
@@ -683,7 +753,7 @@
         <!-- 2.0 过渡页 -->
         <section class="section-transition">
           <div class="section-badge">CHAPTER 02</div>
-          <h2 class="section-title-large">发展历程与行业大势</h2>
+          <h2 class="section-title-large">VibeCoding 发展历程</h2>
           <p style="color: var(--text-muted);">理解技术演进脉络：从代码补全到工程化 MCP 与多 Agent 协作</p>
         </section>
 
@@ -694,7 +764,7 @@
             <div class="timeline-node fragment">
               <div class="timeline-step">21</div>
               <div class="year">2021年</div>
-              <div class="desc">GitHub Copilot 内测<br><strong>AI 代码补全元年</strong></div>
+              <div class="desc">GitHub Copilot 技术预览<br><strong>AI 代码补全走向大众</strong></div>
             </div>
 
             <div class="timeline-node fragment">
@@ -706,58 +776,94 @@
             <div class="timeline-node fragment">
               <div class="timeline-step">23</div>
               <div class="year">2023年</div>
-              <div class="desc">Cursor 登场<br><strong>IDE 级 AI 深融合</strong></div>
+              <div class="desc">Cursor 0.2.0 发布<br><strong>AI IDE 初步成熟</strong></div>
             </div>
 
             <div class="timeline-node fragment">
               <div class="timeline-step">24</div>
               <div class="year">2024年</div>
-              <div class="desc">Claude 3 / GPT-4o<br><strong>Agent 编程元年</strong></div>
+              <div class="desc">Claude 3 / GPT-4o 发布<br><strong>多模态与 Agent 能力加速演进</strong></div>
             </div>
 
             <div class="timeline-node fragment">
               <div class="timeline-step">25</div>
               <div class="year">2025年</div>
-              <div class="desc">Claude Code / Gemini CLI<br><strong>VibeCoding 概念爆火</strong></div>
+              <div class="desc">Claude Code / Gemini CLI<br><strong>CLI Agent 工具快速普及，VibeCoding 术语传播</strong></div>
             </div>
 
             <div class="timeline-node fragment">
               <div class="timeline-step">26</div>
               <div class="year">2026年</div>
-              <div class="desc">MCP 标准化<br><strong>工程化 & 多 Agent 协作</strong></div>
+              <div class="desc">MCP 生态持续扩展<br><strong>AI 编程进入工程化治理阶段</strong></div>
             </div>
+          </div>
+          <div class="timeline-sources fragment">
+            <strong>来源（官方发布页）：</strong>
+            <a href="https://github.blog/news-insights/product-news/introducing-github-copilot-ai-pair-programmer/" target="_blank" rel="noopener noreferrer">GitHub Copilot · 2021</a> ｜
+            <a href="https://openai.com/index/chatgpt/" target="_blank" rel="noopener noreferrer">OpenAI ChatGPT · 2022</a> ｜
+            <a href="https://cursor.com/changelog/0-2-0" target="_blank" rel="noopener noreferrer">Cursor · 2023</a> ｜
+            <a href="https://www.anthropic.com/news" target="_blank" rel="noopener noreferrer">Anthropic Claude 3 · 2024</a> ／
+            <a href="https://openai.com/index/gpt-4o-and-more-tools-to-chatgpt-free/" target="_blank" rel="noopener noreferrer">OpenAI GPT-4o · 2024</a> ｜
+            <a href="https://www.anthropic.com/news/claude-3-7-sonnet" target="_blank" rel="noopener noreferrer">Anthropic Claude Code · 2025</a> ／
+            <a href="https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-cli-open-source-ai-agent/" target="_blank" rel="noopener noreferrer">Google Gemini CLI · 2025</a> ｜
+            <a href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener noreferrer">Anthropic MCP · 2024</a>
           </div>
           <aside class="notes">从最初的单行行内代码补全，演进到现在的 Agent 系统与 MCP 协议交互。</aside>
         </section>
 
-        <!-- 2.2 行业数据柱状图 -->
+        <!-- 2.2 行业数据：按调查口径呈现，不拼接为同口径同比 -->
         <section>
-          <h2>行业数据：AI 编码工具采用已接近普及</h2>
+          <h2>行业数据：AI 编码工具已从尝试走向日常</h2>
           <p style="font-size: 0.8em; color: var(--text-muted); margin-bottom: 25px;">
-            GitHub 2024 企业开发团队调研：在工作中试用过 AI 编码工具的受访者比例
+            2023–2026 权威调查快照：每张卡代表不同的调查问题与样本口径
           </p>
 
-          <div class="chart-container fragment">
-            <div class="chart-column">
-              <div class="chart-bar" style="height: 99%;">99%</div>
-              <div class="chart-label">美国</div>
+          <div class="data-snapshot-grid">
+            <div class="data-snapshot fragment">
+              <div class="snapshot-year">2023 · 美国</div>
+              <div class="metric-kind">曾尝试使用率</div>
+              <div class="snapshot-number">92<span>%</span></div>
+              <div class="snapshot-caption">大型企业开发者曾在工作或个人时间使用 AI 编码工具</div>
+              <div class="snapshot-compare">GitHub 调研｜n=500<br>美国、1,000+ 员工企业</div>
             </div>
-            <div class="chart-column">
-              <div class="chart-bar" style="height: 100%;">100%</div>
-              <div class="chart-label">巴西</div>
+
+            <div class="data-snapshot fragment">
+              <div class="snapshot-year">2024 · GitHub 企业调研</div>
+              <div class="metric-kind">工作中试用率</div>
+              <div class="snapshot-number">97–100<span>%</span></div>
+              <div class="snapshot-caption">在工作中试用过 AI 编码工具的受访者比例</div>
+              <div class="country-chip-row">
+                <span class="country-chip">美国 99%</span><span class="country-chip">巴西 100%</span>
+                <span class="country-chip">印度 99%</span><span class="country-chip">德国 97%</span>
+              </div>
+              <div class="snapshot-compare">每国 n=500｜合计 n=2,000</div>
             </div>
-            <div class="chart-column">
-              <div class="chart-bar" style="height: 99%;">99%</div>
-              <div class="chart-label">印度</div>
+
+            <div class="data-snapshot fragment">
+              <div class="snapshot-year">2025 · 中国｜整体与研发</div>
+              <div class="metric-kind">企业高覆盖率</div>
+              <div class="snapshot-number">27.65<span>%</span></div>
+              <div class="snapshot-caption">受访研发企业已让 <strong>90%+ 开发者</strong> 使用智能开发工具</div>
+              <div class="snapshot-compare">背景：截至 2025 年 12 月，中国网民生成式 AI 普及率为 42.8%<br>研发企业（中国信通院）＋全国整体（CNNIC）</div>
             </div>
-            <div class="chart-column">
-              <div class="chart-bar" style="height: 97%;">97%</div>
-              <div class="chart-label">德国</div>
+
+            <div class="data-snapshot fragment">
+              <div class="snapshot-year">2026 · 全球</div>
+              <div class="metric-kind">专业工具采用率</div>
+              <div class="snapshot-number">74<span>%</span></div>
+              <div class="snapshot-caption">开发者已在工作中采用专业 AI 开发工具</div>
+              <div class="snapshot-compare">背景：90% 经常使用至少一种 AI 工具进行编码与开发<br>JetBrains AI Pulse｜n&gt;10,000</div>
             </div>
           </div>
-          <div class="vibe-card" style="margin-top: 18px; padding: 14px 18px; font-size: 0.7em; color: var(--text-muted);">
-            <strong>背景数据：</strong>GitHub 2023 年对 500 名美国大型企业开发者的调查中，92% 表示曾在工作或个人时间使用 AI 编码工具。两年样本范围与提问口径不同，故本页不将其作为严格的同比序列。
-            <br><span style="display: inline-block; margin-top: 8px;">来源：<a href="https://github.blog/news-insights/research/survey-ai-wave-grows/" target="_blank" rel="noopener noreferrer">GitHub 2024 Developer Survey</a>（2,000 名受访者，每国 500 名）｜<a href="https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/" target="_blank" rel="noopener noreferrer">GitHub 2023 Developer Survey</a>（美国 500 名受访者）</span>
+          <div class="data-comparison-warning"><i class="fas fa-triangle-exclamation"></i><span><strong>不可横向同比：</strong>92%、97–100%、27.65% 与 74% 分别衡量“试用”“企业覆盖”“专业工具采用”，不是一条年度趋势线。</span></div>
+          <div class="data-source-note">
+            <strong>阅读方式：</strong>这是“采用快照”，不是同口径同比曲线：2023/2024 为 GitHub 企业调研，2025 中国卡片分别为全国网民与研发企业口径，2026 为 JetBrains AI Pulse；样本、地区与提问方式均不同。<br>
+            <strong>来源：</strong>
+            <a href="https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/" target="_blank" rel="noopener noreferrer">GitHub 2023 Developer Survey</a> ｜
+            <a href="https://github.blog/news-insights/research/survey-ai-wave-grows/" target="_blank" rel="noopener noreferrer">GitHub 2024 Developer Survey</a> ｜
+            <a href="https://www.cnnic.cn/n4/2026/0205/c326-11542.html" target="_blank" rel="noopener noreferrer">CNNIC 第 57 次《中国互联网络发展状况统计报告》</a> ｜
+            <a href="https://hulianhutongshequ.cn/upload/tank/report/2026/202604/1/41c4dd2e0f59482a80e7f4625e53f565.pdf" target="_blank" rel="noopener noreferrer">中国信通院《AI4SE 行业现状调查报告（2026）》</a> ｜
+            <a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/" target="_blank" rel="noopener noreferrer">JetBrains AI Pulse（2026）</a>
           </div>
         </section>
       </section>
@@ -771,6 +877,28 @@
           <div class="section-badge">CHAPTER 03</div>
           <h2 class="section-title-large">环境安装与基础配置</h2>
           <p style="color: var(--text-muted);">零基础快速上手：打造你的 AI-Native 开发装备</p>
+        </section>
+
+        <!-- 3.1 工具全景图 -->
+        <section>
+          <h2>主流 AI Coding 工具全景图</h2>
+          <div class="grid-3" style="margin-top: 35px;">
+            <div class="vibe-card fragment">
+              <span class="badge badge-blue">CLI Agent 类</span>
+              <h3 style="margin: 15px 0 10px 0;">Claude Code / Gemini CLI</h3>
+              <p style="font-size: 0.78em; color: var(--text-muted);">运行于终端的强力 Agent，具备文件系统自主读写、Git 操作、命令执行及自动化闭环能力。</p>
+            </div>
+            <div class="vibe-card fragment">
+              <span class="badge badge-purple">AI 架构 IDE 类</span>
+              <h3 style="margin: 15px 0 10px 0;">Cursor / Trae / CodeBuddy</h3>
+              <p style="font-size: 0.78em; color: var(--text-muted);">深度定制的原生 IDE，原生支持 @代码库索引、规则文件解析、Composer 多文件并行编辑。</p>
+            </div>
+            <div class="vibe-card fragment">
+              <span class="badge badge-green">插件 / 聊天客户端</span>
+              <h3 style="margin: 15px 0 10px 0;">Copilot / AntiGravity</h3>
+              <p style="font-size: 0.78em; color: var(--text-muted);">传统 IDE 的增强插件或独立客户端，提供行内补全、侧边栏 Chat 及单模块重构助手。</p>
+            </div>
+          </div>
         </section>
 
         <!-- 3.1 工具分类表格 -->
@@ -800,7 +928,7 @@
               </tr>
               <tr>
                 <td><span class="badge badge-green">集成商 / AI IDE</span></td>
-                <td>Cursor, Trae, Qorder, CodeBuddy</td>
+                <td>Cursor, Trae, Qoder, CodeBuddy</td>
                 <td>大型项目日常开发、重构、全局调试</td>
                 <td>上下文检索强、代码Diff实时审查</td>
               </tr>
