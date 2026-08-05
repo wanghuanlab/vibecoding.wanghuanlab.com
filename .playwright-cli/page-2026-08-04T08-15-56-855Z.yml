@@ -1,0 +1,98 @@
+- application [ref=e2]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e7]:
+          - generic [ref=e8]: 
+          - text: 部门内部研发技术实战指南
+        - heading "VibeCoding 实战培训" [level=1] [ref=e9]
+        - heading "从 AI 辅助编码到智能开发工作流 (Intent-Driven Development)" [level=3] [ref=e10]
+        - generic [ref=e11]:
+          - generic [ref=e12]:
+            - generic [ref=e13]: 
+            - generic [ref=e14]: 主讲人
+            - generic [ref=e15]: 王欢
+          - generic [ref=e16]:
+            - generic [ref=e17]: 
+            - generic [ref=e18]: 培训时间
+            - generic [ref=e19]: 2026年8月
+          - generic [ref=e20]:
+            - generic [ref=e21]: 
+            - generic [ref=e22]: 面向对象
+            - generic [ref=e23]: 部门内部开发工程师
+      - complementary [ref=e24]: 开场白：欢迎大家参加本次 VibeCoding 实战培训。今天我们将系统梳理从 AI 补全到基于 LLM/Agent 的“意图驱动编程”范式转换。
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - generic [ref=e27]: CHAPTER 01
+        - heading [level=2] [ref=e28]: VibeCoding 是什么？
+        - paragraph [ref=e29]: 建立认知框架：从“逐行写代码”到“表达意图与审查”
+        - complementary [ref=e30]: 第一章我们将建立认知框架，厘清传统编码与 VibeCoding 的区别，以及核心工具链。
+      - generic [ref=e31]:
+        - heading [level=2] [ref=e32]: 传统编码 vs VibeCoding 对比
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - heading [level=3] [ref=e35]:
+              - generic [ref=e36]: 
+              - text: 传统编码范式
+            - list [ref=e37]:
+              - listitem [ref=e38]:
+                - text: •
+                - strong [ref=e39]: 核心载体：
+                - text: 键盘手动输入每一行代码 / 语法
+              - listitem [ref=e40]:
+                - text: •
+                - strong [ref=e41]: 思维瓶颈：
+                - text: 死记 API 参数、框架规范与配置
+              - listitem [ref=e42]:
+                - text: •
+                - strong [ref=e43]: 排错方式：
+                - text: 肉眼调试、查 StackOverflow / 文档
+              - listitem [ref=e44]:
+                - text: •
+                - strong [ref=e45]: 角色定位：
+                - text: 产出代码的“苦力工人”
+              - listitem [ref=e46]:
+                - text: •
+                - strong [ref=e47]: 交付速度：
+                - text: 受限于打字速度与检索记忆成本
+          - generic [ref=e48]:
+            - heading [level=3] [ref=e49]:
+              - generic [ref=e50]: 
+              - text: VibeCoding 新范式
+            - list [ref=e51]:
+              - listitem [ref=e52]:
+                - text: •
+                - strong [ref=e53]: 核心载体：
+                - text: 自然语言 Prompt + 上下文工程驱动
+              - listitem [ref=e54]:
+                - text: •
+                - strong [ref=e55]: 思维瓶颈：
+                - text: 需求拆解能力、架构设计与审查能力
+              - listitem [ref=e56]:
+                - text: •
+                - strong [ref=e57]: 排错方式：
+                - text: 错误日志自动喂给 AI 快速迭代修复
+              - listitem [ref=e58]:
+                - text: •
+                - strong [ref=e59]: 角色定位：
+                - text: 意图表达者 (Director) + 代码审查者 (Reviewer)
+              - listitem [ref=e60]:
+                - text: •
+                - strong [ref=e61]: 交付速度：
+                - text: 意图理解即生成，效率提升 3-10 倍
+        - complementary [ref=e62]: 对比点：开发者角色已经从纯手作者，转变为“意图表达者”与“质量把控者”。
+      - text:    
+    - generic [ref=e64]:
+      - generic [ref=e65]: CHAPTER 02
+      - heading [level=2] [ref=e66]: 发展历程与行业大势
+      - paragraph [ref=e67]: 理解技术演进脉络：从代码补全到工程化 MCP 与多 Agent 协作
+    - text:    • • •    @ • • •                          • • • • • • • •   
+  - link "1 / 40" [ref=e74] [cursor=pointer]:
+    - /url: "#/"
+  - complementary [ref=e75]:
+    - button "previous slide" [disabled] [ref=e76]
+    - button "next slide" [ref=e77]
+    - button "above slide" [disabled] [ref=e78]
+    - button "below slide" [disabled] [ref=e79]
+  - button "Resume presentation" [ref=e82]
+  - generic [ref=e83]: 部门内部研发技术实战指南 VibeCoding 实战培训 从 AI 辅助编码到智能开发工作流 (Intent-Driven Development) 主讲人 王欢 培训时间 2026年8月 面向对象 部门内部开发工程师 开场白：欢迎大家参加本次 VibeCoding 实战培训。今天我们将系统梳理从 AI 补全到基于 LLM/Agent 的“意图驱动编程”范式转换。

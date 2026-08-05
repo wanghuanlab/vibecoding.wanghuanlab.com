@@ -1,0 +1,40 @@
+- application [ref=e2]:
+  - generic:
+    - generic [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: 
+        - text: 部门内部研发技术实战指南
+      - heading "VibeCoding 实战培训" [level=1] [ref=e8]
+      - heading "从 AI 辅助编码到智能开发工作流 (Intent-Driven Development)" [level=3] [ref=e9]
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - generic [ref=e12]: 
+          - generic [ref=e13]: 主讲人
+          - generic [ref=e14]: 王欢
+        - generic [ref=e15]:
+          - generic [ref=e16]: 
+          - generic [ref=e17]: 培训时间
+          - generic [ref=e18]: 2026年8月
+        - generic [ref=e19]:
+          - generic [ref=e20]: 
+          - generic [ref=e21]: 面向对象
+          - generic [ref=e22]: 部门内部开发工程师
+    - generic:
+      - generic:
+        - generic: CHAPTER 01
+        - heading [level=2]: VibeCoding 是什么？
+        - paragraph: 建立认知框架：从“逐行写代码”到“表达意图与审查”
+      - generic:
+        - heading [level=2]: 传统编码 vs VibeCoding 对比
+    - generic:
+      - generic:
+        - generic: CHAPTER 02
+        - heading [level=2]: 发展历程与行业大势
+        - paragraph: 理解技术演进脉络：从代码补全到工程化 MCP 与多 Agent 协作
+    - text:  • • •    @ • • •                       • • • • • • • •
+  - link "1 / 40" [ref=e31] [cursor=pointer]:
+    - /url: "#/"
+  - complementary:
+    - button "next slide" [ref=e32] [cursor=pointer]
+  - text: Speaker notes
+  - generic [ref=e35]: 部门内部研发技术实战指南 VibeCoding 实战培训 从 AI 辅助编码到智能开发工作流 (Intent-Driven Development) 主讲人 王欢 培训时间 2026年8月 面向对象 部门内部开发工程师

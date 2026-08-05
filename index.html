@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+快捷键操作指南 / KEYBOARD SHORTCUTS GUIDE
+================================================================================
+  - 左右方向键 / Left & Right Arrow Keys : 切换横向主章节 (Next / Previous Chapter)
+  - 上下方向键 / Up & Down Arrow Keys     : 切换纵向子页面 (Next / Previous Sub-slide)
+  - F 键      / F Key                   : 切换全屏模式 (Toggle Fullscreen Mode)
+  - S 键      / S Key                   : 打开演讲者视图 (Open Speaker Notes Window)
+  - ESC / O 键 / ESC or O Key           : 幻灯片网格/缩略图预览 (Slide Overview Grid)
+  - Space 键  / Space Key               : 智能下一页 (Smart Next Slide)
+  - Alt + 鼠标点击 / Alt + Click         : 局部放大 inspect 元素 (Zoom into Element)
+================================================================================
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VibeCoding 实战培训 - 从 AI 辅助编码到智能开发工作流</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Reveal.js CDN CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/dracula.css" id="theme">
+
+  <!-- highlight.js Theme (Dracula) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #09110f;
+      --panel-bg: rgba(16, 31, 27, 0.82);
+      --panel-border: rgba(145, 184, 170, 0.17);
+      --accent-blue: #75e6c5;
+      --accent-green: #75e6c5;
+      --accent-purple: #75e6c5;
+      --accent-orange: #e7c975;
+      --accent-red: #ef8d82;
+      --text-bright: #ecf5f1;
+      --text-muted: #a6b8b1;
+      --font-sans: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(circle at 84% 14%, rgba(55, 150, 120, 0.14), transparent 26%), linear-gradient(135deg, #07100e 0%, #0b1714 52%, #081210 100%);
+      font-family: var(--font-sans);
+      color: var(--text-bright);
+      overflow: hidden;
+    }
+
+    /* Background Particle Canvas */
+    #particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    html, .reveal-viewport {
+      background-color: var(--bg-dark) !important;
+      background-image: radial-gradient(circle at 84% 14%, rgba(55, 150, 120, 0.14), transparent 26%), linear-gradient(135deg, #07100e 0%, #0b1714 52%, #081210 100%) !important;
+    }
+
+    .reveal {
+      font-family: var(--font-sans);
+      font-size: 26px;
+      color: var(--text-bright);
+      z-index: 2;
+    }
+
+    /* Custom Header & Footer Layouts */
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: none;
+      color: var(--text-bright);
+    }
+
+    .reveal h1 { font-size: 2.5em; letter-spacing: -0.045em; }
+    .reveal h2 { font-size: 1.8em; color: var(--text-bright); margin-bottom: 0.55em; }
+    .reveal h3 { font-size: 1.3em; color: var(--text-bright); }
+
+    /* Glassmorphism Cards */
+    .vibe-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.025), 0 18px 45px rgba(0, 0, 0, 0.2);
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+
+    .vibe-card:hover {
+      border-color: rgba(117, 230, 197, 0.48);
+      transform: translateY(-2px);
+    }
+
+    /* Grids & Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    /* Section Transition Slide */
+    .section-transition {
+      text-align: center !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .section-badge {
+      font-family: var(--font-code);
+      font-size: 1.2rem;
+      background: rgba(117, 230, 197, 0.1);
+      color: var(--accent-blue);
+      border: 1px solid rgba(117, 230, 197, 0.36);
+      padding: 6px 20px;
+      border-radius: 6px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .section-title-large {
+      font-size: 3.2rem !important;
+      color: var(--text-bright);
+      margin-bottom: 20px !important;
+    }
+
+    /* Quote / Quote Cards */
+    .quote-card {
+      background: linear-gradient(100deg, rgba(117, 230, 197, 0.12), rgba(117, 230, 197, 0.035));
+      border-left: 3px solid var(--accent-blue);
+      padding: 30px;
+      border-radius: 10px;
+      font-size: 1.4rem;
+      font-weight: 500;
+      line-height: 1.6;
+      margin: 20px 0;
+    }
+
+    /* Comparison VS Cards */
+    .vs-box {
+      border-radius: 12px;
+      padding: 20px;
+      height: 100%;
+    }
+
+    .vs-traditional {
+      background: rgba(239, 141, 130, 0.075);
+      border: 1px solid rgba(239, 141, 130, 0.26);
+    }
+
+    .vs-vibecoding {
+      background: rgba(117, 230, 197, 0.075);
+      border: 1px solid rgba(117, 230, 197, 0.28);
+    }
+
+    /* Tables */
+    .vibe-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--panel-border);
+      font-size: 0.85em;
+    }
+
+    .vibe-table th {
+      background: rgba(117, 230, 197, 0.09);
+      color: var(--accent-blue);
+      padding: 14px 18px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .vibe-table td {
+      background: var(--panel-bg);
+      padding: 12px 18px;
+      border-top: 1px solid var(--panel-border);
+    }
+
+    /* Code Blocks Overrides */
+    .reveal pre {
+      border-radius: 10px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.24);
+      border: 1px solid var(--panel-border);
+      width: 100%;
+      font-size: 0.72em;
+      margin: 15px 0;
+    }
+
+    .reveal pre code {
+      font-family: var(--font-code);
+      padding: 18px;
+      max-height: 500px;
+      line-height: 1.45;
+    }
+
+    /* Timeline Component */
+    .timeline-wrapper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 40px 0;
+    }
+
+    .timeline-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 20px;
+      right: 20px;
+      height: 3px;
+      background: rgba(117, 230, 197, 0.42);
+      z-index: 1;
+    }
+
+    .timeline-step {
+      position: relative;
+      z-index: 2;
+      background: var(--bg-dark);
+      border: 2px solid var(--accent-blue);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--accent-blue);
+      margin: 0 auto 15px auto;
+    }
+
+    .timeline-node {
+      flex: 1;
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .timeline-node .year {
+      font-family: var(--font-code);
+      font-weight: bold;
+      color: var(--accent-orange);
+      font-size: 1.1em;
+    }
+
+    .timeline-node .desc {
+      font-size: 0.75em;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* CSS Bar Charts */
+    .chart-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      height: 250px;
+      padding: 20px;
+      background: var(--panel-bg);
+      border-radius: 12px;
+      border: 1px solid var(--panel-border);
+    }
+
+    .chart-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 14%;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .chart-bar {
+      width: 100%;
+      background: linear-gradient(180deg, #8af0d0, rgba(117, 230, 197, 0.24));
+      border-radius: 4px 4px 0 0;
+      transition: height 1s ease-in-out;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 8px;
+      font-size: 0.75em;
+      font-weight: bold;
+    }
+
+    .chart-label {
+      margin-top: 10px;
+      font-size: 0.75em;
+      font-family: var(--font-code);
+      color: var(--text-muted);
+    }
+
+    /* Badges & Icons */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75em;
+      font-weight: 600;
+      font-family: var(--font-code);
+    }
+    .badge-blue, .badge-green, .badge-purple { background: rgba(117, 230, 197, 0.12); color: var(--accent-blue); }
+    .badge-orange { background: rgba(231, 201, 117, 0.12); color: var(--accent-orange); }
+    .badge-red { background: rgba(255, 123, 114, 0.2); color: var(--accent-red); }
+
+    /* Custom Reveal Progress & Controls UI */
+    .reveal .progress {
+      height: 5px;
+      background: rgba(255,255,255,0.1);
+    }
+    .reveal .progress span {
+      background: var(--accent-blue);
+    }
+
+    /* Print / PDF Mode Customizations */
+    @media print {
+      #particles-canvas { display: none !important; }
+      .vibe-card { border: 1px solid #333 !important; }
+    }
+
+    .list-item-icon {
+      margin-right: 10px;
+      color: var(--accent-blue);
+    }
+
+    /* Checklist */
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--panel-bg);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border: 1px solid var(--panel-border);
+      font-size: 0.9em;
+    }
+
+    .checklist-item i {
+      color: var(--accent-green);
+    }
+
+    /* Presentation system: crisp developer-tool surfaces, sized for a 16:9 projector. */
+    .reveal .slides > section,
+    .reveal .slides > section > section { padding: 28px 40px; box-sizing: border-box; }
+    .reveal .slides > section > section { text-align: left; }
+    .reveal p, .reveal li { color: var(--text-muted); }
+    .reveal strong { color: var(--text-bright); }
+    .reveal code { color: #a8f5da; background: rgba(117,230,197,.075); border-radius: 4px; padding: .08em .28em; }
+    .reveal pre code { background: #07100e; color: #d9eee6; }
+    .reveal a { color: var(--accent-blue); text-decoration-color: rgba(117,230,197,.4); }
+    .reveal ul, .reveal ol { margin-left: .9em; }
+    .reveal li { margin: .34em 0; }
+    .section-transition { position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(117,230,197,.09), rgba(9,17,15,.1)); border: 1px solid var(--panel-border); border-radius: 12px; }
+    .section-transition::after { content: ''; position: absolute; width: 340px; height: 340px; border: 1px solid rgba(117,230,197,.16); border-radius: 50%; right: -140px; bottom: -170px; box-shadow: 0 0 0 42px rgba(117,230,197,.025), 0 0 0 84px rgba(117,230,197,.018); }
+    .section-transition > * { position: relative; z-index: 1; }
+    .section-title-large { font-size: 2.5rem !important; max-width: 800px; }
+    .section-badge { font-size: .72rem; font-weight: 700; }
+    .vibe-table th { letter-spacing: .03em; }
+    .vibe-table td { color: var(--text-muted); }
+    .reveal .controls { color: var(--accent-blue); }
+    .reveal .slide-number { background: rgba(8,18,16,.78); color: var(--text-muted); border: 1px solid var(--panel-border); border-radius: 4px; padding: 5px 9px; font-family: var(--font-code); font-size: 12px; pointer-events: none; }
+    .reveal .progress { height: 3px; background: rgba(236,245,241,.12); }
+    #particles-canvas { opacity: .28; mix-blend-mode: screen; }
+    @media (max-width: 900px) { .reveal { font-size: 18px; } .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } .reveal .slides > section, .reveal .slides > section > section { padding: 18px 20px; } .timeline-wrapper { margin: 18px 0; } }
+    @media (prefers-reduced-motion: reduce) { #particles-canvas { display: none; } .vibe-card { transition: none; } }
+
+    /* Flat-vector presentation redesign: cream paper, monoline ink, retro colors. */
+    :root { --bg-dark: #f7f0dc; --panel-bg: #fff9e9; --panel-border: #1c1b17; --accent-blue: #527c9e; --accent-green: #8ac9a5; --accent-purple: #8ac9a5; --accent-orange: #e58d4e; --accent-red: #e86652; --text-bright: #1c1b17; --text-muted: #504d43; --font-sans: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif; }
+    html, body, .reveal-viewport { background: #f7f0dc !important; color: var(--text-bright); }
+    body { background-image: none !important; }
+    #particles-canvas { display: none !important; }
+    .panorama-band { position: fixed; top: 0; left: 0; width: 100%; height: 31vh; z-index: 3; pointer-events: none; background: #f7f0dc url('assets/vibecoding-panorama.png') center top / cover no-repeat; border-bottom: 3px solid var(--panel-border); }
+    .reveal { z-index: 2; color: var(--text-bright); font-size: 23px; }
+    .reveal .slides > section, .reveal .slides > section > section { padding: 330px 58px 38px; box-sizing: border-box; }
+    .reveal .slides > section > section { text-align: left; }
+    .reveal .slides > section > section > :first-child { margin-top: 340px !important; }
+    .reveal .slides > section > section > h2:first-child { margin-top: 340px !important; }
+    .reveal .slides > section > section > .section-badge:first-child { margin-top: 340px !important; }
+    .reveal .slides > section > section.section-transition { padding-top: 0; text-align: center; }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5 { color: var(--text-bright); text-shadow: none; }
+    .reveal h1, .reveal .section-title-large { font-family: Georgia, 'Songti SC', 'STSong', serif; font-weight: 800; letter-spacing: -0.035em; }
+    .reveal h1 { font-size: 2.7em; }
+    .reveal h2 { font-family: Georgia, 'Songti SC', 'STSong', serif; font-size: 1.9em; margin-bottom: .42em; }
+    .reveal h3 { font-family: var(--font-sans); font-size: 1.12em; }
+    .reveal p, .reveal li, .reveal td { color: var(--text-muted); }
+    .reveal strong { color: var(--text-bright); }
+    .reveal code { color: #1c1b17; background: #f5d363; border: 2px solid var(--panel-border); border-radius: 4px; padding: .06em .22em; }
+    .reveal pre { width: 100%; border: 3px solid var(--panel-border); border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; }
+    .reveal pre code { color: #fff8e6; background: #273d4c; border: 0; border-radius: 0; }
+    .reveal a { color: #1c1b17; text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--accent-red); }
+    .vibe-card, .checklist-item { background: var(--panel-bg); border: 3px solid var(--panel-border); border-radius: 9px; box-shadow: 5px 5px 0 #1c1b17; backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .vibe-card:hover { border-color: var(--panel-border); box-shadow: 5px 5px 0 #1c1b17; transform: none; }
+    .grid-2 > .vibe-card:nth-child(odd), .grid-3 > .vibe-card:nth-child(3n + 1) { background: #f8c96d; }
+    .grid-2 > .vibe-card:nth-child(even), .grid-3 > .vibe-card:nth-child(3n + 2) { background: #b9dec5; }
+    .grid-3 > .vibe-card:nth-child(3n) { background: #a9c8df; }
+    .vs-traditional { background: #f3b1a2 !important; border-color: var(--panel-border) !important; }
+    .vs-vibecoding { background: #b9dec5 !important; border-color: var(--panel-border) !important; }
+    .quote-card { background: #f5d363; color: var(--text-bright); border: 3px solid var(--panel-border); border-left-width: 8px; border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; }
+    .section-transition { background: transparent !important; border: 0 !important; box-shadow: none !important; overflow: visible; }
+    .section-transition::after { display: none; }
+    .section-badge { display: inline-block; background: var(--accent-red); color: #1c1b17; border: 3px solid var(--panel-border); border-radius: 2px; box-shadow: 4px 4px 0 #1c1b17; font-family: var(--font-sans); font-size: .66rem; font-weight: 800; letter-spacing: .12em; }
+    .section-title-large { color: var(--text-bright) !important; background: none !important; -webkit-text-fill-color: var(--text-bright); font-size: 2.65rem !important; }
+    .badge, .badge-blue, .badge-green, .badge-purple, .badge-orange, .badge-red { color: #1c1b17; background: #f5d363; border: 2px solid var(--panel-border); border-radius: 3px; font-family: var(--font-sans); font-weight: 800; }
+    .badge-red { background: #f3b1a2; } .badge-blue { background: #a9c8df; } .badge-green, .badge-purple { background: #b9dec5; } .badge-orange { background: #f8c96d; }
+    .vibe-table { border: 3px solid var(--panel-border); border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; background: #fff9e9; }
+    .vibe-table th { background: #527c9e; color: #fff9e9; padding: 12px 16px; }
+    .vibe-table td { background: #fff9e9; border-top: 2px solid var(--panel-border); padding: 11px 16px; }
+    .timeline-wrapper::before { height: 4px; background: #1c1b17; }
+    .timeline-step { background: #f5d363; border: 3px solid #1c1b17; color: #1c1b17; box-shadow: 3px 3px 0 #1c1b17; }
+    .timeline-node .year { color: #1c1b17; } .timeline-node .desc { color: var(--text-muted); }
+    .chart-container { background: #fff9e9; border: 3px solid var(--panel-border); border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; }
+    .chart-bar { background: #8ac9a5 !important; border: 3px solid #1c1b17; border-bottom: 0; border-radius: 5px 5px 0 0; color: #1c1b17; }
+    .chart-label { color: #1c1b17; font-weight: 700; }
+    .reveal .progress { height: 5px; background: #e8deca; } .reveal .progress span { background: #e86652; }
+    .reveal .controls { color: #1c1b17; }
+    .reveal .slide-number { background: #fff9e9; color: #1c1b17; border: 2px solid var(--panel-border); border-radius: 3px; box-shadow: 3px 3px 0 #1c1b17; }
+    .reveal .slide-number { left: 22px; right: auto; bottom: 18px; }
+    .toc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; max-width: 1260px; margin: 22px auto 0; text-align: left; }
+    .toc-item { display: flex; align-items: center; gap: 14px; min-height: 58px; padding: 10px 14px; color: #1c1b17 !important; background: #fff9e9; border: 3px solid #1c1b17; border-radius: 8px; box-shadow: 4px 4px 0 #1c1b17; text-decoration: none !important; }
+    .toc-item:hover { color: #1c1b17; background: #f8c96d; transform: translate(-1px, -1px); box-shadow: 6px 6px 0 #1c1b17; }
+    .toc-item:nth-child(3n + 1) { background: #f8c96d; }
+    .toc-item:nth-child(3n + 2) { background: #b9dec5; }
+    .toc-item:nth-child(3n) { background: #a9c8df; }
+    .toc-index { display: inline-flex; width: 32px; height: 32px; flex: 0 0 32px; align-items: center; justify-content: center; border: 2px solid #1c1b17; border-radius: 50%; background: #fff9e9; font-family: var(--font-code); font-size: .7em; font-weight: 800; }
+    .toc-copy { font-family: var(--font-sans); font-weight: 800; }
+    .list-item-icon, .checklist-item i { color: #1c1b17; }
+    .reveal [style*="linear-gradient"] { background-image: none !important; }
+    .reveal [style*="border-radius: 50%"] { border: 3px solid #1c1b17; }
+    @media (max-width: 900px) { .panorama-band { height: 22vh; } .reveal .slides > section, .reveal .slides > section > section { padding: 220px 24px 24px; } .reveal .slides > section > section.section-transition { padding-top: 270px; } .reveal { font-size: 16px; } }
+
+    /* Keep the illustration as a light decorative cue, not a content-consuming banner. */
+    .panorama-band {
+      height: 15vh;
+      z-index: 1;
+      opacity: .58;
+      background-size: auto 100%;
+      border-bottom-width: 2px;
+    }
+    .reveal .slides > section,
+    .reveal .slides > section > section { padding: 38px 58px; }
+    .reveal .slides > section > section.section-transition { padding-top: 38px; }
+    .reveal .slides > section > section > :first-child,
+    .reveal .slides > section > section > h2:first-child,
+    .reveal .slides > section > section > .section-badge:first-child { margin-top: 0 !important; }
+    @media (max-width: 900px) {
+      .panorama-band { height: 11vh; opacity: .45; }
+      .reveal .slides > section, .reveal .slides > section > section { padding: 22px 24px; }
+      .reveal .slides > section > section.section-transition { padding-top: 22px; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .reveal .slide-number { left: 12px; bottom: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle Background Canvas -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="panorama-band" aria-hidden="true"></div>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ==================================================================== -->
+      <!-- 第 0 章：封面页                                                       -->
+      <!-- ==================================================================== -->
+      <section>
+        <div style="text-align: center; padding-top: 40px;">
+          <div style="display: inline-block; margin-bottom: 20px;">
+            <span class="badge badge-purple" style="font-size: 0.9em; padding: 8px 18px; border-radius: 30px;">
+              <i class="fa-solid fa-bolt list-item-icon"></i> 元宇宙研发中心
+            </span>
+          </div>
+          <h1 style="font-size: 3.5em; margin-bottom: 10px; letter-spacing: -1px;">
+            <span style="color: var(--accent-blue);">VibeCoding</span> 实战培训
+          </h1>
+          <h3 style="color: var(--text-muted); font-weight: 400; margin-bottom: 50px;">
+            从 AI 辅助编码到智能开发工作流 (Intent-Driven Development)
+          </h3>
+
+          <div class="grid-3" style="max-width: 800px; margin: 0 auto; gap: 20px;">
+            <div class="vibe-card" style="text-align: center; padding: 15px;">
+              <i class="fa-solid fa-user-tie" style="font-size: 1.8em; color: var(--accent-blue); margin-bottom: 8px;"></i>
+              <div style="font-size: 0.8em; color: var(--text-muted);">主讲人</div>
+              <div style="font-weight: 600;">王欢</div>
+            </div>
+            <div class="vibe-card" style="text-align: center; padding: 15px;">
+              <i class="fa-solid fa-calendar-days" style="font-size: 1.8em; color: var(--accent-green); margin-bottom: 8px;"></i>
+              <div style="font-size: 0.8em; color: var(--text-muted);">时间</div>
+              <div style="font-weight: 600;">2026年8月</div>
+            </div>
+            <div class="vibe-card" style="text-align: center; padding: 15px;">
+              <i class="fa-solid fa-users" style="font-size: 1.8em; color: var(--accent-purple); margin-bottom: 8px;"></i>
+              <div style="font-size: 0.8em; color: var(--text-muted);">面向</div>
+              <div style="font-weight: 600;">部门内部研发岗</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          开场白：欢迎大家参加本次 VibeCoding 实战培训。今天我们将系统梳理从 AI 补全到基于 LLM/Agent 的“意图驱动编程”范式转换。
+        </aside>
+      </section>
+
+      <!-- 目录页 -->
+      <section style="text-align: center;">
+        <span class="section-badge">COURSE MAP</span>
+        <h1 style="font-size: 2.45em; margin: 18px 0 8px;">培训目录</h1>
+        <p style="margin: 0; font-size: .9em; color: var(--text-muted);">从认知建立到工程化协作，按章节逐步进入实战。</p>
+        <nav class="toc-grid" aria-label="培训目录">
+          <a class="toc-item" href="#/2"><span class="toc-index">01</span><span class="toc-copy">VibeCoding 是什么？</span></a>
+          <a class="toc-item" href="#/3"><span class="toc-index">02</span><span class="toc-copy">发展历程与行业大势</span></a>
+          <a class="toc-item" href="#/4"><span class="toc-index">03</span><span class="toc-copy">环境安装与基础配置</span></a>
+          <a class="toc-item" href="#/5"><span class="toc-index">04</span><span class="toc-copy">概念演进与使用技巧</span></a>
+          <a class="toc-item" href="#/6"><span class="toc-index">05</span><span class="toc-copy">心得体会与避坑指南</span></a>
+          <a class="toc-item" href="#/7"><span class="toc-index">06</span><span class="toc-copy">项目实战演示</span></a>
+          <a class="toc-item" href="#/8"><span class="toc-index">07</span><span class="toc-copy">风格统一与规范化</span></a>
+          <a class="toc-item" href="#/9"><span class="toc-index">08</span><span class="toc-copy">AI 引入导致的流程坍缩</span></a>
+          <a class="toc-item" href="#/10"><span class="toc-index">09</span><span class="toc-copy">AI 安全性与隐私保护</span></a>
+          <a class="toc-item" href="#/11"><span class="toc-index">10</span><span class="toc-copy">总结与展望</span></a>
+        </nav>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- 第 1 章：VibeCoding 是什么？                                          -->
+      <!-- ==================================================================== -->
+      <section>
+        <!-- 1.0 过渡页 -->
+        <section class="section-transition">
+          <div class="section-badge">CHAPTER 01</div>
+          <h2 class="section-title-large">VibeCoding 是什么？</h2>
+          <p style="color: var(--text-muted);">建立认知框架：从“逐行写代码”到“表达意图与审查”</p>
+          <aside class="notes">第一章我们将建立认知框架，厘清传统编码与 VibeCoding 的区别，以及核心工具链。</aside>
+        </section>
+
+        <!-- 1.1 对比分析 -->
+        <section>
+          <h2>传统编码 vs VibeCoding 对比</h2>
+          <div class="grid-2" style="margin-top: 30px;">
+            <div class="vibe-card vs-box vs-traditional fragment">
+              <h3 style="color: var(--accent-red); margin-bottom: 15px;">
+                <i class="fa-solid fa-keyboard"></i> 传统编码范式
+              </h3>
+              <ul style="font-size: 0.85em; line-height: 1.8; color: var(--text-bright);">
+                <li><strong>核心载体：</strong> 键盘手动输入每一行代码 / 语法</li>
+                <li><strong>思维瓶颈：</strong> 死记 API 参数、框架规范与配置</li>
+                <li><strong>排错方式：</strong> 肉眼调试、查 StackOverflow / 文档</li>
+                <li><strong>角色定位：</strong> 产出代码的“苦力工人”</li>
+                <li><strong>交付速度：</strong> 受限于打字速度与检索记忆成本</li>
+              </ul>
+            </div>
+
+            <div class="vibe-card vs-box vs-vibecoding fragment">
+              <h3 style="color: var(--accent-green); margin-bottom: 15px;">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> VibeCoding 新范式
+              </h3>
+              <ul style="font-size: 0.85em; line-height: 1.8; color: var(--text-bright);">
+                <li><strong>核心载体：</strong> 自然语言 Prompt + 上下文工程驱动</li>
+                <li><strong>思维瓶颈：</strong> 需求拆解能力、架构设计与审查能力</li>
+                <li><strong>排错方式：</strong> 错误日志自动喂给 AI 快速迭代修复</li>
+                <li><strong>角色定位：</strong> 意图表达者 (Director) + 代码审查者 (Reviewer)</li>
+                <li><strong>交付速度：</strong> 意图理解即生成，效率提升 3-10 倍</li>
+              </ul>
+            </div>
+          </div>
+          <aside class="notes">对比点：开发者角色已经从纯手作者，转变为“意图表达者”与“质量把控者”。</aside>
+        </section>
+
+        <!-- 1.2 核心理念 -->
+        <section>
+          <h2>VibeCoding 核心理念</h2>
+          <div class="quote-card fragment" style="text-align: center; margin-top: 40px;">
+            <i class="fa-solid fa-quote-left" style="color: var(--accent-blue); font-size: 1.5em; display: block; margin-bottom: 10px;"></i>
+            “用自然语言驱动代码生成，开发者转型为<span style="color: var(--accent-blue); font-weight: bold;">意图表达者</span>与<span style="color: var(--accent-green); font-weight: bold;">审查验收者</span>。”
+          </div>
+
+          <div class="grid-3" style="margin-top: 30px;">
+            <div class="vibe-card fragment">
+              <h4><i class="fa-solid fa-bullseye list-item-icon"></i> 1. 意图高密度输出</h4>
+              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
+                精准使用自然语言定义业务目标、边界条件与约束逻辑，取代繁琐的代码细节手写。
+              </p>
+            </div>
+
+            <div class="vibe-card fragment">
+              <h4><i class="fa-solid fa-layer-group list-item-icon"></i> 2. 上下文决定质量</h4>
+              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
+                AI 模型的表现上限取决于给定的 Context（项目结构、规则文件、特定 API 示例）。
+              </p>
+            </div>
+
+            <div class="vibe-card fragment">
+              <h4><i class="fa-solid fa-clipboard-check list-item-icon"></i> 3. 闭环质量审查</h4>
+              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
+                AI 负责初稿生成，人类负责单元测试、代码 Diff 逐行 Review 及架构合规校验。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1.3 工具全景图 -->
+        <section>
+          <h2>主流 AI Coding 工具全景图</h2>
+          <div class="grid-3" style="margin-top: 35px;">
+            <div class="vibe-card fragment">
+              <span class="badge badge-blue">CLI Agent 类</span>
+              <h3 style="margin: 15px 0 10px 0;">Claude Code / Gemini CLI</h3>
+              <p style="font-size: 0.78em; color: var(--text-muted);">
+                运行于终端的强力 Agent，具备文件系统自主读写、Git 操作、命令执行及自动化闭环能力。
+              </p>
+            </div>
+
+            <div class="vibe-card fragment">
+              <span class="badge badge-purple">AI 架构 IDE 类</span>
+              <h3 style="margin: 15px 0 10px 0;">Cursor / Trae / CodeBuddy</h3>
+              <p style="font-size: 0.78em; color: var(--text-muted);">
+                深度定制的原生 IDE，原生支持 @代码库索引、规则文件解析、Composer 多文件并行编辑。
+              </p>
+            </div>
+
+            <div class="vibe-card fragment">
+              <span class="badge badge-green">插件 / 聊天客户端</span>
+              <h3 style="margin: 15px 0 10px 0;">Copilot / AntiGravity</h3>
+              <p style="font-size: 0.78em; color: var(--text-muted);">
+                传统 IDE 的增强插件或独立客户端，提供行内补全、侧边栏 Chat 及单模块重构助手。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1.4 一句话定义金句 -->
+        <section>
+          <div style="text-align: center; padding: 60px 0;">
+            <span class="badge badge-green" style="font-size: 1.1em; padding: 10px 24px;">CORE DEFINITION</span>
+            <h1 style="font-size: 3em; margin: 40px 0; color: #fff;">
+              “你描述<span style="color: var(--accent-blue);">意图</span>，AI 负责<span style="color: var(--accent-purple);">实现</span>，你负责<span style="color: var(--accent-green);">验收</span>”
+            </h1>
+            <p style="color: var(--text-muted); font-size: 1.1em;">
+              这是软件工程从“手工制造”迈向“自动化工业组装”的里程碑
+            </p>
+          </div>
+        </section>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- 第 2 章：发展历程                                                     -->
+      <!-- ==================================================================== -->
+      <section>
+        <!-- 2.0 过渡页 -->
+        <section class="section-transition">
+          <div class="section-badge">CHAPTER 02</div>
+          <h2 class="section-title-large">发展历程与行业大势</h2>
+          <p style="color: var(--text-muted);">理解技术演进脉络：从代码补全到工程化 MCP 与多 Agent 协作</p>
+        </section>
+
+        <!-- 2.1 时间轴 -->
+        <section>
+          <h2>VibeCoding 技术演进时间轴</h2>
+          <div class="timeline-wrapper" style="margin-top: 60px;">
+            <div class="timeline-node fragment">
+              <div class="timeline-step">21</div>
+              <div class="year">2021年</div>
+              <div class="desc">GitHub Copilot 内测<br><strong>AI 代码补全元年</strong></div>
+            </div>
+
+            <div class="timeline-node fragment">
+              <div class="timeline-step">22</div>
+              <div class="year">2022年</div>
+              <div class="desc">ChatGPT 发布<br><strong>对话式编程兴起</strong></div>
+            </div>
+
+            <div class="timeline-node fragment">
+              <div class="timeline-step">23</div>
+              <div class="year">2023年</div>
+              <div class="desc">Cursor 登场<br><strong>IDE 级 AI 深融合</strong></div>
+            </div>
+
+            <div class="timeline-node fragment">
+              <div class="timeline-step">24</div>
+              <div class="year">2024年</div>
+              <div class="desc">Claude 3 / GPT-4o<br><strong>Agent 编程元年</strong></div>
+            </div>
+
+            <div class="timeline-node fragment">
+              <div class="timeline-step">25</div>
+              <div class="year">2025年</div>
+              <div class="desc">Claude Code / Gemini CLI<br><strong>VibeCoding 概念爆火</strong></div>
+            </div>
+
+            <div class="timeline-node fragment">
+              <div class="timeline-step">26</div>
+              <div class="year">2026年</div>
+              <div class="desc">MCP 标准化<br><strong>工程化 & 多 Agent 协作</strong></div>
+            </div>
+          </div>
+          <aside class="notes">从最初的单行行内代码补全，演进到现在的 Agent 系统与 MCP 协议交互。</aside>
+        </section>
+
+        <!-- 2.2 行业数据柱状图 -->
+        <section>
+          <h2>行业数据：AI 编码工具采用已接近普及</h2>
+          <p style="font-size: 0.8em; color: var(--text-muted); margin-bottom: 25px;">
+            GitHub 2024 企业开发团队调研：在工作中试用过 AI 编码工具的受访者比例
+          </p>
+
+          <div class="chart-container fragment">
+            <div class="chart-column">
+              <div class="chart-bar" style="height: 99%;">99%</div>
+              <div class="chart-label">美国</div>
+            </div>
+            <div class="chart-column">
+              <div class="chart-bar" style="height: 100%;">100%</div>
+              <div class="chart-label">巴西</div>
+            </div>
+            <div class="chart-column">
+              <div class="chart-bar" style="height: 99%;">99%</div>
+              <div class="chart-label">印度</div>
+            </div>
+            <div class="chart-column">
+              <div class="chart-bar" style="height: 97%;">97%</div>
+              <div class="chart-label">德国</div>
+            </div>
+          </div>
+          <div class="vibe-card" style="margin-top: 18px; padding: 14px 18px; font-size: 0.7em; color: var(--text-muted);">
+            <strong>背景数据：</strong>GitHub 2023 年对 500 名美国大型企业开发者的调查中，92% 表示曾在工作或个人时间使用 AI 编码工具。两年样本范围与提问口径不同，故本页不将其作为严格的同比序列。
+            <br><span style="display: inline-block; margin-top: 8px;">来源：<a href="https://github.blog/news-insights/research/survey-ai-wave-grows/" target="_blank" rel="noopener noreferrer">GitHub 2024 Developer Survey</a>（2,000 名受访者，每国 500 名）｜<a href="https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/" target="_blank" rel="noopener noreferrer">GitHub 2023 Developer Survey</a>（美国 500 名受访者）</span>
+          </div>
+        </section>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- 第 3 章：环境安装与基础配置                                           -->
+      <!-- ==================================================================== -->
+      <section>
+        <!-- 3.0 过渡页 -->
+        <section class="section-transition">
+          <div class="section-badge">CHAPTER 03</div>
+          <h2 class="section-title-large">环境安装与基础配置</h2>
+          <p style="color: var(--text-muted);">零基础快速上手：打造你的 AI-Native 开发装备</p>
+        </section>
+
+        <!-- 3.1 工具分类表格 -->
+        <section>
+          <h2>工具类型划分与组合逻辑</h2>
+          <table class="vibe-table" style="margin-top: 25px;">
+            <thead>
+              <tr>
+                <th>工具类型</th>
+                <th>代表工具举例</th>
+                <th>典型适用场景</th>
+                <th>核心优势</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-blue">CLI 命令行终端</span></td>
+                <td>Claude Code, OpenAI Codex CLI</td>
+                <td>自动化任务、脚本批量生成、Git工作流</td>
+                <td>轻量、高权限、适合无图形界面环境</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">客户端 GUI</span></td>
+                <td>ChatGPT, OpenClaude, AntiGravity</td>
+                <td>方案讨论、文档编写、独立小工具开发</td>
+                <td>界面友好、多模态支持好</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-green">集成商 / AI IDE</span></td>
+                <td>Cursor, Trae, Qorder, CodeBuddy</td>
+                <td>大型项目日常开发、重构、全局调试</td>
+                <td>上下文检索强、代码Diff实时审查</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="quote-card fragment" style="margin-top: 25px; padding: 15px 25px; font-size: 1.1em;">
+            <i class="fa-solid fa-key list-item-icon"></i> 核心公式：<strong>高效 VibeCoding 架构 = 现代化工具客户端 + 顶级 LLM API (如 DeepSeek / Claude 3.7)</strong>
+          </div>
+        </section>
+
+        <!-- 3.2 全局安装 Claude Code CLI -->
+        <section>
+          <h2>实操：全局安装 Claude Code CLI</h2>
+          <p style="font-size: 0.85em; color: var(--text-muted);">使用 <code>-g</code> 参数将命令安装至全局，确保任意工程目录下均可召唤 Agent：</p>
+
+          <pre><code class="language-bash"># 1. 使用 npm 全局安装 Claude Code
+npm install -g @anthropic-ai/claude-code
+
+# 2. 验证安装结果与版本信息
+claude --version
+# 输出示例: @anthropic-ai/claude-code/0.1.25 darwin-x64 node-v20.11.0
+
+# 3. 启动并完成首次 API 授权认证
+claude</code></pre>
+
+          <div class="vibe-card fragment" style="margin-top: 15px; border-left: 4px solid var(--accent-orange);">
+            <i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-orange);"></i> <strong>提示：</strong> 若在 macOS/Linux 环境中遇到权限报错，请检查 npm 全局路径或使用 <code>sudo npm install -g @anthropic-ai/claude-code</code>。
+          </div>
+        </section>
+
+        <!-- 3.3 模型与 Endpoint 配置 -->
+        <section>
+          <h2>推荐组合：Claude Code + DeepSeek / GLM API</h2>
+          <p style="font-size: 0.85em; color: var(--text-muted);">通过环境变量配置自定义 API Endpoint，兼顾性能与成本：</p>
+
+          <pre><code class="language-bash"># ~/.bashrc 或 ~/.zshrc 中配置 DeepSeek API 转发代理
+export ANTHROPIC_BASE_URL="https://api.deepseek.com/v1"
+export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
+
+# 或者在配置文件 ~/.claude/settings.json 中指定
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://api.deepseek.com/v1",
+    "ANTHROPIC_API_KEY": "sk-your-custom-api-key"
+  },
+  "model": "deepseek-coder"
+}</code></pre>
+
+          <div class="grid-2" style="margin-top: 15px; font-size: 0.8em;">
+            <div class="vibe-card">
+              <strong style="color: var(--accent-blue);">DeepSeek V3 / R1 优势：</strong>
+              <p style="color: var(--text-muted); margin-top: 5px;">推理能力极强，代码生成性价比极高，适合大规模重构与逻辑复杂业务。</p>
+            </div>
+            <div class="vibe-card">
+              <strong style="color: var(--accent-green);">Claude 3.7 Sonnet 优势：</strong>
+              <p style="color: var(--text-muted); margin-top: 5px;">遵循指令极度精准，长上下文连贯性卓越，前端 UI 审美与复杂架构设计首选。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3.4 插件与工程结构 -->
+        <section>
+          <h2>扩展插件与标准工程文件结构</h2>
+          <div class="grid-2">
+            <div>
+              <h3><i class="fa-solid fa-puzzle-piece list-item-icon"></i> 推荐扩展插件清单</h3>
+              <ul style="font-size: 0.8em; line-height: 1.8;">
+                <li><strong>ComputerUse：</strong> 允许 AI 操作浏览器进行 UI 自动化回归</li>
+                <li><strong>Chrome DevTools MCP：</strong> 网页 Console / Network 监控</li>
+                <li><strong>Superpower / CodeGraph：</strong> 快速构建项目全局 AST 函数调用图</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3><i class="fa-solid fa-folder-tree list-item-icon"></i> 标准 VibeCoding 工程结构</h3>
+              <pre><code class="language-plaintext">my-vibecoding-project/
+├── .claude/                # Agent 配置根目录
+│   ├── settings.json       # 权限与环境配置
+│   ├── CLAUDE.md           # 项目长期全局记忆
+│   └── rules/              # 分模块详细规则
+│       ├── 00-security.md
+│       └── 01-style.md
+├── .cursorrules            # Cursor IDE 对应规则
+└── src/                    # 项目源码</code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- 第 4 章：概念发展与实用技巧                                           -->
+      <!-- ==================================================================== -->
+      <section>
+        <!-- 4.0 过渡页 -->
+        <section class="section-transition">
+          <div class="section-badge">CHAPTER 04</div>
+          <h2 class="section-title-large">概念演进与核心实用技巧</h2>
+          <p style="color: var(--text-muted);">从 Prompt 工程到 Loop 工程：掌握顶级开发者心法</p>
+        </section>
+
+        <!-- 4.1 四部曲演进 -->
+        <section>
+          <h2>AI 开发范式演进四部曲</h2>
+          <div class="grid-4" style="margin-top: 40px;">
+            <div class="vibe-card fragment">
+              <span class="badge badge-blue">STAGE 1</span>
+              <h4 style="margin: 10px 0;">Prompt Engineering</h4>
+              <p style="font-size: 0.75em; color: var(--text-muted);">
+                <strong>提示词工程：</strong> 精雕细琢单条提问的句式、语气与少样本示例。
+              </p>
+            </div>
+
+            <div class="vibe-card fragment">
+              <span class="badge badge-purple">STAGE 2</span>
+              <h4 style="margin: 10px 0;">Context Engineering</h4>
+              <p style="font-size: 0.75em; color: var(--text-muted);">
+                <strong>上下文工程：</strong> 精准投喂项目文件、AST 依赖节点与接口约定。
+              </p>
+            </div>
+
+            <div class="vibe-card fragment">
+              <span class="badge badge-orange">STAGE 3</span>
+              <h4 style="margin: 10px 0;">Harness Engineering</h4>
+              <p style="font-size: 0.75em; color: var(--text-muted);">
+                <strong>驾驭工程：</strong> 建立 Rules、权限防线、类型约束与自动测试栅栏。
+              </p>
+            </div>
+
+            <div class="vibe-card fragment">
+              <span class="badge badge-green">STAGE 4</span>
+              <h4 style="margin: 10px 0;">Loop Engineering</h4>
+              <p style="font-size: 0.75em; color: var(--text-muted);">
+                <strong>循环工程：</strong> AI 自主“编写-编译-测试-修复”闭环迭代。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.2 Prompt 黄金公式 -->
+        <section>
+          <h2>Prompt 黄金公式与对比</h2>
+          <div class="quote-card" style="padding: 15px 25px; margin-bottom: 20px;">
+            <strong style="color: var(--accent-orange);">Prompt 黄金公式：</strong> 角色 (Role) + 背景 (Context) + 任务 (Task) + 约束 (Constraint) + 输出格式 (Format)
+          </div>
+
+          <div class="grid-2">
+            <div class="vibe-card vs-traditional">
+              <h4 style="color: var(--accent-red);"><i class="fa-solid fa-xmark"></i> 模糊的 Bad Prompt</h4>
+              <pre><code class="language-markdown">帮我写一个用户登录的 API 接口，用 Node.js 写。</code></pre>
+              <p style="font-size: 0.75em; color: var(--text-muted);">后果：AI 随机选择框架、丢失密码加密、缺失校验与统一错误响应。</p>
+            </div>
+
+            <div class="vibe-card vs-vibecoding">
+              <h4 style="color: var(--accent-green);"><i class="fa-solid fa-check"></i> 高效的 Good Prompt</h4>
+              <pre><code class="language-markdown">【角色】高级 Node.js 安全架构师
+【背景】正在为现有 Express + TypeScript 项目添加 Auth 模块
+【任务】编写 /api/v1/auth/login 登录接口
+【约束】使用 argon2 哈希校验，错误时返回统一 JSON 结构
+【输出格式】仅输出 src/controllers/auth.ts 的完整增量代码</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.3 上下文管理与规则配置 -->
+        <section>
+          <h2>上下文管理技巧 & Rules 目录设计</h2>
+          <div class="grid-2">
+            <div>
+              <h3><i class="fa-solid fa-at list-item-icon"></i> 精准上下文引用</h3>
+              <ul style="font-size: 0.85em; line-height: 1.8;">
+                <li><code>@src/models/user.ts</code> ：精确加载单个类型文件</li>
+                <li><code>@codebase</code> ：调用向量索引全文检索（勿滥用）</li>
+                <li><code>.claudeignore</code> ：将 node_modules、dist、build 排除出上下文，大幅节省 Token！</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3><i class="fa-solid fa-sitemap list-item-icon"></i> Rules 规则目录推荐架构</h3>
+              <pre><code class="language-plaintext">.claude/rules/
+├── 00-security.md       # 强制安全校验规则（全局）
+├── 01-coding-style.md   # 命名规范与代码风格（全局）
+├── 10-api.md            # RESTful API 标准响应定义
+├── 11-frontend.md       # Tailwind / React 组件规范
+└── 20-testing.md        # Jest / Playwright 单元测试要求</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.4 常用命令与权限配置 -->
+        <section>
+          <h2>常用命令与 <code>settings.json</code> 权限控制</h2>
+          <div class="grid-2">
+            <div>
+              <h3><i class="fa-solid fa-terminal list-item-icon"></i> 核心 Slash 内置命令</h3>
+              <table class="vibe-table">
+                <tr><th>命令</th><th>功能描述</th></tr>
+                <tr><td><code>/init</code></td><td>自动扫描项目结构并生成初始化配置</td></tr>
+                <tr><td><code>/plan</code></td><td>复杂任务模式：先生成设计方案再编码</td></tr>
+                <tr><td><code>/compact</code></td><td>压缩高容量上下文，显著节省 Token</td></tr>
+                <tr><td><code>/clear</code></td><td>清除历史记忆，重置干净会话</td></tr>
+              </table>
+            </div>
+
+            <div>
+              <h3><i class="fa-solid fa-shield-halved list-item-icon"></i> 权限分级配置规范</h3>
+              <pre><code class="language-json">{
+  "permissions": {
+    "allow": [
+      "read:*",
+      "exec:npm test"
+    ],
+    "ask": [
+      "write:*",
+      "exec:git push*"
+    ],
+    "deny": [
+      "exec:rm -rf *",
+      "read:.env*"
+    ]
+  }
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.5 符号系统与 Token 优化 -->
+        <section>
+          <h2>符号系统与 Token 消耗应对指南</h2>
+          <div class="grid-2">
+            <div>
+              <h3><i class="fa-solid fa-icons list-item-icon"></i> 快捷符号系统表</h3>
+              <table class="vibe-table">
+                <tr><th>符号</th><th>名称</th><th>用途示例</th></tr>
+                <tr><td><code>/</code></td><td>Slash 命令</td><td><code>/plan</code> 开启方案规划</td></tr>
+                <tr><td><code>@</code></td><td>At 引用</td><td><code>@src/app.tsx</code> 引用目标文件</td></tr>
+                <tr><td><code>!</code></td><td>Bang 模式</td><td><code>!npm test</code> 强制执行终端指令</td></tr>
+                <tr><td><code>&amp;</code></td><td>后台运行</td><td><code>&amp;npm run dev</code> 后台启动服务</td></tr>
+              </table>
+            </div>
+
+            <div>
+              <h3><i class="fa-solid fa-gauge-high list-item-icon"></i> Token 跑太快？4步防爆指南</h3>
+              <ol style="font-size: 0.8em; line-height: 1.8; color: var(--text-bright);">
+                <li>输入 <code>/context</code> 实时查看 Token 占用率（>70% 即需清理）</li>
+                <li>避免无脑使用 <code>@codebase</code>，只精准输入具体文件名</li>
+                <li>自建专用 Skill 脚手架，避免重复喂入说明文档</li>
+                <li>配合 <code>codegraph</code> 插件按函数节点精简引入上下文</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- 第 5 章：心得体会与避坑指南                                           -->
+      <!-- ==================================================================== -->
+      <section>
+        <!-- 5.0 过渡页 -->
+        <section class="section-transition">
+          <div class="section-badge">CHAPTER 05</div>
+          <h2 class="section-title-large">心得体会与避坑指南</h2>
+          <p style="color: var(--text-muted);">前辈踩坑经验总结：让 AI 成为真正的效率飞轮</p>
+        </section>
+
+        <!-- 5.1 10 大使用心得 -->
+        <section>
+          <h2>10 大 VibeCoding 实战黄金法则</h2>
+          <div class="grid-2" style="font-size: 0.8em; gap: 14px;">
+            <div class="vibe-card"><i class="fa-solid fa-code-commit list-item-icon"></i><strong>1. 小步快跑，频繁 Commit：</strong> 生成可用片段即提交，方便快捷 Rollback。</div>
+            <div class="vibe-card"><i class="fa-solid fa-eye list-item-icon"></i><strong>2. 永远 Review 代码：</strong> 绝不盲目 Accept，警惕潜在逻辑 Bug。</div>
+            <div class="vibe-card"><i class="fa-solid fa-bullseye list-item-icon"></i><strong>3. 上下文越精准结果越好：</strong> 拒绝长篇大论，仅提供关心的代码行。</div>
+            <div class="vibe-card"><i class="fa-solid fa-brain list-item-icon"></i><strong>4. 主动管理 Memory 窗口：</strong> 定期使用 /compact 压缩无用对话。</div>
+            <div class="vibe-card"><i class="fa-solid fa-vial list-item-icon"></i><strong>5. 让 AI 写单测 ROI 最高：</strong> 用自动化测试帮 AI 验证生成的代码。</div>
+            <div class="vibe-card"><i class="fa-solid fa-diagram-project list-item-icon"></i><strong>6. 复杂逻辑先画图：</strong> 先生成 Mermaid 图或伪代码，再转真实实现。</div>
+            <div class="vibe-card"><i class="fa-solid fa-circle-question list-item-icon"></i><strong>7. 保持批判怀疑：</strong> AI 会极其自信地犯错，必须验证断言。</div>
+            <div class="vibe-card"><i class="fa-solid fa-code-compare list-item-icon"></i><strong>8. 善用 Git Diff 视图：</strong> 逐行审查红绿变动，避免引入“附赠修改”。</div>
+            <div class="vibe-card"><i class="fa-solid fa-book list-item-icon"></i><strong>9. 沉淀团队 Prompt 库：</strong> 优秀 Prompt 是团队重要的数字资产。</div>
+            <div class="vibe-card"><i class="fa-solid fa-rocket list-item-icon"></i><strong>10. AI 是加速器而非替代品：</strong> 核心业务架构与安全仍由人类掌控。</div>
+          </div>
+        </section>
+
+        <!-- 5.2 踩坑案例故事 -->
+        <section>
+          <h2>常见踩坑案例分析 (Real Stories)</h2>
+          <div class="grid-3" style="margin-top: 30px;">
+            <div class="vibe-card">
+              <span class="badge badge-red">案例 1: 幻觉包注入</span>
+              <h4 style="margin: 10px 0; font-size: 1em;">“引用了不存在的 npm 包”</h4>
+              <p style="font-size: 0.75em; color: var(--text-muted);">
+                <strong>事故：</strong> AI 自信地 <code>import { cryptoTool } from 'express-secure-utils'</code>，该包系幻觉生成，黑客投毒后导致供应链安全隐患。
+                <br><br>
+                <strong style="color: var(--accent-green);">解法：</strong> 开启 Lint 检验并强制运行 <code>npm install</code> 检查源合法性。
+              </p>
+            </div>
+
+            <div class="vibe-card">
+              <span class="badge badge-orange">案例 2: 上下文污染</span>
+              <h4 style="margin: 10px 0; font-size: 1em;">“越改 Bug 越多陷入死循环”</h4>
+              <p style="font-size: 0.75em; color: var(--text-muted);">
+                <strong>事故：</strong> 带着 50 轮对话错误日志继续提问，AI 不断拆东墙补西墙。
+                <br><br>
+                <strong style="color: var(--accent-green);">解法：</strong> 及时 <code>/clear</code> 重置会话，重新梳理最精简的上下文再次发问。
+              </p>
+            </div>
+
+            <div class="vibe-card">
+              <span class="badge badge-purple">案例 3: 一步到位越界</span>
+              <h4 style="margin: 10px 0; font-size: 1em;">“一口气重构整个项目”</h4>
+              <p style="font-size: 0.75em; color: var(--text-muted);">
+                <strong>事故：</strong> 要求“把整个项目从 JS 改为 TS”，导致修改了 80 个文件，无法通过 Review。
+                <br><br>
+                <strong style="color: var(--accent-green);">解法：</strong> 使用 <code>/plan</code> 拆解为 10 个独立子 Task 分批推进。
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- 第 6 章：项目实战演示                                                 -->
+      <!-- ==================================================================== -->
+      <section>
+        <!-- 6.0 过渡页 -->
+        <section class="section-transition">
+          <div class="section-badge">CHAPTER 06</div>
+          <h2 class="section-title-large">项目实战演示</h2>
+          <p style="color: var(--text-muted);">从零构建内部 API 管理平台：端到端工作流解析</p>
+        </section>
+
+        <!-- 6.1 5步流程拆解 -->
+        <section>
+          <h2>实战拆解：构建 API 管理平台 5 步法</h2>
+          <div class="grid-5" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 30px;">
+            <div class="vibe-card" style="padding: 15px; text-align: center;">
+              <span class="badge badge-blue">STEP 1</span>
+              <h5 style="margin: 10px 0;">需求拆解</h5>
+              <p style="font-size: 0.7em; color: var(--text-muted);">输出 PRD 文本与核心数据结构 Schema</p>
+            </div>
+
+            <div class="vibe-card" style="padding: 15px; text-align: center;">
+              <span class="badge badge-purple">STEP 2</span>
+              <h5 style="margin: 10px 0;">架构设计</h5>
+              <p style="font-size: 0.7em; color: var(--text-muted);">调用 /plan 生成目录结构与技术选型</p>
+            </div>
+
+            <div class="vibe-card" style="padding: 15px; text-align: center;">
+              <span class="badge badge-orange">STEP 3</span>
+              <h5 style="margin: 10px 0;">模块开发</h5>
+              <p style="font-size: 0.7em; color: var(--text-muted);">逐个模块 Prompt 驱动生成增量代码</p>
+            </div>
+
+            <div class="vibe-card" style="padding: 15px; text-align: center;">
+              <span class="badge badge-red">STEP 4</span>
+              <h5 style="margin: 10px 0;">联调 Debug</h5>
+              <p style="font-size: 0.7em; color: var(--text-muted);">把报错堆栈自动化投喂给 Agent 修复</p>
+            </div>
+
+            <div class="vibe-card" style="padding: 15px; text-align: center;">
+              <span class="badge badge-green">STEP 5</span>
+              <h5 style="margin: 10px 0;">文档输出</h5>
+              <p style="font-size: 0.7em; color: var(--text-muted);">自动生成 Swagger / OpenAPI 及 README</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6.2 关键 Prompt 示例 -->
+        <section>
+          <h2>关键 Prompt 示例：架构设计与模块生成</h2>
+          <pre><code class="language-markdown"># Step 2: 架构设计 Prompt 示例
+/plan 请为拟建的 API 管理平台设计后端架构：
+1. 技术选型：Node.js + Express + Prisma ORM + PostgreSQL
+2. 包含模块：用户鉴权、API 路由代理、调用日志审计、Mock 数据生成器
+3. 请按分层架构输出文件目录树，并在 .claude/rules/10-api.md 中记录全局错误码定义。
+
+# Step 3: 模块开发 Prompt 示例
+@src/models/schema.prisma @.claude/rules/10-api.md
+请实现 API Mock 生成器逻辑 (src/services/mockService.ts)：
+根据输入的 JSON Schema，使用 @faker-js/faker 动态产生伪造数据，要求支持中文姓名与手机号。</code></pre>
+        </section>
+
+        <!-- 6.3 效率对比数据 -->
+        <section>
+          <h2>实战结果：开发耗时显著对比</h2>
+          <table class="vibe-table" style="margin-top: 30px;">
+            <thead>
+              <tr>
+                <th>阶段环节</th>
+                <th>传统开发耗时</th>
+                <th>VibeCoding 耗时</th>
+                <th>提效幅度</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>框架搭建与环境配置</td>
+                <td>4 小时</td>
+                <td><strong>15 分钟</strong></td>
+                <td><span class="badge badge-green">16x 提效</span></td>
+              </tr>
+              <tr>
+                <td>CRUD 基础接口实现</td>
+                <td>12 小时</td>
+                <td><strong>1.5 小时</strong></td>
+                <td><span class="badge badge-green">8x 提效</span></td>
+              </tr>
+              <tr>
+                <td>前端响应式面板与 CSS 渲染</td>
+                <td>8 小时</td>
+                <td><strong>1 小时</strong></td>
+                <td><span class="badge badge-green">8x 提效</span></td>
+              </tr>
+              <tr>
+                <td>单元测试撰写与 API 文档导出</td>
+                <td>6 小时</td>
+                <td><strong>0.5 小时</strong></td>
+                <td><span class="badge badge-green">12x 提效</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- 第 7 章：风格统一与规范化                                             -->
+      <!-- ==================================================================== -->
+      <section>
+        <!-- 7.0 过渡页 -->
+        <section class="section-transition">
+          <div class="section-badge">CHAPTER 07</div>
+          <h2 class="section-title-large">风格统一与规范化 (USP)</h2>
+          <p style="color: var(--text-muted);">团队协作标准化：如何遏制 AI 代码风格脱缰</p>
+        </section>
+
+        <!-- 7.1 USP 介绍 -->
+        <section>
+          <h2>为什么需要统一风格提示词体系 (USP)？</h2>
+          <p style="font-size: 0.85em; color: var(--text-muted);">
+            无约束的 AI 生成会导致代码极其混乱：有的写 <code>async/await</code>，有的写 <code>.then()</code>；缩进 2 字符与 4 字符混杂。
+          </p>
+
+          <div class="quote-card fragment" style="margin: 25px 0;">
+            <strong>USP (Unified Style Prompt) 核心理念：</strong> 将团队的编码规范、设计模式与架构禁忌“硬编码”为 AI 可识别的提示词规则资产。<br>
+            官方参考资源站点：<a href="http://usp.wanghuanlab.com/" target="_blank" style="color: var(--accent-blue);">http://usp.wanghuanlab.com/</a>
+          </div>
+
+          <div class="grid-3">
+            <div class="vibe-card fragment">
+              <h4><i class="fa-solid fa-file-code list-item-icon"></i> 规则文件落地</h4>
+              <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 8px;">统一在团队模版中配置 <code>.cursorrules</code> 与 <code>CLAUDE.md</code>。</p>
+            </div>
+            <div class="vibe-card fragment">
+              <h4><i class="fa-solid fa-code-merge list-item-icon"></i> CI/CD 自动拦截</h4>
+              <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 8px;">结合 ESLint 与 Prettier 进行末端打底保护。</p>
+            </div>
+            <div class="vibe-card fragment">
+              <h4><i class="fa-solid fa-boxes-packing list-item-icon"></i> 共享 Prompt 库</h4>
+              <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 8px;">建立 Git 子模块管理团队通用的业务 Prompt 规范。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7.2 团队规范配置模版 -->
+        <section>
+          <h2>团队标准配置文件示例 (CLAUDE.md)</h2>
+          <pre><code class="language-markdown"># 项目规范与记忆指南 (USP 体系)
+
+## 1. 基础原则
+- 语言：TypeScript (Strict 模式)
+- 风格：函数式编程优先，禁止使用 class 继承
+- 缩进：2 个空格，强制结尾加分号
+
+## 2. API 与错误处理
+- 统一错误返回结构：{ code: number, message: string, data: any }
+- 异步处理：一律采用 async/await，必须包裹 try-catch
+
+## 3. 前端样式规范
+- 样式工具：Vanilla CSS 配合 CSS 变量
+- 颜色变量引用：var(--bg-dark), var(--accent-blue)
+- 禁用任何内联 style="..." 样式写入组件</code></pre>
+        </section>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- 第 8 章：AI 引入导致的流程坍缩                                       -->
+      <!-- ==================================================================== -->
+      <section>
+        <!-- 8.0 过渡页 -->
+        <section class="section-transition">
+          <div class="section-badge">CHAPTER 08</div>
+          <h2 class="section-title-large">AI 引入导致的流程坍缩</h2>
+          <p style="color: var(--text-muted);">理性看待：传统研发流程边界的模糊与重新融合</p>
+        </section>
+
+        <!-- 8.1 流程坍缩定义 -->
+        <section>
+          <h2>什么是“研发流程坍缩”？</h2>
+          <div class="grid-2" style="margin-top: 30px;">
+            <div class="vibe-card">
+              <h4 style="color: var(--accent-orange);">传统研发流程 (串行/瀑布/敏捷)</h4>
+              <div style="font-size: 0.8em; line-height: 2.2; color: var(--text-muted); margin-top: 10px;">
+                需求分析 (PRD) <i class="fa-solid fa-arrow-right"></i>
+                UI/UX 设计 <i class="fa-solid fa-arrow-right"></i>
+                前端/后端开发 <i class="fa-solid fa-arrow-right"></i>
+                QA 联调测试 <i class="fa-solid fa-arrow-right"></i>
+                运维上线
+              </div>
+            </div>
+
+            <div class="vibe-card" style="border-color: var(--accent-blue);">
+              <h4 style="color: var(--accent-blue);">AI 时代：坍缩后的极简闭环</h4>
+              <div style="font-size: 0.8em; line-height: 2.2; color: var(--text-bright); margin-top: 10px;">
+                <strong>自然语言 Prompt 意图</strong>
+                <i class="fa-solid fa-arrows-spin" style="color: var(--accent-green);"></i>
+                <strong>Agent 直接生成 UI + 代码 + 自动单测</strong>
+                <i class="fa-solid fa-arrow-right"></i>
+                <strong>人类最终 Review & 秒级发布</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-3" style="margin-top: 20px;">
+            <div class="vibe-card fragment">
+              <strong style="color: var(--accent-purple);">UI2Code 坍缩</strong>
+              <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 5px;">截图/Figma 直接转生产代码，压缩设计到开发边界。</p>
+            </div>
+            <div class="vibe-card fragment">
+              <strong style="color: var(--accent-purple);">PRD2Code 坍缩</strong>
+              <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 5px;">需求文档输入 Agent 自动构建模块原型。</p>
+            </div>
+            <div class="vibe-card fragment">
+              <strong style="color: var(--accent-purple);">Bug2Fix 坍缩</strong>
+              <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 5px;">监控日志直连 AI 自动提交 PR 修复补丁。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8.2 机遇与挑战表格 -->
+        <section>
+          <h2>流程坍缩带来的机遇与挑战</h2>
+          <table class="vibe-table" style="margin-top: 25px;">
+            <thead>
+              <tr>
+                <th>评估维度</th>
+                <th>巨大的机遇 (Opportunities)</th>
+                <th>严峻的挑战 (Challenges)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>研发效率</strong></td>
+                <td>交付速度获得 3-10 倍量级提升</td>
+                <td>质量把控门槛与 Code Review 压力剧增</td>
+              </tr>
+              <tr>
+                <td><strong>工程师角色</strong></td>
+                <td>全栈门槛大幅降低，一人即为一个团队</td>
+                <td>传统单一语言精通者的专业深度价值重估</td>
+              </tr>
+              <tr>
+                <td><strong>架构控制</strong></td>
+                <td>快速验证 MVP 产品原型与市场契合度</td>
+                <td>AI 容易生成隐性技术债务 (Technical Debt)</td>
+              </tr>
+              <tr>
+                <td><strong>团队组织</strong></td>
+                <td>小团队能做大产品，沟通摩擦大幅减少</td>
+                <td>团队代码规范与安全审计体系亟待新建</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- 第 9 章：AI 安全性与隐私保护                                         -->
+      <!-- ==================================================================== -->
+      <section>
+        <!-- 9.0 过渡页 -->
+        <section class="section-transition">
+          <div class="section-badge">CHAPTER 09</div>
+          <h2 class="section-title-large">AI 安全性与隐私保护</h2>
+          <p style="color: var(--text-muted);">合规使用：筑牢企业级代码资产与数据安全防线</p>
+        </section>
+
+        <!-- 9.1 风险地图与红线 -->
+        <section>
+          <h2>企业级使用：安全红线与推荐做法</h2>
+          <div class="grid-2" style="margin-top: 30px;">
+            <div class="vibe-card vs-traditional">
+              <h3 style="color: var(--accent-red); margin-bottom: 15px;">
+                <i class="fa-solid fa-ban"></i> 严禁上传 (Strictly Forbidden)
+              </h3>
+              <ul style="font-size: 0.85em; line-height: 2; color: var(--text-bright);">
+                <li>❌ 生产环境数据库连接字符串与密码 Key</li>
+                <li>❌ 未脱敏的客户真实个人信息 (PII 数据)</li>
+                <li>❌ 公司的核心高壁垒专利算法与商业机密</li>
+                <li>❌ 私钥文件 (.pem, .p12, .env.production)</li>
+              </ul>
+            </div>
+
+            <div class="vibe-card vs-vibecoding">
+              <h3 style="color: var(--accent-green); margin-bottom: 15px;">
+                <i class="fa-solid fa-shield-check"></i> 推荐最佳实践 (Best Practices)
+              </h3>
+              <ul style="font-size: 0.85em; line-height: 2; color: var(--text-bright);">
+                <li>✅ 优先开启企业版 Zero Data Retention 协议</li>
+                <li>✅ 敏感接口数据使用 Dummy 虚假 Mock 数据取代</li>
+                <li>✅ 本地代码仓库配置 <code>.claudeignore</code> 过滤</li>
+                <li>✅ 私有化部署开源大模型（如 Ollama + DeepSeek）</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9.2 工具安全性对比 -->
+        <section>
+          <h2>主流工具安全与隐私保护对比表</h2>
+          <table class="vibe-table" style="margin-top: 30px;">
+            <thead>
+              <tr>
+                <th>工具名称</th>
+                <th>代码数据存储</th>
+                <th>模型训练使用</th>
+                <th>企业级隔离支持</th>
+                <th>安全建议等级</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Cursor Business</strong></td>
+                <td>不保留 (No-Log)</td>
+                <td>可一键关闭 (Opt-out)</td>
+                <td><span class="badge badge-green">支持 SOC2</span></td>
+                <td><span class="badge badge-blue">高 (商业推荐)</span></td>
+              </tr>
+              <tr>
+                <td><strong>GitHub Copilot Ent</strong></td>
+                <td>加密传输不存盘</td>
+                <td>禁止用于公共训练</td>
+                <td><span class="badge badge-green">企业独立实例</span></td>
+                <td><span class="badge badge-blue">高 (合规推荐)</span></td>
+              </tr>
+              <tr>
+                <td><strong>本地模型 (Ollama)</strong></td>
+                <td>纯本地 100% 不离设备</td>
+                <td>完全无外部传输</td>
+                <td><span class="badge badge-green">物理级断网隔离</span></td>
+                <td><span class="badge badge-purple">绝密级首选</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ==================================================================== -->
+      <!-- 第 10 章：总结与展望                                                 -->
+      <!-- ==================================================================== -->
+      <section>
+        <!-- 10.0 过渡页 -->
+        <section class="section-transition">
+          <div class="section-badge">CHAPTER 10</div>
+          <h2 class="section-title-large">总结与展望</h2>
+          <p style="color: var(--text-muted);">激发行动：拥抱 AI-Native 时代，立即开启高效工作流</p>
+        </section>
+
+        <!-- 10.1 核心要点回顾与行动清单 -->
+        <section>
+          <h2>今天就能做的 3 件事 (Action List)</h2>
+          <div class="grid-3" style="margin-top: 40px;">
+            <div class="vibe-card fragment" style="text-align: center; padding: 30px 20px;">
+              <div style="background: rgba(88, 166, 255, 0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto;">
+                <i class="fa-solid fa-download" style="font-size: 1.8em; color: var(--accent-blue);"></i>
+              </div>
+              <h4>1. 安装配置环境</h4>
+              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
+                全局安装 <code>@anthropic-ai/claude-code</code> 或配置 Cursor，完成第一个小模块生成。
+              </p>
+            </div>
+
+            <div class="vibe-card fragment" style="text-align: center; padding: 30px 20px;">
+              <div style="background: rgba(63, 185, 80, 0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto;">
+                <i class="fa-solid fa-book-open" style="font-size: 1.8em; color: var(--accent-green);"></i>
+              </div>
+              <h4>2. 阅读 USP 规范</h4>
+              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
+                访问 <a href="http://usp.wanghuanlab.com/" target="_blank" style="color: var(--accent-blue);">usp.wanghuanlab.com</a>，为你的项目建立第一份 <code>CLAUDE.md</code> 规则。
+              </p>
+            </div>
+
+            <div class="vibe-card fragment" style="text-align: center; padding: 30px 20px;">
+              <div style="background: rgba(188, 140, 255, 0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto;">
+                <i class="fa-solid fa-note-sticky" style="font-size: 1.8em; color: var(--accent-purple);"></i>
+              </div>
+              <h4>3. 建立 Prompt 笔记本</h4>
+              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
+                记录日常高频使用的 Debug/重构模板，在团队内部共享交流沉淀。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10.2 Q&A 与结束页 -->
+        <section style="text-align: center;">
+          <div style="padding-top: 50px;">
+            <h1 style="font-size: 4em; color: var(--accent-blue); margin-bottom: 20px;">Q & A</h1>
+            <h3 style="color: var(--text-muted); font-weight: 400;">提问与交流环节</h3>
+            <p style="margin-top: 40px; font-size: 1.1em;">
+              <!-- “最好的学习方式，就是今天下班前用 VibeCoding 提交一次 PR。” -->
+            </p>
+          </div>
+        </section>
+
+        <!-- 10.3 Thank you -->
+        <section style="text-align: center;">
+          <div style="padding-top: 80px;">
+            <h1 style="font-size: 3.5em; margin-bottom: 20px;">感谢观看！</h1>
+            <p style="font-size: 1.2em; color: var(--accent-green); margin-bottom: 50px;">
+              拥抱 VibeCoding，开启智能开发新时代
+            </p>
+            <div style="font-size: 0.9em; color: var(--text-muted);">
+              主讲人：王欢 | 元宇宙研发中心<br>
+              2026 年 8 月
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Reveal.js CDN JS & Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/search/search.js"></script>
+
+  <script>
+    // Reveal.js 初始化配置
+    Reveal.initialize({
+      width: 1920,
+      height: 1080,
+      margin: 0.08,
+      minScale: 0.2,
+      maxScale: 2.0,
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      transition: 'slide', // slide / convex / fade / zoom
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      slideNumber: 'c/t', // 显示当前页码/总页码
+      plugins: [ RevealHighlight, RevealNotes, RevealSearch ]
+    });
+
+    // 背景 Canvas 动态科技感连接粒子效果
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.8;
+        this.vy = (Math.random() - 0.5) * 0.8;
+        this.radius = Math.random() * 2 + 1;
+        this.alpha = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(117, 230, 197, ${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    const particleCount = Math.min(56, Math.floor(window.innerWidth / 28));
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(117, 230, 197, ${0.15 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      animateParticles();
+    }
+  </script>
+</body>
+</html>
