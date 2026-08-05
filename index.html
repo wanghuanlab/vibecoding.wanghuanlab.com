@@ -886,17 +886,20 @@
           <div class="grid-3" style="margin-top: 35px;">
             <div class="vibe-card fragment">
               <span class="badge badge-blue">CLI Agent 类</span>
-              <h3 style="margin: 15px 0 10px 0;">Claude Code / Gemini CLI</h3>
+              <h3 style="margin: 15px 0 10px 0;">Claude Code / Codex CLI</h3>
+              <h3 style="margin: 15px 0 10px 0;">OpenClaude CLI / AntiGravity CLI</h3>
               <p style="font-size: 0.78em; color: var(--text-muted);">运行于终端的强力 Agent，具备文件系统自主读写、Git 操作、命令执行及自动化闭环能力。</p>
             </div>
             <div class="vibe-card fragment">
               <span class="badge badge-purple">AI 架构 IDE 类</span>
-              <h3 style="margin: 15px 0 10px 0;">Cursor / Trae / CodeBuddy</h3>
-              <p style="font-size: 0.78em; color: var(--text-muted);">深度定制的原生 IDE，原生支持 @代码库索引、规则文件解析、Composer 多文件并行编辑。</p>
+              <h3 style="margin: 15px 0 10px 0;">Cursor / Trae </h3>
+              <h3 style="margin: 15px 0 10px 0;">Qoder / CodeBuddy</h3>
+              <p style="font-size: 0.78em; color: var(--text-muted);">深度定制的原生 IDE，通常基于VSCode，原生支持 @代码库索引、规则文件解析、Composer 多文件并行编辑。</p>
             </div>
             <div class="vibe-card fragment">
-              <span class="badge badge-green">插件 / 聊天客户端</span>
-              <h3 style="margin: 15px 0 10px 0;">Copilot / AntiGravity</h3>
+              <span class="badge badge-green">插件 / 客户端</span>
+              <h3 style="margin: 15px 0 10px 0;">Codex / AntiGravity </h3>
+              <h3 style="margin: 15px 0 10px 0;">Copilot / JetBrains AI</h3>
               <p style="font-size: 0.78em; color: var(--text-muted);">传统 IDE 的增强插件或独立客户端，提供行内补全、侧边栏 Chat 及单模块重构助手。</p>
             </div>
           </div>
@@ -924,20 +927,20 @@
               <tr>
                 <td><span class="badge badge-purple">客户端 GUI</span></td>
                 <td>ChatGPT, OpenClaude, AntiGravity</td>
-                <td>方案讨论、文档编写、独立小工具开发</td>
-                <td>界面友好、多模态支持好</td>
+                <td>方案讨论、文档编写、独立开发</td>
+                <td>界面友好、多模态支持好、插件生态直观</td>
               </tr>
               <tr>
                 <td><span class="badge badge-green">集成商 / AI IDE</span></td>
                 <td>Cursor, Trae, Qoder, CodeBuddy</td>
-                <td>大型项目日常开发、重构、全局调试</td>
+                <td>项目日常开发、重构、全局调试</td>
                 <td>上下文检索强、代码Diff实时审查</td>
               </tr>
             </tbody>
           </table>
 
           <div class="quote-card fragment" style="margin-top: 25px; padding: 15px 25px; font-size: 1.1em;">
-            <i class="fa-solid fa-key list-item-icon"></i> 核心公式：<strong>高效 VibeCoding 架构 = 现代化工具客户端 + 顶级 LLM API (如 DeepSeek / Claude 3.7)</strong>
+            <i class="fa-solid fa-key list-item-icon"></i> 核心公式：<strong>高效 VibeCoding 架构 = 现代化工具客户端 + 顶级 LLM API (如 Claude / GPT / DeepSeek / GLM 等)</strong>
           </div>
         </section>
 
@@ -963,7 +966,7 @@ claude</code></pre>
 
         <!-- 3.3 模型与 Endpoint 配置 -->
         <section>
-          <h2>推荐组合：Claude Code + DeepSeek / GLM API</h2>
+          <h2>国内推荐组合：Claude Code + DeepSeek / GLM API</h2>
           <p style="font-size: 0.85em; color: var(--text-muted);">通过环境变量配置自定义 API Endpoint，兼顾性能与成本：</p>
 
           <pre><code class="language-bash"># ~/.bashrc 或 ~/.zshrc 中配置 DeepSeek API 转发代理
@@ -979,15 +982,11 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
   "model": "deepseek-coder"
 }</code></pre>
 
-          <div class="grid-2" style="margin-top: 15px; font-size: 0.8em;">
-            <div class="vibe-card">
-              <strong style="color: var(--accent-blue);">DeepSeek V3 / R1 优势：</strong>
-              <p style="color: var(--text-muted); margin-top: 5px;">推理能力极强，代码生成性价比极高，适合大规模重构与逻辑复杂业务。</p>
-            </div>
-            <div class="vibe-card">
-              <strong style="color: var(--accent-green);">Claude 3.7 Sonnet 优势：</strong>
-              <p style="color: var(--text-muted); margin-top: 5px;">遵循指令极度精准，长上下文连贯性卓越，前端 UI 审美与复杂架构设计首选。</p>
-            </div>
+          <div class="quote-card fragment" style="margin-top: 20px; font-size: 0.9em; padding: 16px 24px;">
+            <i class="fa-solid fa-link list-item-icon"></i> <strong>参考链接：</strong>
+            <a href="https://docs.bigmodel.cn/cn/coding-plan/quick-start" target="_blank" style="color: var(--accent-blue); text-decoration: underline;">
+              https://docs.bigmodel.cn/cn/coding-plan/quick-start
+            </a>
           </div>
         </section>
 
