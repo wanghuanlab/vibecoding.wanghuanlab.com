@@ -16,7 +16,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VibeCoding 实战培训 - 从 AI 辅助编码到智能开发工作流</title>
+  <title>VibeCoding 实战总结 - 从 AI 辅助编码到智能开发工作流</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -584,6 +584,166 @@
       .toc-grid { grid-template-columns: 1fr; }
       .reveal .slide-number { left: 12px; bottom: 12px; }
     }
+
+    /* 插件与 MCP 列表美化 */
+    .plugin-item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .plugin-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: #fff9e9;
+      border: 2px solid #1c1b17;
+      border-radius: 8px;
+      box-shadow: 3px 3px 0 #1c1b17;
+      font-size: 0.65em;
+    }
+    .plugin-item:hover {
+      background: #f8c96d;
+    }
+    .plugin-item-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .plugin-item-title {
+      font-weight: 800;
+      color: #1c1b17;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .plugin-item-desc {
+      font-size: 0.85em;
+      color: var(--text-muted);
+    }
+    .plugin-github-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border: 2px solid #1c1b17;
+      border-radius: 6px;
+      background: #fff;
+      color: #1c1b17 !important;
+      font-weight: 700;
+      font-size: 0.85em;
+      text-decoration: none !important;
+      box-shadow: 2px 2px 0 #1c1b17;
+      white-space: nowrap;
+    }
+    .plugin-github-btn:hover {
+      background: #a9c8df;
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 #1c1b17;
+    }
+
+    /* 交互式工程结构目录树 */
+    .tree-container {
+      background: #273d4c;
+      color: #fff8e6;
+      border: 3px solid #1c1b17;
+      border-radius: 8px;
+      box-shadow: 5px 5px 0 #1c1b17;
+      padding: 14px 18px;
+      font-family: var(--font-code);
+      font-size: 0.58em;
+      max-height: 560px;
+      overflow-y: auto;
+      text-align: left;
+    }
+    .tree-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px dashed rgba(255,248,230,0.25);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+    .tree-header-title {
+      font-weight: 800;
+      color: #f5d363;
+      font-size: 1.1em;
+    }
+    .tree-btn-group {
+      display: flex;
+      gap: 6px;
+    }
+    .tree-btn {
+      background: #fff9e9;
+      color: #1c1b17;
+      border: 2px solid #1c1b17;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.9em;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #1c1b17;
+    }
+    .tree-btn:hover {
+      background: #f8c96d;
+    }
+    .tree-view, .tree-view ul {
+      list-style: none;
+      padding-left: 16px;
+      margin: 4px 0;
+    }
+    .tree-view {
+      padding-left: 0;
+    }
+    .tree-node {
+      margin: 4px 0;
+      line-height: 1.5;
+    }
+    .tree-node details {
+      cursor: pointer;
+    }
+    .tree-node summary {
+      outline: none;
+      user-select: none;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tree-node summary::-webkit-details-marker {
+      display: none;
+    }
+    .tree-node summary::before {
+      content: '▶';
+      display: inline-block;
+      font-size: 0.7em;
+      transition: transform 0.15s ease;
+      color: #f8c96d;
+    }
+    .tree-node details[open] > summary::before {
+      transform: rotate(90deg);
+    }
+    .tree-name {
+      color: #8ac9a5;
+      font-weight: bold;
+    }
+    .tree-file .tree-name {
+      color: #e58d4e;
+      font-weight: normal;
+    }
+    .tree-file {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-left: 14px;
+    }
+    .tree-comment {
+      color: #a6b8b1;
+      font-size: 0.9em;
+      margin-left: 8px;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -606,7 +766,7 @@
             </span>
           </div>
           <h1 style="font-size: 3.5em; margin-bottom: 10px; letter-spacing: -1px;">
-            <span style="color: var(--accent-blue);">VibeCoding</span> 实战培训
+            <span style="color: var(--accent-blue);">VibeCoding</span> 实战总结
           </h1>
           <h3 style="color: var(--text-muted); font-weight: 400; margin-bottom: 50px;">
             从 AI 辅助编码到智能开发工作流 (Intent-Driven Development)
@@ -626,32 +786,30 @@
             <div class="vibe-card" style="text-align: center; padding: 15px;">
               <i class="fa-solid fa-users" style="font-size: 1.8em; color: var(--accent-purple); margin-bottom: 8px;"></i>
               <div style="font-size: 0.8em; color: var(--text-muted);">面向</div>
-              <div style="font-weight: 600;">部门内部研发岗</div>
+              <div style="font-weight: 600;">部门内部交流</div>
             </div>
           </div>
         </div>
 
         <aside class="notes">
-          开场白：欢迎大家参加本次 VibeCoding 实战培训。今天我们将系统梳理从 AI 补全到基于 LLM/Agent 的“意图驱动编程”范式转换。
+          开场白：欢迎大家参加本次 VibeCoding 实战总结。今天我们将系统梳理从 AI 补全到基于 LLM/Agent 的“意图驱动编程”范式转换。
         </aside>
       </section>
 
       <!-- 目录页 -->
-      <section style="text-align: center;">
-        <span class="section-badge">COURSE MAP</span>
-        <h1 style="font-size: 2.45em; margin: 18px 0 8px;">培训目录</h1>
-        <p style="margin: 0; font-size: .9em; color: var(--text-muted);">从认知建立到工程化协作，按章节逐步进入实战。</p>
-        <nav class="toc-grid" aria-label="培训目录">
+      <section style="text-align: center; padding-top: 50px !important;">
+        <span class="section-badge">Table of Contents</span>
+        <h1 style="font-size: 2.2em; margin: 12px 0 6px; color: #1c1b17;">章节目录</h1>
+        <p style="margin: 0 0 16px 0; font-size: .85em; color: #1c1b17;">从认知建立到工程化协作，按 8 大章节逐步深入实战。</p>
+        <nav class="toc-grid" aria-label="章节目录">
           <a class="toc-item" href="#/2"><span class="toc-index">01</span><span class="toc-copy">VibeCoding 是什么？</span></a>
           <a class="toc-item" href="#/3"><span class="toc-index">02</span><span class="toc-copy">VibeCoding 发展历程</span></a>
           <a class="toc-item" href="#/4"><span class="toc-index">03</span><span class="toc-copy">VibeCoding 环境安装与配置</span></a>
-          <a class="toc-item" href="#/5"><span class="toc-index">04</span><span class="toc-copy">概念演进与使用技巧</span></a>
-          <a class="toc-item" href="#/6"><span class="toc-index">05</span><span class="toc-copy">心得体会与避坑指南</span></a>
-          <a class="toc-item" href="#/7"><span class="toc-index">06</span><span class="toc-copy">项目实战演示</span></a>
-          <a class="toc-item" href="#/8"><span class="toc-index">07</span><span class="toc-copy">风格统一与规范化</span></a>
-          <a class="toc-item" href="#/9"><span class="toc-index">08</span><span class="toc-copy">AI 引入导致的流程坍缩</span></a>
-          <a class="toc-item" href="#/10"><span class="toc-index">09</span><span class="toc-copy">AI 安全性与隐私保护</span></a>
-          <a class="toc-item" href="#/11"><span class="toc-index">10</span><span class="toc-copy">总结与展望</span></a>
+          <a class="toc-item" href="#/5"><span class="toc-index">04</span><span class="toc-copy">概念演进与实用方法</span></a>
+          <a class="toc-item" href="#/6"><span class="toc-index">05</span><span class="toc-copy">项目实战经验</span></a>
+          <a class="toc-item" href="#/7"><span class="toc-index">06</span><span class="toc-copy">AI 引入导致的流程坍缩</span></a>
+          <a class="toc-item" href="#/8"><span class="toc-index">07</span><span class="toc-copy">AI 安全性与隐私保护</span></a>
+          <a class="toc-item" href="#/9"><span class="toc-index">08</span><span class="toc-copy">总结与展望</span></a>
         </nav>
       </section>
 
@@ -969,17 +1127,24 @@ claude</code></pre>
           <h2>国内推荐组合：Claude Code + DeepSeek / GLM API</h2>
           <p style="font-size: 0.85em; color: var(--text-muted);">通过环境变量配置自定义 API Endpoint，兼顾性能与成本：</p>
 
-          <pre><code class="language-bash"># ~/.bashrc 或 ~/.zshrc 中配置 DeepSeek API 转发代理
-export ANTHROPIC_BASE_URL="https://api.deepseek.com/v1"
-export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
-
-# 或者在配置文件 ~/.claude/settings.json 中指定
+          <pre><code class="language-bash"># 编辑或新增 `settings.json` 文件
+# macOS &amp; Linux 为 `~/.claude/settings.json`
+# Windows 为 `用户目录/.claude/settings.json`
+# 新增或修改里面的 env 字段
+# 注意替换里面的 `YOUR_API_KEY` 为您上一步获取到的 API Key
+# 新增 `hasCompletedOnboarding` 参数
 {
+  "hasCompletedOnboarding": true,
   "env": {
-    "ANTHROPIC_BASE_URL": "https://api.deepseek.com/v1",
-    "ANTHROPIC_API_KEY": "sk-your-custom-api-key"
-  },
-  "model": "deepseek-coder"
+    "ANTHROPIC_AUTH_TOKEN": "YOUR_API_KEY",
+    "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4.7",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5.2[1m]",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5.2[1m]",
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "1000000",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1,
+    "API_TIMEOUT_MS": "3000000"
+  }
 }</code></pre>
 
           <div class="quote-card fragment" style="margin-top: 20px; font-size: 0.9em; padding: 16px 24px;">
@@ -992,41 +1157,211 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
 
         <!-- 3.4 插件与工程结构 -->
         <section>
-          <h2>扩展插件与标准工程文件结构</h2>
-          <div class="grid-2">
+          <h2>扩展插件 (MCP/Skills) 与标准工程结构</h2>
+          <div class="grid-2" style="gap: 20px; align-items: start;">
             <div>
-              <h3><i class="fa-solid fa-puzzle-piece list-item-icon"></i> 推荐扩展插件清单</h3>
-              <ul style="font-size: 0.8em; line-height: 1.8;">
-                <li><strong>ComputerUse：</strong> 允许 AI 操作浏览器进行 UI 自动化回归</li>
-                <li><strong>Chrome DevTools MCP：</strong> 网页 Console / Network 监控</li>
-                <li><strong>Superpower / CodeGraph：</strong> 快速构建项目全局 AST 函数调用图</li>
-              </ul>
+              <h3><i class="fa-solid fa-puzzle-piece list-item-icon"></i> 推荐 MCP / Skill / 插件</h3>
+              <div class="plugin-item-list">
+                <div class="plugin-item">
+                  <div class="plugin-item-main">
+                    <div class="plugin-item-title">
+                      <span>Chrome DevTools MCP</span>
+                      <span class="badge badge-blue">MCP</span>
+                    </div>
+                    <div class="plugin-item-desc">捕获 Console 报错、Network 请求与 DOM 实时调试</div>
+                  </div>
+                  <a href="https://github.com/ChromeDevTools/devtools-mcp" target="_blank" onclick="event.stopPropagation();" class="plugin-github-btn">
+                    GitHub <i class="fa-brands fa-github"></i>
+                  </a>
+                </div>
+
+                <div class="plugin-item">
+                  <div class="plugin-item-main">
+                    <div class="plugin-item-title">
+                      <span>Context7 / CodeGraph</span>
+                      <span class="badge badge-purple">MCP</span>
+                    </div>
+                    <div class="plugin-item-desc">生成项目全局 AST 函数依赖与架构上下文图谱</div>
+                  </div>
+                  <a href="https://github.com/upstash/context7" target="_blank" onclick="event.stopPropagation();" class="plugin-github-btn">
+                    GitHub <i class="fa-brands fa-github"></i>
+                  </a>
+                </div>
+
+                <div class="plugin-item">
+                  <div class="plugin-item-main">
+                    <div class="plugin-item-title">
+                      <span>Playwright / Computer Use</span>
+                      <span class="badge badge-orange">Plugin</span>
+                    </div>
+                    <div class="plugin-item-desc">AI 操控真实浏览器完成端到端自动化与视觉回归测试</div>
+                  </div>
+                  <a href="https://github.com/microsoft/playwright" target="_blank" onclick="event.stopPropagation();" class="plugin-github-btn">
+                    GitHub <i class="fa-brands fa-github"></i>
+                  </a>
+                </div>
+
+                <div class="plugin-item">
+                  <div class="plugin-item-main">
+                    <div class="plugin-item-title">
+                      <span>Sequential Thinking</span>
+                      <span class="badge badge-green">MCP</span>
+                    </div>
+                    <div class="plugin-item-desc">强化 LLM 复杂算法推演、逐步思维链与自修正逻辑</div>
+                  </div>
+                  <a href="https://github.com/modelcontextprotocol/servers" target="_blank" onclick="event.stopPropagation();" class="plugin-github-btn">
+                    GitHub <i class="fa-brands fa-github"></i>
+                  </a>
+                </div>
+
+                <div class="plugin-item">
+                  <div class="plugin-item-main">
+                    <div class="plugin-item-title">
+                      <span>GitHub Server MCP</span>
+                      <span class="badge badge-blue">MCP</span>
+                    </div>
+                    <div class="plugin-item-desc">自动检索 Commit 历史、分支管理、提交 PR 与处理 Issue</div>
+                  </div>
+                  <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/github" target="_blank" onclick="event.stopPropagation();" class="plugin-github-btn">
+                    GitHub <i class="fa-brands fa-github"></i>
+                  </a>
+                </div>
+
+                <div class="plugin-item">
+                  <div class="plugin-item-main">
+                    <div class="plugin-item-title">
+                      <span>Fetch / Doc Search</span>
+                      <span class="badge badge-purple">Skill</span>
+                    </div>
+                    <div class="plugin-item-desc">实时抓取解析第三方最新官方技术文档与 API 规格说明</div>
+                  </div>
+                  <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/fetch" target="_blank" onclick="event.stopPropagation();" class="plugin-github-btn">
+                    GitHub <i class="fa-brands fa-github"></i>
+                  </a>
+                </div>
+              </div>
             </div>
 
             <div>
-              <h3><i class="fa-solid fa-folder-tree list-item-icon"></i> 标准 VibeCoding 工程结构</h3>
-              <pre><code class="language-plaintext">my-vibecoding-project/
-├── .claude/                # Agent 配置根目录
-│   ├── settings.json       # 权限与环境配置
-│   ├── CLAUDE.md           # 项目长期全局记忆
-│   └── rules/              # 分模块详细规则
-│       ├── 00-security.md
-│       └── 01-style.md
-├── .cursorrules            # Cursor IDE 对应规则
-└── src/                    # 项目源码</code></pre>
+              <h3><i class="fa-solid fa-folder-tree list-item-icon"></i> 交互式 VibeCoding 工程树结构</h3>
+              <div class="tree-container">
+                <div class="tree-header">
+                  <span class="tree-header-title"><i class="fa-solid fa-sitemap"></i> 点击可展开/折叠各节点</span>
+                  <div class="tree-btn-group">
+                    <button class="tree-btn" onclick="event.stopPropagation(); document.querySelectorAll('.tree-container details').forEach(d => d.open = true);">展开全部</button>
+                    <button class="tree-btn" onclick="event.stopPropagation(); document.querySelectorAll('.tree-container details').forEach(d => d.open = false);">折叠全部</button>
+                  </div>
+                </div>
+                <ul class="tree-view">
+                  <li class="tree-node">
+                    <details open onclick="event.stopPropagation();">
+                      <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">my-vibecoding-project/</span> <span class="tree-comment"># 项目根目录</span></summary>
+                      <ul>
+                        <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#f8c96d;"></i> <span class="tree-name">AGENTS.md</span> <span class="tree-comment"># 根目录多 Agent 智能体协同全局规范与行为约束</span></li>
+                        <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#f8c96d;"></i> <span class="tree-name">CLAUDE.md</span> <span class="tree-comment"># 根目录 Claude Code 顶层指令契约与项目全景知识库</span></li>
+                        <li class="tree-node">
+                          <details open onclick="event.stopPropagation();">
+                            <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">.claude/</span> <span class="tree-comment"># Agent 核心配置与上下文根目录</span></summary>
+                            <ul>
+                              <li class="tree-node tree-file"><i class="fa-regular fa-file-code" style="color:#a9c8df;"></i> <span class="tree-name">settings.json</span> <span class="tree-comment"># 环境变量、模型及执行权限边界定义</span></li>
+                              <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#f8c96d;"></i> <span class="tree-name">CLAUDE.md</span> <span class="tree-comment"># Agent 长期记忆与团队高频指令指南</span></li>
+                              <li class="tree-node">
+                                <details open onclick="event.stopPropagation();">
+                                  <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">commands/</span> <span class="tree-comment"># 团队自定义 Slash 指令库</span></summary>
+                                  <ul>
+                                    <li class="tree-node tree-file"><i class="fa-regular fa-file-code"></i> <span class="tree-name">review.md</span> <span class="tree-comment"># /review 代码审查与重构规范指令</span></li>
+                                  </ul>
+                                </details>
+                              </li>
+                              <li class="tree-node">
+                                <details open onclick="event.stopPropagation();">
+                                  <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">skills/</span> <span class="tree-comment"># 领域技能包 (Reusable Skill Packs)</span></summary>
+                                  <ul>
+                                    <li class="tree-node">
+                                      <details open onclick="event.stopPropagation();">
+                                        <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">api-design/</span> <span class="tree-comment"># API 规范技能</span></summary>
+                                        <ul>
+                                          <li class="tree-node tree-file"><i class="fa-regular fa-file-lines"></i> <span class="tree-name">SKILL.md</span> <span class="tree-comment"># 提示词模板与响应规则说明</span></li>
+                                        </ul>
+                                      </details>
+                                    </li>
+                                  </ul>
+                                </details>
+                              </li>
+                              <li class="tree-node">
+                                <details open onclick="event.stopPropagation();">
+                                  <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">rules/</span> <span class="tree-comment"># 模块化细粒度规则 (Modular Rules)</span></summary>
+                                  <ul>
+                                    <li class="tree-node tree-file"><i class="fa-regular fa-file-lines"></i> <span class="tree-name">00-security.md</span> <span class="tree-comment"># 密码学、SQL 注入等安全防护红线</span></li>
+                                    <li class="tree-node tree-file"><i class="fa-regular fa-file-lines"></i> <span class="tree-name">01-code-style.md</span> <span class="tree-comment"># TypeScript/Rust 规范与风格约定</span></li>
+                                    <li class="tree-node tree-file"><i class="fa-regular fa-file-lines"></i> <span class="tree-name">02-architecture.md</span> <span class="tree-comment"># 分层架构边界与依赖反转规范</span></li>
+                                  </ul>
+                                </details>
+                              </li>
+                            </ul>
+                          </details>
+                        </li>
+                        <li class="tree-node">
+                          <details onclick="event.stopPropagation();">
+                            <summary><i class="fa-regular fa-folder" style="color:#f5d363;"></i> <span class="tree-name">.agents/</span> <span class="tree-comment"># Subagent & 多 Agent 协作流程配置</span></summary>
+                            <ul>
+                              <li class="tree-node tree-file"><i class="fa-regular fa-file-code"></i> <span class="tree-name">workflows.json</span> <span class="tree-comment"># 多 Agent 协同工作流编排图</span></li>
+                            </ul>
+                          </details>
+                        </li>
+                        <li class="tree-node">
+                          <details onclick="event.stopPropagation();">
+                            <summary><i class="fa-regular fa-folder" style="color:#f5d363;"></i> <span class="tree-name">.cursor/</span> <span class="tree-comment"># Cursor IDE 专属规则映射</span></summary>
+                            <ul>
+                            <li class="tree-node tree-file"><i class="fa-regular fa-file-code"></i> <span class="tree-name">rules/*.mdc</span> <span class="tree-comment"># Cursor 语境 Rule 文件</span></li>
+                            </ul>
+                          </details>
+                        </li>
+                        <li class="tree-node tree-file"><i class="fa-regular fa-file-code" style="color:#f3b1a2;"></i> <span class="tree-name">.mcp.json</span> <span class="tree-comment"># Model Context Protocol 本地与远程服务绑定表</span></li>
+                        <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#a6b8b1;"></i> <span class="tree-name">.claudeignore</span> <span class="tree-comment"># 告之 Agent 屏蔽构建产物与依赖项，大幅节省 Token</span></li>
+                        <li class="tree-node">
+                          <details open onclick="event.stopPropagation();">
+                            <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">docs/</span> <span class="tree-comment"># 架构设计、PRD、接口契约与调试文档</span></summary>
+                            <ul>
+                              <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#8ac9a5;"></i> <span class="tree-name">PRD.md</span> <span class="tree-comment"># 产品需求文档、业务场景与 User Story 定义</span></li>
+                              <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#8ac9a5;"></i> <span class="tree-name">architecture.md</span> <span class="tree-comment"># 核心业务系统设计说明书与技术架构图</span></li>
+                            </ul>
+                          </details>
+                        </li>
+                        <li class="tree-node">
+                          <details onclick="event.stopPropagation();">
+                            <summary><i class="fa-regular fa-folder" style="color:#f5d363;"></i> <span class="tree-name">tests/</span> <span class="tree-comment"># 自动化单元测试与 E2E 回归套件</span></summary>
+                            <ul>
+                              <li class="tree-node tree-file"><i class="fa-regular fa-file-code"></i> <span class="tree-name">e2e/app.spec.ts</span> <span class="tree-comment"># Playwright 端到端界面回归用例</span></li>
+                            </ul>
+                          </details>
+                        </li>
+                        <li class="tree-node">
+                          <details onclick="event.stopPropagation();">
+                            <summary><i class="fa-regular fa-folder" style="color:#f5d363;"></i> <span class="tree-name">src/</span> <span class="tree-comment"># 应用主业务源码目录</span></summary>
+                            <ul>
+                              <li class="tree-node tree-file"><i class="fa-regular fa-file-code"></i> <span class="tree-name">index.ts</span> <span class="tree-comment"># 业务入口模块</span></li>
+                            </ul>
+                          </details>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
       </section>
 
       <!-- ==================================================================== -->
-      <!-- 第 4 章：概念发展与实用技巧                                           -->
+      <!-- 第 4 章：概念演进与实用方法                                           -->
       <!-- ==================================================================== -->
       <section>
         <!-- 4.0 过渡页 -->
         <section class="section-transition">
           <div class="section-badge">CHAPTER 04</div>
-          <h2 class="section-title-large">概念演进与核心实用技巧</h2>
+          <h2 class="section-title-large">概念演进与实用方法</h2>
           <p style="color: var(--text-muted);">从 Prompt 工程到 Loop 工程：掌握顶级开发者心法</p>
         </section>
 
@@ -1062,84 +1397,382 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
               <span class="badge badge-green">STAGE 4</span>
               <h4 style="margin: 10px 0;">Loop Engineering</h4>
               <p style="font-size: 0.75em; color: var(--text-muted);">
-                <strong>循环工程：</strong> AI 自主“编写-编译-测试-修复”闭环迭代。
-              </p>
+                <strong>循环工程：</strong> AI 自主“编写-编译-测试-修正”的闭环自动化。</p>
             </div>
           </div>
         </section>
 
-        <!-- 4.2 Prompt 黄金公式 -->
-        <section>
-          <h2>Prompt 黄金公式与对比</h2>
-          <div class="quote-card" style="padding: 15px 25px; margin-bottom: 20px;">
-            <strong style="color: var(--accent-orange);">Prompt 黄金公式：</strong> 角色 (Role) + 背景 (Context) + 任务 (Task) + 约束 (Constraint) + 输出格式 (Format)
+        <!-- 4.2 Prompt 黄金公式与实战对比 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 16px;">Prompt 黄金公式与正反实战对比</h2>
+
+          <div class="vibe-card" style="padding: 12px 18px; margin-bottom: 18px; background: #fff9e9; border: 2px solid #1c1b17;">
+            <div style="display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 8px;">
+              <span style="font-weight: 800; font-size: 0.85em; color: #1c1b17;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-orange);"></i> 黄金公式：</span>
+              <span class="badge badge-blue" style="font-size: 0.72em; padding: 4px 10px;"><i class="fa-solid fa-user-ninja"></i> 1. 角色</span>
+              <span style="font-weight: 900; color: #1c1b17;">+</span>
+              <span class="badge badge-purple" style="font-size: 0.72em; padding: 4px 10px;"><i class="fa-solid fa-compass"></i> 2. 背景</span>
+              <span style="font-weight: 900; color: #1c1b17;">+</span>
+              <span class="badge badge-orange" style="font-size: 0.72em; padding: 4px 10px;"><i class="fa-solid fa-list-check"></i> 3. 任务</span>
+              <span style="font-weight: 900; color: #1c1b17;">+</span>
+              <span class="badge badge-red" style="font-size: 0.72em; padding: 4px 10px;"><i class="fa-solid fa-ban"></i> 4. 约束</span>
+              <span style="font-weight: 900; color: #1c1b17;">+</span>
+              <span class="badge badge-green" style="font-size: 0.72em; padding: 4px 10px;"><i class="fa-solid fa-file-code"></i> 5. 格式</span>
+            </div>
           </div>
 
-          <div class="grid-2">
-            <div class="vibe-card vs-traditional">
-              <h4 style="color: var(--accent-red);"><i class="fa-solid fa-xmark"></i> 模糊的 Bad Prompt</h4>
-              <pre><code class="language-markdown">帮我写一个用户登录的 API 接口，用 Node.js 写。</code></pre>
-              <p style="font-size: 0.75em; color: var(--text-muted);">后果：AI 随机选择框架、丢失密码加密、缺失校验与统一错误响应。</p>
+          <div class="grid-2" style="gap: 20px; align-items: stretch;">
+            <div class="vibe-card vs-traditional" style="padding: 14px;">
+              <h4 style="color: var(--accent-red); margin-bottom: 8px; font-size: 0.95em;">
+                <i class="fa-solid fa-circle-xmark"></i> Bad Prompt 示范
+              </h4>
+              <pre style="margin: 0 0 10px 0; font-size: 0.68em;"><code class="language-markdown">帮我写一个用户登录 API 接口。</code></pre>
+              <div class="vibe-card" style="padding: 10px; background: rgba(239, 141, 130, 0.15); border: 2px solid #1c1b17; font-size: 0.68em;">
+                <strong style="color: var(--accent-red);"><i class="fa-solid fa-triangle-exclamation"></i> 后果：</strong>
+                <ul style="margin: 4px 0 0 1.2em; line-height: 1.5; color: var(--text-bright);">
+                  <li>框架随机；缺失安全加密与校验；输出冗余代码。</li>
+                </ul>
+              </div>
             </div>
 
-            <div class="vibe-card vs-vibecoding">
-              <h4 style="color: var(--accent-green);"><i class="fa-solid fa-check"></i> 高效的 Good Prompt</h4>
-              <pre><code class="language-markdown">【角色】高级 Node.js 安全架构师
-【背景】正在为现有 Express + TypeScript 项目添加 Auth 模块
-【任务】编写 /api/v1/auth/login 登录接口
-【约束】使用 argon2 哈希校验，错误时返回统一 JSON 结构
-【输出格式】仅输出 src/controllers/auth.ts 的完整增量代码</code></pre>
+            <div class="vibe-card vs-vibecoding" style="padding: 14px;">
+              <h4 style="color: var(--accent-green); margin-bottom: 8px; font-size: 0.95em;">
+                <i class="fa-solid fa-circle-check"></i> Good Prompt 示范
+              </h4>
+              <pre style="margin: 0 0 10px 0; font-size: 0.65em;"><code class="language-markdown">【角色】Node.js 安全架构师
+【任务】编写登录接口
+【约束】使用 argon2，返回统一 JSON
+【格式】仅输出控制器 TS 增量代码</code></pre>
+              <div class="vibe-card" style="padding: 10px; background: rgba(138, 201, 165, 0.2); border: 2px solid #1c1b17; font-size: 0.68em;">
+                <strong style="color: #1c1b17;"><i class="fa-solid fa-bolt" style="color: var(--accent-green);"></i> 收益：</strong>
+                <ul style="margin: 4px 0 0 1.2em; line-height: 1.5; color: #1c1b17;">
+                  <li>一击即中；减少 90% 二次沟通与重构成本。</li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- 4.3 上下文管理与规则配置 -->
-        <section>
-          <h2>上下文管理技巧 & Rules 目录设计</h2>
-          <div class="grid-2">
+        <!-- 4.3 提示词工程四大核心方法论 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">提示词工程四大核心方法论</h2>
+
+          <div class="grid-2" style="gap: 22px; align-items: start;">
+            <!-- 左侧：四大核心方法论矩阵 -->
             <div>
-              <h3><i class="fa-solid fa-at list-item-icon"></i> 精准上下文引用</h3>
-              <ul style="font-size: 0.85em; line-height: 1.8;">
-                <li><code>@src/models/user.ts</code> ：精确加载单个类型文件</li>
-                <li><code>@codebase</code> ：调用向量索引全文检索（勿滥用）</li>
-                <li><code>.claudeignore</code> ：将 node_modules、dist、build 排除出上下文，大幅节省 Token！</li>
+              <h3 style="font-size: 1.05em; margin-bottom: 12px; color: #1c1b17;">
+                <i class="fa-solid fa-shapes" style="color: #1c1b17; margin-right: 8px;"></i> 核心范式与方法论矩阵
+              </h3>
+
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+
+                <!-- 1. CO-STAR -->
+                <div class="plugin-item" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.9em; color: #1c1b17; display: flex; align-items: center; gap: 8px;">
+                      <span class="badge badge-blue" style="font-size: 0.82em; padding: 3px 8px;">1. CO-STAR 框架</span>
+                      <span>结构化冠军范式</span>
+                    </div>
+                    <div style="font-size: 0.78em; color: #1c1b17; margin-top: 4px; line-height: 1.45;">
+                      <strong>C</strong>ontext (背景) + <strong>O</strong>bjective (目标) + <strong>S</strong>tyle (风格) + <strong>T</strong>one (语气) + <strong>A</strong>udience (受众) + <strong>R</strong>esponse (输出格式)。
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. Chain of Thought -->
+                <div class="plugin-item" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.9em; color: #1c1b17; display: flex; align-items: center; gap: 8px;">
+                      <span class="badge badge-purple" style="font-size: 0.82em; padding: 3px 8px;">2. CoT 思维链</span>
+                      <span>显式展示推理逻辑</span>
+                    </div>
+                    <div style="font-size: 0.78em; color: #1c1b17; margin-top: 4px; line-height: 1.45;">
+                      关键词：<span style="color: #1c1b17; background: #f8c96d; font-weight: 800; padding: 2px 6px; border: 1px solid #1c1b17; border-radius: 4px;">“请先分析...再列出方向...最后给出代码”</span>。复杂逻辑准确率大幅上升。
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 3. Few-Shot 示例驱动 -->
+                <div class="plugin-item" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.9em; color: #1c1b17; display: flex; align-items: center; gap: 8px;">
+                      <span class="badge badge-orange" style="font-size: 0.82em; padding: 3px 8px;">3. Few-Shot 示例驱动</span>
+                      <span>示例胜过千言万语</span>
+                    </div>
+                    <div style="font-size: 0.78em; color: #1c1b17; margin-top: 4px; line-height: 1.45;">
+                      提供 1~2 个真实 Input/Output 示例（如 Git Commit 格式/特定样式），锁定精确输出。
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4. Role Prompting -->
+                <div class="plugin-item" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.9em; color: #1c1b17; display: flex; align-items: center; gap: 8px;">
+                      <span class="badge badge-green" style="font-size: 0.82em; padding: 3px 8px;">4. 角色扮演 (Role)</span>
+                      <span>激活专家知识权重</span>
+                    </div>
+                    <div style="font-size: 0.78em; color: #1c1b17; margin-top: 4px; line-height: 1.45;">
+                      设定专业身份：<span style="color: #1c1b17; font-weight: 800; background: #b9dec5; padding: 2px 6px; border: 1px solid #1c1b17; border-radius: 4px;">“你是有 10 年经验的 Node.js 性能架构师，请从性能与安全维度 Review”</span>。
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 右侧：场景化 Prompt 模版与终极心法 -->
+            <div>
+              <h3 style="font-size: 1.05em; margin-bottom: 12px; color: #1c1b17;">
+                <i class="fa-solid fa-code-compare" style="color: #1c1b17; margin-right: 8px;"></i> 场景化模版与 PDCA 循环
+              </h3>
+
+              <!-- 代码 Review 模版小示例 -->
+              <div class="tree-container" style="max-height: none; padding: 12px 14px; font-size: 0.68em; margin-bottom: 12px; border: 3px solid #1c1b17;">
+                <div style="color: #f5d363; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 5px; margin-bottom: 8px; font-weight: 800;">
+                  <i class="fa-solid fa-terminal"></i> 场景化模版库 (Code Review / Debug)
+                </div>
+                <pre style="margin: 0; background: transparent; border: 0; box-shadow: none; padding: 0;"><code class="language-markdown"># 代码 Review 类 Prompt 模板：
+请从以下维度 review 代码：
+□ 性能瓶颈与慢查询    □ OWASP Top10 安全漏洞
+□ 边界条件与空指针    □ 是否符合 SOLID 原则
+严重程度请用 🔴(高风险) 🟡(中风险) 🟢(建议) 标注。
+
+# Debug 类 Prompt 模板：
+报错信息：[完整 StackTrace] | 已排查：[尝试路径]
+请先分析根本原因，再给出最少侵入的修复方案。</code></pre>
+              </div>
+
+              <!-- 高阶技巧与心法 -->
+              <div class="vibe-card" style="padding: 12px 14px; background: #fff9e9; border: 2px solid #1c1b17; font-size: 0.78em;">
+                <h4 style="font-size: 0.9em; color: #1c1b17; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                  <i class="fa-solid fa-lightbulb" style="color: #1c1b17;"></i> 终极心法：Prompt 的本质是沟通设计
+                </h4>
+                <p style="margin: 0; line-height: 1.5; color: #1c1b17;">
+                  把写 Prompt 当作<strong style="color: #1c1b17;">给一位聪明但对项目一无所知的新同事写工作说明</strong>：信息越结构化、越有边界，AI 输出就越稳定可用。
+                </p>
+              </div>
+
+              <!-- PDCA 小卡片 -->
+              <div class="vibe-card" style="margin-top: 10px; padding: 10px 14px; font-size: 0.75em; background: #b9dec5; border: 2px solid #1c1b17; color: #1c1b17;">
+                <i class="fa-solid fa-arrows-spin" style="color: #1c1b17;"></i> <strong style="color: #1c1b17;">PDCA 迭代三步法：</strong> 基础版跑通 (Plan/Do) → 加约束收窄 (Check) → 加示例锁定风格 (Act)。
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.4 上下文管理技巧 & Rules 规则体系 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px;">上下文管理技巧 &amp; Rules 规则系统设计</h2>
+
+          <div class="grid-2" style="gap: 20px; align-items: start;">
+            <!-- 左侧：上下文管理 4 大黄金技巧 -->
+            <div>
+              <h3 style="font-size: 1.05em; margin-bottom: 10px;"><i class="fa-solid fa-layer-group list-item-icon"></i> 上下文工程 (Context Engineering) 技巧</h3>
+
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+
+                <div class="plugin-item" style="padding: 8px 12px; background: #fff9e9;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.85em; color: #1c1b17;">
+                      <i class="fa-solid fa-crosshairs" style="color: var(--accent-blue);"></i> 行级精准引用 (Line-level Context)
+                    </div>
+                    <div style="font-size: 0.72em; color: var(--text-muted); margin-top: 2px;">
+                      使用 <code>@src/user.ts#L15-L40</code> 限定特定函数片段，比全量载入文件提升 5 倍聚焦度。
+                    </div>
+                  </div>
+                </div>
+
+                <div class="plugin-item" style="padding: 8px 12px; background: #fff9e9;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.85em; color: #1c1b17;">
+                      <i class="fa-solid fa-shield-virus" style="color: var(--accent-red);"></i> 屏蔽噪声文件 (<code>.claudeignore</code>)
+                    </div>
+                    <div style="font-size: 0.72em; color: var(--text-muted); margin-top: 2px;">
+                      排除 <code>node_modules/</code>、<code>dist/</code>、<code>.env*</code> 及庞大日志，防止无谓全库扫描。
+                    </div>
+                  </div>
+                </div>
+
+                <div class="plugin-item" style="padding: 8px 12px; background: #fff9e9;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.85em; color: #1c1b17;">
+                      <i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-orange);"></i> 慎用 <code>@codebase</code> 全量向量检索
+                    </div>
+                    <div style="font-size: 0.72em; color: var(--text-muted); margin-top: 2px;">
+                      全局检索易夹带无关大文本噪音，建议优先使用显式文件关联或 AST 函数图谱。
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="vibe-card" style="margin-top: 10px; padding: 8px 12px; font-size: 0.65em; background: #b9dec5; border: 2px solid #1c1b17;">
+                <i class="fa-solid fa-lightbulb"></i> <strong>黄金法则：</strong> “把 AI 视为只有 256MB 内存的超频 CPU，只给最干货的 Context！”
+              </div>
+            </div>
+
+            <!-- 右侧：Rules 模块化规约系统架构 -->
+            <div>
+              <h3 style="font-size: 1.05em; margin-bottom: 10px;"><i class="fa-solid fa-sitemap list-item-icon"></i> Rules 模块化规则文件架构</h3>
+
+              <div class="tree-container" style="max-height: none; padding: 12px; font-size: 0.6em;">
+                <div style="color: #f5d363; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 4px; margin-bottom: 8px;">
+                  <i class="fa-solid fa-folder-tree"></i> .claude/rules/ 规范化分层目录
+                </div>
+                <pre style="margin: 0; background: transparent; border: 0; box-shadow: none; padding: 0;"><code class="language-plaintext">.claude/rules/
+├── 00-security.md       # [最高权重] 安全校验、注入拦截与敏感信息防护
+├── 01-code-style.md     # [全局] TypeScript/Rust 统一代码风格与命名规约
+├── 10-api-design.md     # [模块] RESTful / gRPC 标准响应结构与状态码定义
+├── 11-frontend-ui.md    # [按路径匹配] React / Tailwind 组件编写与可访问性
+└── 20-testing-rules.md  # [质量门槛] Jest / Playwright 自动化单测覆盖率阈值</code></pre>
+              </div>
+
+              <div class="vibe-card" style="margin-top: 8px; padding: 8px 12px; font-size: 0.65em; background: #fff9e9; border: 2px solid #1c1b17;">
+                <i class="fa-solid fa-circle-info"></i> <strong>规则生效机制：</strong> 文件名数字前缀决定加载权重优先级；支持通过 Markdown Frontmatter 配置路径匹配匹配（Glob Matching）动态激活。
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.4 深度解析：CLAUDE.md & AGENTS.md 最佳实践指南 -->
+        <section>
+          <h2>核心大脑：<code>CLAUDE.md</code> / <code>AGENTS.md</code> 最佳实践指南</h2>
+          <div class="grid-2" style="gap: 24px; align-items: start;">
+            <div>
+              <h3><i class="fa-solid fa-brain list-item-icon"></i> 为什么它们至关重要？</h3>
+              <ul style="font-size: 0.8em; line-height: 1.7; color: var(--text-bright);">
+                <li><strong>项目宪法与长期记忆：</strong> 会话初始化时自动注入上下文，是 Agent 理解项目的最强基线。</li>
+                <li><strong>消除代码隐形偏差：</strong> 显式定义非标准的技术栈、独特设计模式与命名红线，杜绝幻觉。</li>
+                <li><strong>极致节省 Token 与交流成本：</strong> 避免重复给 AI 解释基础构建流程、单测指令和工程偏好。</li>
               </ul>
+
+              <div class="vibe-card" style="margin-top: 14px; padding: 12px; background: #fff9e9; border: 2px solid #1c1b17;">
+                <h4 style="font-size: 0.82em; margin-bottom: 6px;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-orange);"></i> 撰写 3 大黄金法则</h4>
+                <ol style="font-size: 0.72em; line-height: 1.5; margin-left: 1.2em;">
+                  <li><strong>保持精炼 (Keep it concise)：</strong> 只写 AI 无法自行从代码推断出的习惯与红线。</li>
+                  <li><strong>命令精确 (Specific Commands)：</strong> 列出构建、测试和 Lint 的具体 Shell 命令。</li>
+                  <li><strong>动态演进 (Living Doc)：</strong> 在踩坑和重构后及时更新，保持记忆最新。</li>
+                </ol>
+              </div>
+
+              <!-- AGENTS.md 与 CLAUDE.md 等效关系说明 -->
+              <div class="vibe-card" style="margin-top: 12px; padding: 12px; background: #b9dec5; border: 2px solid #1c1b17;">
+                <h4 style="font-size: 0.82em; color: #1c1b17; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                  <i class="fa-solid fa-repeat"></i> <code>CLAUDE.md</code> 与 <code>AGENTS.md</code> 的关系
+                </h4>
+                <p style="font-size: 0.7em; margin: 0; line-height: 1.5; color: #1c1b17;">
+                  两者因提出时间与 Agent 生态发展阶段不同而存在命名差异。在核心功能、解析权重与写法上<strong>完全等效</strong>，可相互引用、相互继承，或配置为符号链接。
+                </p>
+              </div>
+
+              <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="https://code.claude.com/docs/en/best-practices#write-an-effective-claude-md" target="_blank" onclick="event.stopPropagation();" class="plugin-github-btn" style="font-size: 0.7em; padding: 6px 10px;">
+                  <i class="fa-solid fa-book"></i> Claude 官方最佳实践
+                </a>
+                <a href="https://academy.claude-code.club/zh/practical-skills/config/why-claude-md-matters" target="_blank" onclick="event.stopPropagation();" class="plugin-github-btn" style="font-size: 0.7em; padding: 6px 10px; background: #f8c96d;">
+                  <i class="fa-solid fa-graduation-cap"></i> Claude Code Club 教程
+                </a>
+              </div>
             </div>
 
             <div>
-              <h3><i class="fa-solid fa-sitemap list-item-icon"></i> Rules 规则目录推荐架构</h3>
-              <pre><code class="language-plaintext">.claude/rules/
-├── 00-security.md       # 强制安全校验规则（全局）
-├── 01-coding-style.md   # 命名规范与代码风格（全局）
-├── 10-api.md            # RESTful API 标准响应定义
-├── 11-frontend.md       # Tailwind / React 组件规范
-└── 20-testing.md        # Jest / Playwright 单元测试要求</code></pre>
+              <h3><i class="fa-solid fa-file-code list-item-icon"></i> 推荐标准模版结构 (通用)</h3>
+              <pre><code class="language-markdown"># 项目核心指引 &amp; 规范手册 (CLAUDE.md / AGENTS.md)
+
+## 常用命令 (Commands)
+- 构建项目: `npm run build`
+- 运行单测: `npm run test:unit`
+- 代码检查: `npm run lint`
+
+## 代码风格 (Code Style)
+- 使用 TypeScript 严格模式，禁止显式使用 `any`
+- 组件命名使用 PascalCase，工具函数使用 camelCase
+- 样式优先使用 Tailwind CSS 响应式类名
+
+## 架构约束 (Architecture Rules)
+- 业务逻辑必须封装于 `src/services/`
+- API 返回值遵循 `{ code: number, data: T, msg: string }`
+
+## 踩坑避坑红线 (DO NOTs)
+- 严禁修改 `prisma/schema.prisma` 基础主键定义
+- 提交代码前必须确保单元测试 100% 通过</code></pre>
             </div>
           </div>
         </section>
 
-        <!-- 4.4 常用命令与权限配置 -->
-        <section>
-          <h2>常用命令与 <code>settings.json</code> 权限控制</h2>
-          <div class="grid-2">
+        <!-- 4.5 常用命令与权限配置 -->
+        <section style="padding-top: 65px !important;">
+          <h2 style="margin-top: 15px !important; margin-bottom: 20px;">常用 Slash 命令与 <code>settings.json</code> 权限控制</h2>
+          <div class="grid-2" style="gap: 20px; align-items: start;">
+            <!-- 左侧：常用命令及描述 -->
             <div>
-              <h3><i class="fa-solid fa-terminal list-item-icon"></i> 核心 Slash 内置命令</h3>
-              <table class="vibe-table">
-                <tr><th>命令</th><th>功能描述</th></tr>
-                <tr><td><code>/init</code></td><td>自动扫描项目结构并生成初始化配置</td></tr>
-                <tr><td><code>/plan</code></td><td>复杂任务模式：先生成设计方案再编码</td></tr>
-                <tr><td><code>/compact</code></td><td>压缩高容量上下文，显著节省 Token</td></tr>
-                <tr><td><code>/clear</code></td><td>清除历史记忆，重置干净会话</td></tr>
+              <h3 style="font-size: 1.05em; margin-bottom: 10px;"><i class="fa-solid fa-terminal list-item-icon"></i> 高频内置 Slash 命令指南</h3>
+              <table class="vibe-table" style="font-size: 0.65em;">
+                <thead>
+                  <tr>
+                    <th style="width: 26%; padding: 8px 10px;">Slash 命令</th>
+                    <th style="padding: 8px 10px;">核心功能与适用场景描述</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding: 6px 10px;"><code>/init</code></td>
+                    <td style="padding: 6px 10px;"><strong>项目初始化：</strong> 扫描工程结构，自动创建 <code>.claude/</code> 基础配置。</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 6px 10px;"><code>/plan</code></td>
+                    <td style="padding: 6px 10px;"><strong>方案规划：</strong> 开启复杂任务模式，先输出设计步骤再动手编码。</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 6px 10px;"><code>/compact</code></td>
+                    <td style="padding: 6px 10px;"><strong>上下文压缩：</strong> 压缩长对话历史，释放 60%+ Token 空间。</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 6px 10px;"><code>/review</code></td>
+                    <td style="padding: 6px 10px;"><strong>代码审查：</strong> 对选定代码或 Diff 进行规范校验与安全重构。</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 6px 10px;"><code>/context</code></td>
+                    <td style="padding: 6px 10px;"><strong>容量诊断：</strong> 实时查看当前会话 Token 占用与文件耗费分布。</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 6px 10px;"><code>/clear</code></td>
+                    <td style="padding: 6px 10px;"><strong>会话重置：</strong> 彻底清除当前历史记忆，恢复至干净初始状态。</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 6px 10px;"><code>/model</code></td>
+                    <td style="padding: 6px 10px;"><strong>模型切换：</strong> 动态切换底层模型（如 Haiku / Sonnet / GLM）。</td>
+                  </tr>
+                </tbody>
               </table>
+              <div class="vibe-card" style="margin-top: 10px; padding: 8px 12px; font-size: 0.65em; background: #fff9e9; border: 2px solid #1c1b17;">
+                <i class="fa-solid fa-lightbulb" style="color: var(--accent-orange);"></i> <strong>小贴士：</strong> 终端输入 <code>/</code> 即可快速触发命令自动补全面板。
+              </div>
             </div>
 
+            <!-- 右侧：settings.json 权限机制与文字说明 -->
             <div>
-              <h3><i class="fa-solid fa-shield-halved list-item-icon"></i> 权限分级配置规范</h3>
-              <pre><code class="language-json">{
+              <h3 style="font-size: 1.05em; margin-bottom: 10px;"><i class="fa-solid fa-shield-halved list-item-icon"></i> <code>settings.json</code> 权限安全体系</h3>
+
+              <div class="vibe-card" style="padding: 10px 12px; background: #fff9e9; border: 2px solid #1c1b17; font-size: 0.68em; margin-bottom: 10px;">
+                <h4 style="font-size: 0.88em; margin-bottom: 4px; color: #1c1b17;">
+                  <i class="fa-solid fa-lock" style="color: var(--accent-blue);"></i> 三级安全控制策略 (Allow / Ask / Deny)
+                </h4>
+                <ul style="line-height: 1.45; margin-left: 1.2em; color: var(--text-bright);">
+                  <li><strong style="color: var(--accent-green);">allow (无感放行)：</strong> 自动放行只读或安全单测指令。</li>
+                  <li><strong style="color: var(--accent-orange);">ask (人类审判)：</strong> 文件写操作与关键提交需手动二次确认。</li>
+                  <li><strong style="color: var(--accent-red);">deny (高危红线)：</strong> 破坏性删除与敏感文件读取强行拦截。</li>
+                </ul>
+              </div>
+
+              <pre style="margin: 0; font-size: 0.62em;"><code class="language-json">{
   "permissions": {
     "allow": [
       "read:*",
-      "exec:npm test"
+      "exec:npm test",
+      "exec:git status"
     ],
     "ask": [
       "write:*",
@@ -1151,154 +1784,326 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
     ]
   }
 }</code></pre>
+
+              <div class="vibe-card" style="margin-top: 8px; padding: 8px 12px; font-size: 0.65em; background: #a9c8df; border: 2px solid #1c1b17;">
+                <i class="fa-solid fa-circle-info"></i> <strong>配置文件路径：</strong> macOS/Linux 为 <code>~/.claude/settings.json</code>。
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- 4.5 符号系统与 Token 优化 -->
-        <section>
-          <h2>符号系统与 Token 消耗应对指南</h2>
-          <div class="grid-2">
+        <!-- 4.6 快捷符号体系与 Agent 终端交互全指南 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px;">快捷符号体系与 Agent 终端交互指南</h2>
+
+          <div class="grid-3" style="gap: 16px; align-items: stretch;">
+
+            <!-- 板块 1: 5 大核心快捷符号体系卡片列表 -->
             <div>
-              <h3><i class="fa-solid fa-icons list-item-icon"></i> 快捷符号系统表</h3>
-              <table class="vibe-table">
-                <tr><th>符号</th><th>名称</th><th>用途示例</th></tr>
-                <tr><td><code>/</code></td><td>Slash 命令</td><td><code>/plan</code> 开启方案规划</td></tr>
-                <tr><td><code>@</code></td><td>At 引用</td><td><code>@src/app.tsx</code> 引用目标文件</td></tr>
-                <tr><td><code>!</code></td><td>Bang 模式</td><td><code>!npm test</code> 强制执行终端指令</td></tr>
-                <tr><td><code>&amp;</code></td><td>后台运行</td><td><code>&amp;npm run dev</code> 后台启动服务</td></tr>
-              </table>
+              <h3 style="font-size: 0.95em; margin-bottom: 10px;"><i class="fa-solid fa-icons list-item-icon"></i> 核心快捷符号体系</h3>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+
+                <div class="plugin-item" style="padding: 8px 12px; background: #fff9e9;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.85em; color: #1c1b17;">
+                      <code style="background: #f8c96d; color: #1c1b17; padding: 2px 6px;">/</code> Slash 系统指令
+                    </div>
+                    <div style="font-size: 0.72em; color: var(--text-muted); margin-top: 2px;">
+                      触发 <code>/plan</code> 方案设计、<code>/compact</code> 压缩记忆与 <code>/review</code> 审计。
+                    </div>
+                  </div>
+                </div>
+
+                <div class="plugin-item" style="padding: 8px 12px; background: #fff9e9;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.85em; color: #1c1b17;">
+                      <code style="background: #a9c8df; color: #1c1b17; padding: 2px 6px;">@</code> At 上下文精确定位
+                    </div>
+                    <div style="font-size: 0.72em; color: var(--text-muted); margin-top: 2px;">
+                      精准加载文件/代码行上下文（如 <code>@src/user.ts#L10-L30</code>），避开全库扫描。
+                    </div>
+                  </div>
+                </div>
+
+                <div class="plugin-item" style="padding: 8px 12px; background: #fff9e9;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.85em; color: #1c1b17;">
+                      <code style="background: #f3b1a2; color: #1c1b17; padding: 2px 6px;">!</code> Bang 强制终端命令
+                    </div>
+                    <div style="font-size: 0.72em; color: var(--text-muted); margin-top: 2px;">
+                      强制要求 Agent 立即执行系统 Shell 指令（如 <code>!npm test</code>）并抓取终端日志。
+                    </div>
+                  </div>
+                </div>
+
+                <div class="plugin-item" style="padding: 8px 12px; background: #fff9e9;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.85em; color: #1c1b17;">
+                      <code style="background: #b9dec5; color: #1c1b17; padding: 2px 6px;">&amp;</code> Async 后台进程启动
+                    </div>
+                    <div style="font-size: 0.72em; color: var(--text-muted); margin-top: 2px;">
+                      后台守护式运行常驻服务（如 <code>&amp;npm run dev</code>），不阻塞当前交互。
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
 
+            <!-- 板块 2: 高效键盘快捷键与流控打断 -->
             <div>
-              <h3><i class="fa-solid fa-gauge-high list-item-icon"></i> Token 跑太快？4步防爆指南</h3>
-              <ol style="font-size: 0.8em; line-height: 1.8; color: var(--text-bright);">
-                <li>输入 <code>/context</code> 实时查看 Token 占用率（>70% 即需清理）</li>
-                <li>避免无脑使用 <code>@codebase</code>，只精准输入具体文件名</li>
-                <li>自建专用 Skill 脚手架，避免重复喂入说明文档</li>
-                <li>配合 <code>codegraph</code> 插件按函数节点精简引入上下文</li>
-              </ol>
+              <h3 style="font-size: 0.95em; margin-bottom: 10px;"><i class="fa-solid fa-keyboard list-item-icon"></i> 终端快捷控制心法</h3>
+
+              <div class="vibe-card" style="padding: 12px; background: #fff9e9; border: 2px solid #1c1b17; font-size: 0.72em;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+
+                  <div>
+                    <span class="badge badge-orange" style="font-size: 0.8em; padding: 2px 6px;">Tab 键</span>
+                    <strong style="color: #1c1b17; margin-left: 6px;">路径与命令自动补全</strong>
+                    <p style="margin: 2px 0 0; color: var(--text-muted); font-size: 0.9em;">输入路径或 <code>/</code> 时快速按 Tab 智能匹配补全目标。</p>
+                  </div>
+
+                  <div>
+                    <span class="badge badge-red" style="font-size: 0.8em; padding: 2px 6px;">Esc 键</span>
+                    <strong style="color: #1c1b17; margin-left: 6px;">思路偏离及时打断</strong>
+                    <p style="margin: 2px 0 0; color: var(--text-muted); font-size: 0.9em;">当发现 Agent 思考死循环或方向偏离时迅速中断思维。</p>
+                  </div>
+
+                  <div>
+                    <span class="badge badge-blue" style="font-size: 0.8em; padding: 2px 6px;">Shift + Enter</span>
+                    <strong style="color: #1c1b17; margin-left: 6px;">录入多行结构化 Prompt</strong>
+                    <p style="margin: 2px 0 0; color: var(--text-muted); font-size: 0.9em;">方便换行分段，编写带角色、上下文与约束的黄金提示词。</p>
+                  </div>
+
+                  <div>
+                    <span class="badge badge-purple" style="font-size: 0.8em; padding: 2px 6px;">Ctrl + C</span>
+                    <strong style="color: #1c1b17; margin-left: 6px;">终止前/后台运行进程</strong>
+                    <p style="margin: 2px 0 0; color: var(--text-muted); font-size: 0.9em;">强制终止终端耗时死锁任务，释放本地系统 CPU 资源。</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- 板块 3: 终端仿真交互实操示范 -->
+            <div>
+              <h3 style="font-size: 0.95em; margin-bottom: 10px;"><i class="fa-solid fa-terminal list-item-icon"></i> 终端综合交互实操示范</h3>
+
+              <div class="tree-container" style="max-height: none; padding: 12px; font-size: 0.6em;">
+                <div style="color: #f5d363; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 4px; margin-bottom: 8px;">
+                  <i class="fa-solid fa-code"></i> CLI Agent 极速交互控制台
+                </div>
+                <pre style="margin: 0; background: transparent; border: 0; box-shadow: none; padding: 0;"><code class="language-bash"># 1. 使用 /plan 开启复杂任务规划模式
+&gt; /plan 依据 @src/types/auth.ts 重构登录 API
+
+# 2. 强制要求 Agent 执行单测捕获 Traceback
+&gt; !npm test -- --grep "auth"
+
+# 3. 后台守护运行 Dev 开发服务器
+&gt; &amp;npm run dev
+
+# 4. 实时诊断上下文占用与费用
+&gt; /context
+
+# 5. 完成独立 Feature 后重置干净状态
+&gt; /clear</code></pre>
+              </div>
+
+              <div class="vibe-card" style="margin-top: 8px; padding: 8px 10px; font-size: 0.62em; background: #b9dec5; border: 2px solid #1c1b17;">
+                <i class="fa-solid fa-circle-check"></i> <strong>实战法则：</strong> 符号配合极速热键，可提升 3 倍以上的 CLI 交互效率！
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 4.7 Token 消耗防爆与成本控制全指南 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px;">Token 消耗防爆与成本控制指南</h2>
+          <div class="grid-3" style="gap: 14px; align-items: stretch;">
+
+            <!-- 1. 模型选择 & settings.json 配置 -->
+            <div class="vibe-card" style="padding: 12px 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <h4 style="font-size: 0.82em; margin-bottom: 6px; color: #1c1b17;">
+                <i class="fa-solid fa-sliders" style="color: var(--accent-blue);"></i> 1. 模型选择与配置降本
+              </h4>
+              <ul style="font-size: 0.65em; line-height: 1.5; color: var(--text-bright); margin-left: 1.1em;">
+                <li><strong>动态分层调度：</strong> 简单修改用轻模型（Haiku/GLM-4.7），复杂重构再用 Opus/GLM-5.2。</li>
+                <li><strong>设置窗口截断：</strong> <code>settings.json</code> 配置 <code>CLAUDE_CODE_AUTO_COMPACT_WINDOW</code>。</li>
+                <li><strong>禁用无用流量：</strong> 开启 <code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC</code>。</li>
+              </ul>
+            </div>
+
+            <!-- 2. 上下文工程优化 -->
+            <div class="vibe-card" style="padding: 12px 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <h4 style="font-size: 0.82em; margin-bottom: 6px; color: #1c1b17;">
+                <i class="fa-solid fa-filter" style="color: var(--accent-green);"></i> 2. 上下文工程精细化
+              </h4>
+              <ul style="font-size: 0.65em; line-height: 1.5; color: var(--text-bright); margin-left: 1.1em;">
+                <li><strong>配置 .claudeignore：</strong> 屏蔽 <code>node_modules</code>、<code>dist</code> 及日志文件，防止全量扫描。</li>
+                <li><strong>及时 /compact 压缩：</strong> 内存占用 >70% 时执行 <code>/compact</code> 压缩历史记忆。</li>
+                <li><strong>单任务单会话：</strong> 完成独立任务后输入 <code>/clear</code> 恢复干净初始状态。</li>
+              </ul>
+            </div>
+
+            <!-- 3. @ 精准引用原则 -->
+            <div class="vibe-card" style="padding: 12px 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <h4 style="font-size: 0.82em; margin-bottom: 6px; color: #1c1b17;">
+                <i class="fa-solid fa-at" style="color: var(--accent-orange);"></i> 3. 拒绝无脑 @codebase
+              </h4>
+              <ul style="font-size: 0.65em; line-height: 1.5; color: var(--text-bright); margin-left: 1.1em;">
+                <li><strong>避免滥用全量索引：</strong> 慎用 <code>@codebase</code>，防止一次性将整仓代码全量投喂。</li>
+                <li><strong>精准指定目标文件：</strong> 只 <code>@</code> 修改涉及的具体文件或符号（如 <code>@user.ts#L20-L50</code>）。</li>
+                <li><strong>聚焦核心 Context：</strong> 用最精准的代码行支撑 Prompt 需求意图。</li>
+              </ul>
+            </div>
+
+            <!-- 4. 不滥用 Skill -->
+            <div class="vibe-card" style="padding: 12px 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <h4 style="font-size: 0.82em; margin-bottom: 6px; color: #1c1b17;">
+                <i class="fa-solid fa-boxes-stacked" style="color: var(--accent-purple);"></i> 4. 按需加载，不滥用 Skill
+              </h4>
+              <ul style="font-size: 0.65em; line-height: 1.5; color: var(--text-bright); margin-left: 1.1em;">
+                <li><strong>避免全局堆叠 Skill：</strong> Skill 初始化会占据上下文，避免根目录滥装大量全局技能包。</li>
+                <li><strong>保持 SKILL.md 精炼：</strong> 技能指导文档保持极致简练，只写 Step 与规则模板。</li>
+                <li><strong>隔离模块使用：</strong> 归类到特定子模块插件下按需隐式或显式召唤。</li>
+              </ul>
+            </div>
+
+            <!-- 5. CodeGraph / AST 依赖图谱 -->
+            <div class="vibe-card" style="padding: 12px 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <h4 style="font-size: 0.82em; margin-bottom: 6px; color: #1c1b17;">
+                <i class="fa-solid fa-network-wired" style="color: var(--accent-blue);"></i> 5. 配合 CodeGraph 裁剪 AST
+              </h4>
+              <ul style="font-size: 0.65em; line-height: 1.5; color: var(--text-bright); margin-left: 1.1em;">
+                <li><strong>按函数节点精简：</strong> 借助 CodeGraph MCP 只引入关心的 Callers/Callees 函数链。</li>
+                <li><strong>切碎大文件依赖：</strong> 消除无关定义与大文件噪音，提升大模型理解准确度。</li>
+                <li><strong>结构化依赖分层：</strong> 以最小代价值传递精准上下文节点。</li>
+              </ul>
+            </div>
+
+            <!-- 6. 监控与指标度量 -->
+            <div class="vibe-card" style="padding: 12px 14px; background: #b9dec5; border: 2px solid #1c1b17;">
+              <h4 style="font-size: 0.82em; margin-bottom: 6px; color: #1c1b17;">
+                <i class="fa-solid fa-chart-line" style="color: #1c1b17;"></i> 6. 实时监控与成本度量
+              </h4>
+              <ul style="font-size: 0.65em; line-height: 1.5; color: #1c1b17; margin-left: 1.1em;">
+                <li><strong>使用 /context 诊断：</strong> 养成长对话中输入 <code>/context</code> 查看占用和费用的习惯。</li>
+                <li><strong>设置 API 超时门限：</strong> 在 <code>settings.json</code> 设置 <code>API_TIMEOUT_MS</code>。</li>
+                <li><strong>单任务单目标：</strong> 专注单一任务，避免多目标发散造成 Token 浪费。</li>
+              </ul>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 4.8 10 大 VibeCoding 实战黄金法则 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">10 大 VibeCoding 实战黄金法则</h2>
+          <div class="grid-2" style="font-size: 0.85em; gap: 14px; align-items: stretch;">
+            <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-code-commit list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">1. 小步快跑，频繁 Commit：</strong> 生成可用片段即提交，方便快捷 Rollback。</div>
+            <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-eye list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">2. 永远 Review 代码：</strong> 绝不盲目 Accept，警惕潜在逻辑 Bug。</div>
+            <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-bullseye list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">3. 上下文越精准结果越好：</strong> 拒绝长篇大论，仅提供关心的代码行。</div>
+            <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-brain list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">4. 主动管理 Memory 窗口：</strong> 定期使用 /compact 压缩无用对话。</div>
+            <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-vial list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">5. 让 AI 写单测 ROI 最高：</strong> 用自动化测试帮 AI 验证生成的代码。</div>
+            <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-diagram-project list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">6. 复杂逻辑先画图：</strong> 先生成 Mermaid 图或伪代码，再转真实实现。</div>
+            <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-circle-question list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">7. 保持批判怀疑：</strong> AI 会极其自信地犯错，必须验证断言。</div>
+            <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-code-compare list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">8. 善用 Git Diff 视图：</strong> 逐行审查红绿变动，避免引入“附赠修改”。</div>
+            <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-book list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">9. 沉淀团队 Prompt 库：</strong> 优秀 Prompt 是团队重要的数字资产。</div>
+            <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-rocket list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">10. AI 是加速器而非替代品：</strong> 核心业务架构与安全仍由人类掌控。</div>
+          </div>
+        </section>
+
+        <!-- 4.9 常见踩坑案例分析 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">常见踩坑案例分析 (Real Stories)</h2>
+          <div class="grid-3" style="gap: 16px; align-items: stretch;">
+            <div class="vibe-card" style="padding: 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <span class="badge badge-red">案例 1: 幻觉包注入</span>
+              <h4 style="margin: 10px 0 6px; font-size: 0.95em; color: #1c1b17;">“引用了不存在的 npm 包”</h4>
+              <p style="font-size: 0.75em; color: #1c1b17; line-height: 1.45; margin: 0;">
+                <strong>事故：</strong> AI 自信地 <code>import { cryptoTool } from 'express-secure-utils'</code>，该包系幻觉生成，黑客投毒后导致供应链安全隐患。
+                <br><br>
+                <strong style="color: var(--accent-green);"><i class="fa-solid fa-shield-halved"></i> 解法：</strong> 开启 Lint 检验并强制运行 <code>npm install</code> 检查源合法性。
+              </p>
+            </div>
+
+            <div class="vibe-card" style="padding: 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <span class="badge badge-orange">案例 2: 上下文污染</span>
+              <h4 style="margin: 10px 0 6px; font-size: 0.95em; color: #1c1b17;">“越改 Bug 越多陷入死循环”</h4>
+              <p style="font-size: 0.75em; color: #1c1b17; line-height: 1.45; margin: 0;">
+                <strong>事故：</strong> 带着 50 轮对话错误日志继续提问，AI 不断拆东墙补西墙。
+                <br><br>
+                <strong style="color: var(--accent-green);"><i class="fa-solid fa-arrows-rotate"></i> 解法：</strong> 及时 <code>/clear</code> 重置会话，重新梳理最精简上下文发问。
+              </p>
+            </div>
+
+            <div class="vibe-card" style="padding: 14px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <span class="badge badge-purple">案例 3: 一步到位越界</span>
+              <h4 style="margin: 10px 0 6px; font-size: 0.95em; color: #1c1b17;">“一口气重构整个项目”</h4>
+              <p style="font-size: 0.75em; color: #1c1b17; line-height: 1.45; margin: 0;">
+                <strong>事故：</strong> 要求“把整个项目从 JS 改为 TS”，导致修改了 80 个文件，无法通过 Review。
+                <br><br>
+                <strong style="color: var(--accent-green);"><i class="fa-solid fa-list-check"></i> 解法：</strong> 使用 <code>/plan</code> 拆解为 10 个独立子 Task 分批推进。
+              </p>
             </div>
           </div>
         </section>
       </section>
 
       <!-- ==================================================================== -->
-      <!-- 第 5 章：心得体会与避坑指南                                           -->
+      <!-- 第 5 章：项目实战经验                                                 -->
       <!-- ==================================================================== -->
       <section>
         <!-- 5.0 过渡页 -->
         <section class="section-transition">
           <div class="section-badge">CHAPTER 05</div>
-          <h2 class="section-title-large">心得体会与避坑指南</h2>
-          <p style="color: var(--text-muted);">前辈踩坑经验总结：让 AI 成为真正的效率飞轮</p>
+          <h2 class="section-title-large">项目实战经验</h2>
+          <p style="color: #1c1b17; font-size: 1.1em; margin-top: 15px;">
+            案例：长江电力新一代生产经营管理系统 <a href="https://prototype.wanghuanlab.com" target="_blank" style="color: var(--accent-blue); font-weight: 800; text-decoration: underline;">https://prototype.wanghuanlab.com</a> 多人协作构建 500+ 页面管理系统
+          </p>
         </section>
 
-        <!-- 5.1 10 大使用心得 -->
-        <section>
-          <h2>10 大 VibeCoding 实战黄金法则</h2>
-          <div class="grid-2" style="font-size: 0.8em; gap: 14px;">
-            <div class="vibe-card"><i class="fa-solid fa-code-commit list-item-icon"></i><strong>1. 小步快跑，频繁 Commit：</strong> 生成可用片段即提交，方便快捷 Rollback。</div>
-            <div class="vibe-card"><i class="fa-solid fa-eye list-item-icon"></i><strong>2. 永远 Review 代码：</strong> 绝不盲目 Accept，警惕潜在逻辑 Bug。</div>
-            <div class="vibe-card"><i class="fa-solid fa-bullseye list-item-icon"></i><strong>3. 上下文越精准结果越好：</strong> 拒绝长篇大论，仅提供关心的代码行。</div>
-            <div class="vibe-card"><i class="fa-solid fa-brain list-item-icon"></i><strong>4. 主动管理 Memory 窗口：</strong> 定期使用 /compact 压缩无用对话。</div>
-            <div class="vibe-card"><i class="fa-solid fa-vial list-item-icon"></i><strong>5. 让 AI 写单测 ROI 最高：</strong> 用自动化测试帮 AI 验证生成的代码。</div>
-            <div class="vibe-card"><i class="fa-solid fa-diagram-project list-item-icon"></i><strong>6. 复杂逻辑先画图：</strong> 先生成 Mermaid 图或伪代码，再转真实实现。</div>
-            <div class="vibe-card"><i class="fa-solid fa-circle-question list-item-icon"></i><strong>7. 保持批判怀疑：</strong> AI 会极其自信地犯错，必须验证断言。</div>
-            <div class="vibe-card"><i class="fa-solid fa-code-compare list-item-icon"></i><strong>8. 善用 Git Diff 视图：</strong> 逐行审查红绿变动，避免引入“附赠修改”。</div>
-            <div class="vibe-card"><i class="fa-solid fa-book list-item-icon"></i><strong>9. 沉淀团队 Prompt 库：</strong> 优秀 Prompt 是团队重要的数字资产。</div>
-            <div class="vibe-card"><i class="fa-solid fa-rocket list-item-icon"></i><strong>10. AI 是加速器而非替代品：</strong> 核心业务架构与安全仍由人类掌控。</div>
-          </div>
-        </section>
-
-        <!-- 5.2 踩坑案例故事 -->
-        <section>
-          <h2>常见踩坑案例分析 (Real Stories)</h2>
-          <div class="grid-3" style="margin-top: 30px;">
-            <div class="vibe-card">
-              <span class="badge badge-red">案例 1: 幻觉包注入</span>
-              <h4 style="margin: 10px 0; font-size: 1em;">“引用了不存在的 npm 包”</h4>
-              <p style="font-size: 0.75em; color: var(--text-muted);">
-                <strong>事故：</strong> AI 自信地 <code>import { cryptoTool } from 'express-secure-utils'</code>，该包系幻觉生成，黑客投毒后导致供应链安全隐患。
-                <br><br>
-                <strong style="color: var(--accent-green);">解法：</strong> 开启 Lint 检验并强制运行 <code>npm install</code> 检查源合法性。
-              </p>
-            </div>
-
-            <div class="vibe-card">
-              <span class="badge badge-orange">案例 2: 上下文污染</span>
-              <h4 style="margin: 10px 0; font-size: 1em;">“越改 Bug 越多陷入死循环”</h4>
-              <p style="font-size: 0.75em; color: var(--text-muted);">
-                <strong>事故：</strong> 带着 50 轮对话错误日志继续提问，AI 不断拆东墙补西墙。
-                <br><br>
-                <strong style="color: var(--accent-green);">解法：</strong> 及时 <code>/clear</code> 重置会话，重新梳理最精简的上下文再次发问。
-              </p>
-            </div>
-
-            <div class="vibe-card">
-              <span class="badge badge-purple">案例 3: 一步到位越界</span>
-              <h4 style="margin: 10px 0; font-size: 1em;">“一口气重构整个项目”</h4>
-              <p style="font-size: 0.75em; color: var(--text-muted);">
-                <strong>事故：</strong> 要求“把整个项目从 JS 改为 TS”，导致修改了 80 个文件，无法通过 Review。
-                <br><br>
-                <strong style="color: var(--accent-green);">解法：</strong> 使用 <code>/plan</code> 拆解为 10 个独立子 Task 分批推进。
-              </p>
-            </div>
-          </div>
-        </section>
-      </section>
-
-      <!-- ==================================================================== -->
-      <!-- 第 6 章：项目实战演示                                                 -->
-      <!-- ==================================================================== -->
-      <section>
-        <!-- 6.0 过渡页 -->
-        <section class="section-transition">
-          <div class="section-badge">CHAPTER 06</div>
-          <h2 class="section-title-large">项目实战演示</h2>
-          <p style="color: var(--text-muted);">从零构建内部 API 管理平台：端到端工作流解析</p>
-        </section>
-
-        <!-- 6.1 5步流程拆解 -->
-        <section>
-          <h2>实战拆解：构建 API 管理平台 5 步法</h2>
-          <div class="grid-5" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 30px;">
-            <div class="vibe-card" style="padding: 15px; text-align: center;">
+        <!-- 5.1 5步流程拆解 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px;">实战拆解：构建 API 管理平台 5 步法</h2>
+          <div class="grid-5" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 20px;">
+            <div class="vibe-card" style="padding: 15px; text-align: center; border: 2px solid #1c1b17; background: #fff9e9;">
               <span class="badge badge-blue">STEP 1</span>
-              <h5 style="margin: 10px 0;">需求拆解</h5>
-              <p style="font-size: 0.7em; color: var(--text-muted);">输出 PRD 文本与核心数据结构 Schema</p>
+              <h5 style="margin: 10px 0; color: #1c1b17;">需求拆解</h5>
+              <p style="font-size: 0.7em; color: #1c1b17;">输出 PRD 文本与核心数据结构 Schema</p>
             </div>
 
-            <div class="vibe-card" style="padding: 15px; text-align: center;">
+            <div class="vibe-card" style="padding: 15px; text-align: center; border: 2px solid #1c1b17; background: #fff9e9;">
               <span class="badge badge-purple">STEP 2</span>
-              <h5 style="margin: 10px 0;">架构设计</h5>
-              <p style="font-size: 0.7em; color: var(--text-muted);">调用 /plan 生成目录结构与技术选型</p>
+              <h5 style="margin: 10px 0; color: #1c1b17;">架构设计</h5>
+              <p style="font-size: 0.7em; color: #1c1b17;">调用 /plan 生成目录结构与技术选型</p>
             </div>
 
-            <div class="vibe-card" style="padding: 15px; text-align: center;">
+            <div class="vibe-card" style="padding: 15px; text-align: center; border: 2px solid #1c1b17; background: #fff9e9;">
               <span class="badge badge-orange">STEP 3</span>
-              <h5 style="margin: 10px 0;">模块开发</h5>
-              <p style="font-size: 0.7em; color: var(--text-muted);">逐个模块 Prompt 驱动生成增量代码</p>
+              <h5 style="margin: 10px 0; color: #1c1b17;">模块开发</h5>
+              <p style="font-size: 0.7em; color: #1c1b17;">逐个模块 Prompt 驱动生成增量代码</p>
             </div>
 
-            <div class="vibe-card" style="padding: 15px; text-align: center;">
+            <div class="vibe-card" style="padding: 15px; text-align: center; border: 2px solid #1c1b17; background: #fff9e9;">
               <span class="badge badge-red">STEP 4</span>
-              <h5 style="margin: 10px 0;">联调 Debug</h5>
-              <p style="font-size: 0.7em; color: var(--text-muted);">把报错堆栈自动化投喂给 Agent 修复</p>
+              <h5 style="margin: 10px 0; color: #1c1b17;">联调 Debug</h5>
+              <p style="font-size: 0.7em; color: #1c1b17;">把报错堆栈自动化投喂给 Agent 修复</p>
             </div>
 
-            <div class="vibe-card" style="padding: 15px; text-align: center;">
+            <div class="vibe-card" style="padding: 15px; text-align: center; border: 2px solid #1c1b17; background: #fff9e9;">
               <span class="badge badge-green">STEP 5</span>
-              <h5 style="margin: 10px 0;">文档输出</h5>
-              <p style="font-size: 0.7em; color: var(--text-muted);">自动生成 Swagger / OpenAPI 及 README</p>
+              <h5 style="margin: 10px 0; color: #1c1b17;">文档输出</h5>
+              <p style="font-size: 0.7em; color: #1c1b17;">自动生成 Swagger / OpenAPI 及 README</p>
             </div>
           </div>
         </section>
 
-        <!-- 6.2 关键 Prompt 示例 -->
-        <section>
-          <h2>关键 Prompt 示例：架构设计与模块生成</h2>
-          <pre><code class="language-markdown"># Step 2: 架构设计 Prompt 示例
+        <!-- 5.2 关键 Prompt 示例 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px;">关键 Prompt 示例：架构设计与模块生成</h2>
+          <pre style="border: 2px solid #1c1b17;"><code class="language-markdown"># Step 2: 架构设计 Prompt 示例
 /plan 请为拟建的 API 管理平台设计后端架构：
 1. 技术选型：Node.js + Express + Prisma ORM + PostgreSQL
 2. 包含模块：用户鉴权、API 路由代理、调用日志审计、Mock 数据生成器
@@ -1310,16 +2115,16 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
 根据输入的 JSON Schema，使用 @faker-js/faker 动态产生伪造数据，要求支持中文姓名与手机号。</code></pre>
         </section>
 
-        <!-- 6.3 效率对比数据 -->
-        <section>
-          <h2>实战结果：开发耗时显著对比</h2>
-          <table class="vibe-table" style="margin-top: 30px;">
+        <!-- 5.3 效率对比数据 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px;">实战结果：开发耗时显著对比</h2>
+          <table class="vibe-table" style="margin-top: 20px; border: 2px solid #1c1b17;">
             <thead>
               <tr>
-                <th>阶段环节</th>
-                <th>传统开发耗时</th>
-                <th>VibeCoding 耗时</th>
-                <th>提效幅度</th>
+                <th style="color: #1c1b17;">阶段环节</th>
+                <th style="color: #1c1b17;">传统开发耗时</th>
+                <th style="color: #1c1b17;">VibeCoding 耗时</th>
+                <th style="color: #1c1b17;">提效幅度</th>
               </tr>
             </thead>
             <tbody>
@@ -1350,51 +2155,39 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
             </tbody>
           </table>
         </section>
-      </section>
 
-      <!-- ==================================================================== -->
-      <!-- 第 7 章：风格统一与规范化                                             -->
-      <!-- ==================================================================== -->
-      <section>
-        <!-- 7.0 过渡页 -->
-        <section class="section-transition">
-          <div class="section-badge">CHAPTER 07</div>
-          <h2 class="section-title-large">风格统一与规范化 (USP)</h2>
-          <p style="color: var(--text-muted);">团队协作标准化：如何遏制 AI 代码风格脱缰</p>
-        </section>
-
-        <!-- 7.1 USP 介绍 -->
-        <section>
-          <h2>为什么需要统一风格提示词体系 (USP)？</h2>
-          <p style="font-size: 0.85em; color: var(--text-muted);">
+        <!-- 5.4 为什么需要统一风格提示词体系 (USP)？ -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">为什么需要统一风格提示词体系 (USP)？</h2>
+          <p style="font-size: 0.85em; color: #1c1b17; margin-bottom: 15px;">
             无约束的 AI 生成会导致代码极其混乱：有的写 <code>async/await</code>，有的写 <code>.then()</code>；缩进 2 字符与 4 字符混杂。
           </p>
 
-          <div class="quote-card fragment" style="margin: 25px 0;">
+          <div class="vibe-card" style="margin: 15px 0; padding: 12px 18px; background: #fff9e9; border: 2px solid #1c1b17; font-size: 0.8em; color: #1c1b17;">
             <strong>USP (Unified Style Prompt) 核心理念：</strong> 将团队的编码规范、设计模式与架构禁忌“硬编码”为 AI 可识别的提示词规则资产。<br>
-            官方参考资源站点：<a href="http://usp.wanghuanlab.com/" target="_blank" style="color: var(--accent-blue);">http://usp.wanghuanlab.com/</a>
+            官方参考资源站点：<a href="http://usp.wanghuanlab.com/" target="_blank" style="color: var(--accent-blue); font-weight: bold;">http://usp.wanghuanlab.com/</a>
           </div>
 
-          <div class="grid-3">
-            <div class="vibe-card fragment">
-              <h4><i class="fa-solid fa-file-code list-item-icon"></i> 规则文件落地</h4>
-              <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 8px;">统一在团队模版中配置 <code>.cursorrules</code> 与 <code>CLAUDE.md</code>。</p>
+          <div class="grid-3" style="gap: 14px;">
+            <div class="vibe-card" style="padding: 12px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <h4 style="font-size: 0.9em; color: #1c1b17;"><i class="fa-solid fa-file-code" style="color: #1c1b17; margin-right: 6px;"></i> 规则文件落地</h4>
+              <p style="font-size: 0.75em; color: #1c1b17; margin-top: 6px;">统一在团队模版中配置 <code>.cursorrules</code> 与 <code>CLAUDE.md</code>。</p>
             </div>
-            <div class="vibe-card fragment">
-              <h4><i class="fa-solid fa-code-merge list-item-icon"></i> CI/CD 自动拦截</h4>
-              <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 8px;">结合 ESLint 与 Prettier 进行末端打底保护。</p>
+            <div class="vibe-card" style="padding: 12px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <h4 style="font-size: 0.9em; color: #1c1b17;"><i class="fa-solid fa-code-merge" style="color: #1c1b17; margin-right: 6px;"></i> CI/CD 自动拦截</h4>
+              <p style="font-size: 0.75em; color: #1c1b17; margin-top: 6px;">结合 ESLint 与 Prettier 进行末端打底保护。</p>
             </div>
-            <div class="vibe-card fragment">
-              <h4><i class="fa-solid fa-boxes-packing list-item-icon"></i> 共享 Prompt 库</h4>
-              <p style="font-size: 0.75em; color: var(--text-muted); margin-top: 8px;">建立 Git 子模块管理团队通用的业务 Prompt 规范。</p>
+            <div class="vibe-card" style="padding: 12px; background: #fff9e9; border: 2px solid #1c1b17;">
+              <h4 style="font-size: 0.9em; color: #1c1b17;"><i class="fa-solid fa-boxes-packing" style="color: #1c1b17; margin-right: 6px;"></i> 共享 Prompt 库</h4>
+              <p style="font-size: 0.75em; color: #1c1b17; margin-top: 6px;">建立 Git 子模块管理团队通用的业务 Prompt 规范。</p>
             </div>
           </div>
         </section>
 
-        <!-- 7.2 团队规范配置模版 -->
-        <section>
-          <h2>团队标准配置文件示例 (CLAUDE.md)</h2>
-          <pre><code class="language-markdown"># 项目规范与记忆指南 (USP 体系)
+        <!-- 5.5 团队规范配置模版 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">团队标准配置文件示例 (CLAUDE.md)</h2>
+          <pre style="border: 2px solid #1c1b17; font-size: 0.68em;"><code class="language-markdown"># 项目规范与记忆指南 (USP 体系)
 
 ## 1. 基础原则
 - 语言：TypeScript (Strict 模式)
@@ -1413,17 +2206,17 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
       </section>
 
       <!-- ==================================================================== -->
-      <!-- 第 8 章：AI 引入导致的流程坍缩                                       -->
+      <!-- 第 6 章：AI 引入导致的流程坍缩                                       -->
       <!-- ==================================================================== -->
       <section>
-        <!-- 8.0 过渡页 -->
+        <!-- 6.0 过渡页 -->
         <section class="section-transition">
-          <div class="section-badge">CHAPTER 08</div>
+          <div class="section-badge">CHAPTER 06</div>
           <h2 class="section-title-large">AI 引入导致的流程坍缩</h2>
           <p style="color: var(--text-muted);">理性看待：传统研发流程边界的模糊与重新融合</p>
         </section>
 
-        <!-- 8.1 流程坍缩定义 -->
+        <!-- 6.1 流程坍缩定义 -->
         <section>
           <h2>什么是“研发流程坍缩”？</h2>
           <div class="grid-2" style="margin-top: 30px;">
@@ -1466,7 +2259,7 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
           </div>
         </section>
 
-        <!-- 8.2 机遇与挑战表格 -->
+        <!-- 6.2 机遇与挑战表格 -->
         <section>
           <h2>流程坍缩带来的机遇与挑战</h2>
           <table class="vibe-table" style="margin-top: 25px;">
@@ -1504,17 +2297,17 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
       </section>
 
       <!-- ==================================================================== -->
-      <!-- 第 9 章：AI 安全性与隐私保护                                         -->
+      <!-- 第 7 章：AI 安全性与隐私保护                                         -->
       <!-- ==================================================================== -->
       <section>
-        <!-- 9.0 过渡页 -->
+        <!-- 7.0 过渡页 -->
         <section class="section-transition">
-          <div class="section-badge">CHAPTER 09</div>
+          <div class="section-badge">CHAPTER 07</div>
           <h2 class="section-title-large">AI 安全性与隐私保护</h2>
           <p style="color: var(--text-muted);">合规使用：筑牢企业级代码资产与数据安全防线</p>
         </section>
 
-        <!-- 9.1 风险地图与红线 -->
+        <!-- 7.1 风险地图与红线 -->
         <section>
           <h2>企业级使用：安全红线与推荐做法</h2>
           <div class="grid-2" style="margin-top: 30px;">
@@ -1544,7 +2337,7 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
           </div>
         </section>
 
-        <!-- 9.2 工具安全性对比 -->
+        <!-- 7.2 工具安全性对比 -->
         <section>
           <h2>主流工具安全与隐私保护对比表</h2>
           <table class="vibe-table" style="margin-top: 30px;">
@@ -1585,47 +2378,47 @@ export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
       </section>
 
       <!-- ==================================================================== -->
-      <!-- 第 10 章：总结与展望                                                 -->
+      <!-- 第 8 章：总结与展望                                                 -->
       <!-- ==================================================================== -->
       <section>
-        <!-- 10.0 过渡页 -->
+        <!-- 8.0 过渡页 -->
         <section class="section-transition">
-          <div class="section-badge">CHAPTER 10</div>
+          <div class="section-badge">CHAPTER 08</div>
           <h2 class="section-title-large">总结与展望</h2>
-          <p style="color: var(--text-muted);">激发行动：拥抱 AI-Native 时代，立即开启高效工作流</p>
+          <p style="color: var(--text-muted);">Let's Go：拥抱 AI-Native 时代，开启高效工作流</p>
         </section>
 
-        <!-- 10.1 核心要点回顾与行动清单 -->
-        <section>
-          <h2>今天就能做的 3 件事 (Action List)</h2>
-          <div class="grid-3" style="margin-top: 40px;">
-            <div class="vibe-card fragment" style="text-align: center; padding: 30px 20px;">
-              <div style="background: rgba(88, 166, 255, 0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto;">
-                <i class="fa-solid fa-download" style="font-size: 1.8em; color: var(--accent-blue);"></i>
+        <!-- 8.1 VibeCoding 时代工程师的核心竞争力 -->
+        <section style="padding-top: 60px !important;">
+          <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">VibeCoding 时代工程师的核心竞争力</h2>
+          <div class="grid-3" style="gap: 16px; align-items: stretch; margin-top: 25px;">
+            <div class="vibe-card" style="padding: 20px 16px; background: #fff9e9; border: 2px solid #1c1b17; text-align: center;">
+              <div style="background: #a9c8df; width: 50px; height: 50px; border-radius: 50%; border: 2px solid #1c1b17; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto;">
+                <i class="fa-solid fa-compass" style="font-size: 1.4em; color: #1c1b17;"></i>
               </div>
-              <h4>1. 安装配置环境</h4>
-              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
-                全局安装 <code>@anthropic-ai/claude-code</code> 或配置 Cursor，完成第一个小模块生成。
+              <h4 style="color: #1c1b17; font-size: 1em; margin-bottom: 10px;">1. 架构理解与问题拆解力</h4>
+              <p style="font-size: 0.78em; color: #1c1b17; line-height: 1.6; margin: 0;">
+                从“代码撰写者”转变为“系统设计者”。能否把模糊业务需求清晰拆解为可被 AI 执行的具体规则与模块接口，决定了交付上限。
               </p>
             </div>
 
-            <div class="vibe-card fragment" style="text-align: center; padding: 30px 20px;">
-              <div style="background: rgba(63, 185, 80, 0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto;">
-                <i class="fa-solid fa-book-open" style="font-size: 1.8em; color: var(--accent-green);"></i>
+            <div class="vibe-card" style="padding: 20px 16px; background: #fff9e9; border: 2px solid #1c1b17; text-align: center;">
+              <div style="background: #b9dec5; width: 50px; height: 50px; border-radius: 50%; border: 2px solid #1c1b17; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto;">
+                <i class="fa-solid fa-microscope" style="font-size: 1.4em; color: #1c1b17;"></i>
               </div>
-              <h4>2. 阅读 USP 规范</h4>
-              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
-                访问 <a href="http://usp.wanghuanlab.com/" target="_blank" style="color: var(--accent-blue);">usp.wanghuanlab.com</a>，为你的项目建立第一份 <code>CLAUDE.md</code> 规则。
+              <h4 style="color: #1c1b17; font-size: 1em; margin-bottom: 10px;">2. 严苛 Review 与鉴别品味</h4>
+              <p style="font-size: 0.78em; color: #1c1b17; line-height: 1.6; margin: 0;">
+                AI 负责生成海量代码，人类工程师负责最关键的鉴别、安全审查与边界断言。识别潜在逻辑漏洞与幻觉的能力成为核心壁垒。
               </p>
             </div>
 
-            <div class="vibe-card fragment" style="text-align: center; padding: 30px 20px;">
-              <div style="background: rgba(188, 140, 255, 0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto;">
-                <i class="fa-solid fa-note-sticky" style="font-size: 1.8em; color: var(--accent-purple);"></i>
+            <div class="vibe-card" style="padding: 20px 16px; background: #fff9e9; border: 2px solid #1c1b17; text-align: center;">
+              <div style="background: #f8c96d; width: 50px; height: 50px; border-radius: 50%; border: 2px solid #1c1b17; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto;">
+                <i class="fa-solid fa-code-fork" style="font-size: 1.4em; color: #1c1b17;"></i>
               </div>
-              <h4>3. 建立 Prompt 笔记本</h4>
-              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
-                记录日常高频使用的 Debug/重构模板，在团队内部共享交流沉淀。
+              <h4 style="color: #1c1b17; font-size: 1em; margin-bottom: 10px;">3. 上下文工程与规则构建力</h4>
+              <p style="font-size: 0.78em; color: #1c1b17; line-height: 1.6; margin: 0;">
+                懂得如何精细化管理 Context，建立标准化团队规则（如 USP / CLAUDE.md），将领域知识与风格沉淀为可复用的数字资产。
               </p>
             </div>
           </div>
