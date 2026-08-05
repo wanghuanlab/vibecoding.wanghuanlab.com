@@ -32,7 +32,7 @@
    - 传统编码 vs VibeCoding 左右分栏对比、核心理念与流程图、主流工具全景图（CLI / GUI / IDE）、一句话定义。
 3. **第 2 章：VibeCoding 发展历程**
    - 2021~2026 演进时间轴（Copilot -> ChatGPT -> Cursor -> Agent -> MCP 标准化）、GitHub AI 辅助代码占比趋势柱状图。
-4. **第 3 章：环境安装与基础配置**
+4. **第 3 章：VibeCoding 环境安装与配置**
    - 工具类型表格与黄金公式、Claude Code CLI 全局安装、Claude Code + DeepSeek 模型配置示例、扩展插件清单、标准 VibeCoding 工程目录。
 5. **第 4 章：概念发展与实用技巧**
    - 从 Prompt 到 Loop：AI 开发能力进阶四部曲（Prompt -> Context -> Harness -> Loop Engineering）、Prompt 黄金公式与好坏对比、上下文与 Rules 文件配置、常用 Bash/Slash 命令、权限控制及 Token 防爆指南。
