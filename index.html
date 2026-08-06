@@ -585,6 +585,96 @@
       .reveal .slide-number { left: 12px; bottom: 12px; }
     }
 
+    /* Top masthead: turn the illustration into a deliberate editorial frame. */
+    .panorama-band {
+      height: 18vh;
+      opacity: 1;
+      background-image:
+        linear-gradient(180deg, rgba(247,240,220,.14) 0%, rgba(247,240,220,.04) 62%, rgba(247,240,220,.92) 100%),
+        url('assets/vibecoding-panorama.png');
+      background-size: 100% auto;
+      background-position: center 42%;
+      background-repeat: no-repeat;
+      border-bottom: 3px solid #1c1b17;
+    }
+
+    .deck-masthead {
+      position: fixed;
+      top: 20px;
+      left: 34px;
+      right: 34px;
+      z-index: 4;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      pointer-events: none;
+      color: #1c1b17;
+    }
+    .deck-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none !important;
+      color: #1c1b17 !important;
+    }
+    .deck-brand-mark {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #1c1b17;
+      border-radius: 50%;
+      background: #f5d363;
+      box-shadow: 3px 3px 0 #1c1b17;
+      font-family: var(--font-code);
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .deck-brand-copy { display: flex; flex-direction: column; gap: 2px; line-height: 1; }
+    .deck-brand-title { font-family: var(--font-code); font-size: 13px; font-weight: 900; letter-spacing: .08em; }
+    .deck-brand-subtitle { font-size: 10px; font-weight: 700; letter-spacing: .04em; opacity: .72; }
+    .deck-context {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .05em;
+    }
+    .deck-context-label { padding: 6px 10px; background: rgba(255,249,233,.82); border: 2px solid #1c1b17; border-radius: 4px; }
+    .deck-context-rule { width: 52px; height: 3px; background: #1c1b17; }
+    .deck-github {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 13px;
+      color: #fff9e9 !important;
+      background: #1c1b17;
+      border: 2px solid #1c1b17;
+      border-radius: 4px;
+      box-shadow: 3px 3px 0 #e86652;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none !important;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .deck-github:hover { color: #fff9e9 !important; transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #e86652; }
+    .deck-github small { font-family: var(--font-code); font-size: 9px; opacity: .65; }
+    @media (max-width: 900px) {
+      .panorama-band { height: 15vh; background-size: 100% auto; background-position: center 42%; }
+      .deck-masthead { top: 12px; left: 16px; right: 16px; }
+      .deck-brand-subtitle, .deck-context { display: none; }
+      .deck-brand-mark { width: 28px; height: 28px; font-size: 11px; }
+      .deck-brand-title { font-size: 11px; }
+      .deck-github { padding: 6px 9px; font-size: 10px; }
+      .deck-github small { display: none; }
+    }
+
     /* 插件与 MCP 列表美化 */
     .plugin-item-list {
       display: flex;
@@ -752,11 +842,25 @@
   <canvas id="particles-canvas"></canvas>
   <div class="panorama-band" aria-hidden="true"></div>
 
-  <!-- 全局右上角 GitHub 快捷跳转挂件 -->
-  <a href="https://github.com/wanghuanlab/vibecoding.wanghuanlab.com" target="_blank" title="访问 GitHub 源码仓库" style="position: fixed; top: 18px; right: 20px; z-index: 99999; background: #1c1b17; color: #fff9e9; padding: 6px 14px; border-radius: 20px; font-size: 0.75em; font-weight: 700; text-decoration: none; border: 2px solid #1c1b17; box-shadow: 2px 2px 0px var(--accent-purple); display: flex; align-items: center; gap: 6px; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-    <i class="fa-brands fa-github" style="font-size: 1.25em;"></i>
-    <span>GitHub 源码</span>
-  </a>
+  <!-- 全局顶部信息架：品牌、主题和源码入口共同构成首屏锚点 -->
+  <header class="deck-masthead" aria-label="演示文稿信息栏">
+    <a class="deck-brand" href="#/0" aria-label="返回封面">
+      <span class="deck-brand-mark">/&gt;</span>
+      <span class="deck-brand-copy">
+        <span class="deck-brand-title">VIBECODING / 26</span>
+        <span class="deck-brand-subtitle">AI-assisted development field notes</span>
+      </span>
+    </a>
+    <div class="deck-context" aria-hidden="true">
+      <span class="deck-context-label">实战总结 · 08 CHAPTERS</span>
+      <span class="deck-context-rule"></span>
+    </div>
+    <a class="deck-github" href="https://github.com/wanghuanlab/vibecoding.wanghuanlab.com" target="_blank" rel="noopener noreferrer" title="访问 GitHub 源码仓库">
+      <i class="fa-brands fa-github"></i>
+      <span>查看源码</span>
+      <small>↗</small>
+    </a>
+  </header>
 
   <div class="reveal">
     <div class="slides">
