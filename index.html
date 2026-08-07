@@ -545,6 +545,25 @@
     .data-source-note strong { color: #1c1b17; }
     .data-comparison-warning { display: flex; align-items: center; justify-content: center; gap: 8px; max-width: 1260px; margin: 16px auto 0; padding: 8px 12px; color: #1c1b17; background: #f8c96d; border: 2px solid #1c1b17; border-radius: 6px; font-size: .54em; font-weight: 800; line-height: 1.35; text-align: center; }
     .data-comparison-warning i { font-size: 1.15em; }
+    .model-compare-slide { padding-top: 76px !important; }
+    .model-compare-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; max-width: 1260px; margin: 16px auto 0; text-align: left; }
+    .model-lane { padding: 15px 17px; background: #fff9e9; border: 3px solid #1c1b17; border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; }
+    .model-lane.is-global { background: #a9c8df; }
+    .model-lane.is-china { background: #b9dec5; }
+    .model-lane h3 { display: flex; align-items: center; justify-content: space-between; margin: 0 0 11px; font-size: .85em; }
+    .model-lane h3 small { padding: 3px 6px; background: rgba(255,249,233,.76); border: 1px solid #1c1b17; border-radius: 3px; font-family: var(--font-code); font-size: .55em; }
+    .model-row { display: grid; grid-template-columns: minmax(0, 1fr) 112px 34px; gap: 10px; align-items: center; padding: 9px 0; border-top: 2px dashed rgba(28,27,23,.4); }
+    .model-name { min-width: 0; font-size: .62em; font-weight: 900; line-height: 1.25; }
+    .model-name small { display: block; margin-top: 3px; color: #504d43; font-family: var(--font-sans); font-size: .82em; font-weight: 700; }
+    .model-score-track { height: 12px; overflow: hidden; background: rgba(255,249,233,.66); border: 2px solid #1c1b17; border-radius: 999px; }
+    .model-score-track span { display: block; width: var(--score); height: 100%; background: #e86652; }
+    .is-china .model-score-track span { background: #527c9e; }
+    .model-score { font-family: Georgia, 'Songti SC', serif; font-size: 1em; font-weight: 900; text-align: right; }
+    .model-insight-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; max-width: 1260px; margin: 16px auto 0; text-align: left; }
+    .model-insight { padding: 10px 13px; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 6px; font-size: .54em; line-height: 1.45; }
+    .model-insight strong { display: block; margin-bottom: 3px; color: #1c1b17; font-size: 1.08em; }
+    .model-source-note { max-width: 1260px; margin: 12px auto 0; color: #625e53; font-size: .43em; line-height: 1.45; text-align: left; }
+    .model-source-note a { color: #1c1b17; }
     .reveal .progress { height: 5px; background: #e8deca; } .reveal .progress span { background: #e86652; }
     .reveal .controls { color: #1c1b17; }
     .reveal .slide-number { background: #fff9e9; color: #1c1b17; border: 2px solid var(--panel-border); border-radius: 3px; box-shadow: 3px 3px 0 #1c1b17; }
@@ -562,6 +581,7 @@
     .reveal [style*="border-radius: 50%"] { border: 3px solid #1c1b17; }
     @media (max-width: 900px) { .panorama-band { height: 22vh; } .reveal .slides > section, .reveal .slides > section > section { padding: 220px 24px 24px; } .reveal .slides > section > section.section-transition { padding-top: 270px; } .reveal { font-size: 16px; } }
     @media (max-width: 900px) { .data-snapshot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .data-snapshot { min-height: 175px; padding: 14px; } }
+    @media (max-width: 900px) { .model-compare-slide { padding-top: 52px !important; } .model-compare-layout, .model-insight-row { grid-template-columns: 1fr; } .model-row { grid-template-columns: minmax(0, 1fr) 82px 28px; } }
 
     /* Keep the illustration as a light decorative cue, not a content-consuming banner. */
     .panorama-band {
@@ -1221,6 +1241,60 @@
             <a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/" target="_blank" rel="noopener noreferrer">JetBrains AI Pulse（2026）</a>
           </div>
         </section>
+
+        <!-- 2.3 国内外主流大模型横向对比 -->
+        <section class="model-compare-slide">
+          <h2>国内外主流大模型：能力、开放性与成本取舍</h2>
+          <p style="font-size: .72em; color: var(--text-muted); margin: 0;">同一公开基准横评：分数为 Artificial Analysis Intelligence Index v4.1（越高越好），展示模型在标注的推理档位下的结果。</p>
+
+          <div class="model-compare-layout">
+            <div class="model-lane is-global">
+              <h3><span><i class="fa-solid fa-globe"></i> 海外闭源前沿</span><small>PROPRIETARY</small></h3>
+              <div class="model-row">
+                <div class="model-name">Claude Opus 4.8 <small>max · 复杂推理 / 编码</small></div>
+                <div class="model-score-track"><span style="--score:93%;"></span></div><div class="model-score">56</div>
+              </div>
+              <div class="model-row">
+                <div class="model-name">GPT-5.5 <small>xhigh · 通用能力 / Agent</small></div>
+                <div class="model-score-track"><span style="--score:92%;"></span></div><div class="model-score">55</div>
+              </div>
+              <div class="model-row">
+                <div class="model-name">Gemini 3.1 Pro <small>Preview · 长上下文 / 多模态</small></div>
+                <div class="model-score-track"><span style="--score:77%;"></span></div><div class="model-score">46</div>
+              </div>
+            </div>
+
+            <div class="model-lane is-china">
+              <h3><span><i class="fa-solid fa-map-location-dot"></i> 国内开权重主力</span><small>OPEN WEIGHTS</small></h3>
+              <div class="model-row">
+                <div class="model-name">GLM-5.2 <small>reasoning · 私有化部署候选</small></div>
+                <div class="model-score-track"><span style="--score:85%;"></span></div><div class="model-score">51</div>
+              </div>
+              <div class="model-row">
+                <div class="model-name">Qwen3.5 397B A17B <small>reasoning · 开权重生态</small></div>
+                <div class="model-score-track"><span style="--score:75%;"></span></div><div class="model-score">45</div>
+              </div>
+              <div class="model-row">
+                <div class="model-name">DeepSeek V4 Pro <small>max · 高性价比推理</small></div>
+                <div class="model-score-track"><span style="--score:73%;"></span></div><div class="model-score">44</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="model-insight-row">
+            <div class="model-insight"><strong>能力差正在收窄</strong>开权重头部 GLM-5.2 为 51 分，与可用闭源头部 Claude Opus 4.8 的 56 分相差 5 分。</div>
+            <div class="model-insight"><strong>成本差仍很显著</strong>同一指数任务的公开估算：DeepSeek V4 Pro 约 $0.04；GPT-5.5 约 $0.99；Claude Opus 4.8 约 $1.78。</div>
+            <div class="model-insight"><strong>选型不是只看分数</strong>追求极限复杂任务可优先评估海外闭源模型；数据域、成本和私有化约束强时，优先评估国内开权重模型。</div>
+          </div>
+
+          <div class="model-source-note">
+            <strong>口径与来源：</strong>Intelligence Index v4.1 汇总 9 项评测，推理档位、版本和成本会随供应商更新而变化，适合作为能力带状参考，不替代团队 POC。<br>
+            <a href="https://artificialanalysis.ai/articles/artificial-analysis-intelligence-index-v4-1/" target="_blank" rel="noopener noreferrer">Artificial Analysis Intelligence Index v4.1</a> ｜
+            <a href="https://artificialanalysis.ai/articles/glm-5-2-is-the-new-leading-open-weights-model-on-the-artificial-analysis-intelligence-index/" target="_blank" rel="noopener noreferrer">GLM-5.2 公开评测说明</a> ｜
+            <a href="https://artificialanalysis.ai/articles/sub-32b-open-weights/" target="_blank" rel="noopener noreferrer">Qwen3.5 开权重评测说明</a>
+          </div>
+          <aside class="notes">这张页强调：国内外模型的差异不应简化为谁更强。能力、成本、开放性、合规和部署方式，需要一起进入团队的选型矩阵。</aside>
+        </section>
       </section>
 
       <!-- ==================================================================== -->
@@ -1240,13 +1314,15 @@
           <div class="grid-3" style="margin-top: 35px;">
             <div class="vibe-card fragment">
               <span class="badge badge-blue">CLI Agent 类</span>
-              <h3 style="margin: 15px 0 10px 0;">Claude Code / Codex CLI</h3>
-              <h3 style="margin: 15px 0 10px 0;">OpenClaude CLI / AntiGravity CLI</h3>
+              <h3 style="margin: 15px 0 10px 0;">Claude Code / Codex CLI  </h3>
+              <h3 style="margin: 15px 0 10px 0;">Opencode CLI / AntiGravity CLI</h3>
+              <h3 style="margin: 15px 0 10px 0;">Codebuddy CLI / Kimi Code CLI</h3>
               <p style="font-size: 0.78em; color: var(--text-muted);">运行于终端的强力 Agent，具备文件系统自主读写、Git 操作、命令执行及自动化闭环能力。</p>
             </div>
             <div class="vibe-card fragment">
               <span class="badge badge-purple">AI 架构 IDE 类</span>
               <h3 style="margin: 15px 0 10px 0;">Cursor / Trae </h3>
+              <h3 style="margin: 15px 0 10px 0;">Opencode / Qwen Code</h3>
               <h3 style="margin: 15px 0 10px 0;">Qoder / CodeBuddy</h3>
               <p style="font-size: 0.78em; color: var(--text-muted);">深度定制的原生 IDE，通常基于VSCode，原生支持 @代码库索引、规则文件解析、Composer 多文件并行编辑。</p>
             </div>
@@ -1254,6 +1330,7 @@
               <span class="badge badge-green">插件 / 客户端</span>
               <h3 style="margin: 15px 0 10px 0;">Codex / AntiGravity </h3>
               <h3 style="margin: 15px 0 10px 0;">Copilot / JetBrains AI</h3>
+              <h3 style="margin: 15px 0 10px 0;">Codebuddy / Qwen Code IDE 插件</h3>
               <p style="font-size: 0.78em; color: var(--text-muted);">传统 IDE 的增强插件或独立客户端，提供行内补全、侧边栏 Chat 及单模块重构助手。</p>
             </div>
           </div>
