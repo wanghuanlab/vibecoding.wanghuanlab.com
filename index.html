@@ -752,6 +752,7 @@
     .reveal .slides > section > section.plugin-structure-slide { padding-top: 220px !important; }
     .reveal .slides > section > section.rules-guide-slide { padding-top: 220px !important; }
     .reveal .slides > section > section.command-config-slide { padding-top: 184px !important; }
+    .reveal .slides > section > section.model-selection-slide { padding-top: 220px !important; }
     @media (max-width: 900px) {
       .panorama-band { height: 15vh; background-size: 100% auto; background-position: center 42%; }
       .deck-masthead { top: 12px; left: 16px; right: 16px; }
@@ -763,7 +764,8 @@
       .reveal .slides > section > section.endpoint-config-slide { padding-top: 56px !important; }
       .reveal .slides > section > section.plugin-structure-slide,
       .reveal .slides > section > section.rules-guide-slide,
-      .reveal .slides > section > section.command-config-slide { padding-top: 48px !important; }
+      .reveal .slides > section > section.command-config-slide,
+      .reveal .slides > section > section.model-selection-slide { padding-top: 48px !important; }
     }
 
     /* 插件与 MCP 列表美化 */
@@ -1975,6 +1977,111 @@
               </div>
             </div>
           </div>
+        </section>
+
+        <!-- 3.5 大模型选用策略 -->
+        <section class="model-selection-slide">
+          <h2>大模型选用策略：能力、成本与上下文</h2>
+          <p style="margin: 0 0 18px; font-size: .74em; color: var(--text-muted);">选对模型比选贵模型更重要。以下三个维度帮助你在实战中做出更合理的判断。</p>
+
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; max-width: 1260px; margin: 0 auto;">
+
+            <!-- 卡片 1：当前模型能力 -->
+            <div style="padding: 18px 16px; background: #f8c96d; border: 3px solid #1c1b17; border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px dashed rgba(28,27,23,.4);">
+                <span style="display: inline-flex; width: 32px; height: 32px; flex: 0 0 32px; align-items: center; justify-content: center; background: #1c1b17; border-radius: 4px; color: #f8c96d; font-size: .85em;"><i class="fa-solid fa-brain"></i></span>
+                <div>
+                  <div style="font-weight: 900; font-size: .9em; color: #1c1b17; line-height: 1.2;">能力已达"高级工程师"水准</div>
+                  <div style="font-family: var(--font-code); font-size: .5em; color: #504d43; letter-spacing: .04em;">CAPABILITY THRESHOLD</div>
+                </div>
+              </div>
+              <ul style="list-style: none; padding: 0; margin: 0 0 0 0; display: flex; flex-direction: column; gap: 8px;">
+                <li style="display: flex; gap: 8px; align-items: flex-start; font-size: .62em; font-weight: 700; line-height: 1.4; color: #1c1b17; margin: 0;">
+                  <span style="flex: 0 0 16px; height: 16px; background: #1c1b17; border-radius: 50%; color: #f8c96d; display: inline-flex; align-items: center; justify-content: center; font-size: .65em; margin-top: 1px;">✓</span>
+                  <span>日常基础开发（增删改查、API 对接、单测编写）<strong>无需最顶尖模型</strong>，主流模型均可胜任</span>
+                </li>
+                <li style="display: flex; gap: 8px; align-items: flex-start; font-size: .62em; font-weight: 700; line-height: 1.4; color: #1c1b17; margin: 0;">
+                  <span style="flex: 0 0 16px; height: 16px; background: #1c1b17; border-radius: 50%; color: #f8c96d; display: inline-flex; align-items: center; justify-content: center; font-size: .65em; margin-top: 1px;">✓</span>
+                  <span>国产大模型（GLM、Qwen、DeepSeek 等）在主流编码基准上<strong>已属行业前列</strong>，是合规优先团队的首选</span>
+                </li>
+                <li style="display: flex; gap: 8px; align-items: flex-start; font-size: .62em; font-weight: 700; line-height: 1.4; color: #1c1b17; margin: 0;">
+                  <span style="flex: 0 0 16px; height: 16px; background: #1c1b17; border-radius: 50%; color: #f8c96d; display: inline-flex; align-items: center; justify-content: center; font-size: .65em; margin-top: 1px;">✓</span>
+                  <span>复杂架构决策、跨系统深度推理仍是顶尖闭源模型的差异点，但差距在<strong>快速收窄</strong></span>
+                </li>
+              </ul>
+              <div style="margin-top: 12px; padding: 7px 10px; background: rgba(28,27,23,.1); border-radius: 4px; font-size: .55em; font-weight: 800; color: #1c1b17;">
+                <i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>建议：先用国产模型 POC，有明确差距再升级
+              </div>
+            </div>
+
+            <!-- 卡片 2：参数大≠效果好 -->
+            <div style="padding: 18px 16px; background: #b9dec5; border: 3px solid #1c1b17; border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px dashed rgba(28,27,23,.4);">
+                <span style="display: inline-flex; width: 32px; height: 32px; flex: 0 0 32px; align-items: center; justify-content: center; background: #1c1b17; border-radius: 4px; color: #b9dec5; font-size: .85em;"><i class="fa-solid fa-scale-balanced"></i></span>
+                <div>
+                  <div style="font-weight: 900; font-size: .9em; color: #1c1b17; line-height: 1.2;">参数大 ≠ 效果好</div>
+                  <div style="font-family: var(--font-code); font-size: .5em; color: #504d43; letter-spacing: .04em;">CONTEXT COLLAPSE STRATEGY</div>
+                </div>
+              </div>
+              <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+                <li style="display: flex; gap: 8px; align-items: flex-start; font-size: .62em; font-weight: 700; line-height: 1.4; color: #1c1b17; margin: 0;">
+                  <span style="flex: 0 0 16px; height: 16px; background: #e86652; border-radius: 50%; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: .65em; margin-top: 1px; font-weight: 900;">!</span>
+                  <span>不同模型有<strong>不同的上下文压缩（坍缩）策略</strong>，超出窗口后的截断方式直接影响输出质量</span>
+                </li>
+                <li style="display: flex; gap: 8px; align-items: flex-start; font-size: .62em; font-weight: 700; line-height: 1.4; color: #1c1b17; margin: 0;">
+                  <span style="flex: 0 0 16px; height: 16px; background: #e86652; border-radius: 50%; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: .65em; margin-top: 1px; font-weight: 900;">!</span>
+                  <span>我们自己管理上下文（Rules、Compact、精确文件注入）的方式同样关键——<strong>人的策略 &gt; 模型参数</strong></span>
+                </li>
+                <li style="display: flex; gap: 8px; align-items: flex-start; font-size: .62em; font-weight: 700; line-height: 1.4; color: #1c1b17; margin: 0;">
+                  <span style="flex: 0 0 16px; height: 16px; background: #e86652; border-radius: 50%; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: .65em; margin-top: 1px; font-weight: 900;">!</span>
+                  <span>后续章节将专题介绍上下文工程与 Harness Engineering，详见第 4 章</span>
+                </li>
+              </ul>
+              <div style="margin-top: 12px; padding: 7px 10px; background: rgba(28,27,23,.1); border-radius: 4px; font-size: .55em; font-weight: 800; color: #1c1b17;">
+                <i class="fa-solid fa-code-fork" style="margin-right: 5px;"></i>同一任务在不同模型 + 不同上下文策略下，结果可能相差悬殊
+              </div>
+            </div>
+
+            <!-- 卡片 3：成本与收益 -->
+            <div style="padding: 18px 16px; background: #a9c8df; border: 3px solid #1c1b17; border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px dashed rgba(28,27,23,.4);">
+                <span style="display: inline-flex; width: 32px; height: 32px; flex: 0 0 32px; align-items: center; justify-content: center; background: #1c1b17; border-radius: 4px; color: #a9c8df; font-size: .85em;"><i class="fa-solid fa-coins"></i></span>
+                <div>
+                  <div style="font-weight: 900; font-size: .9em; color: #1c1b17; line-height: 1.2;">成本与收益多维权衡</div>
+                  <div style="font-family: var(--font-code); font-size: .5em; color: #504d43; letter-spacing: .04em;">COST · BENEFIT TRADEOFFS</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 10px;">
+                <div style="padding: 8px 9px; background: rgba(255,249,233,.78); border: 1px solid #1c1b17; border-radius: 4px; font-size: .56em; font-weight: 800; color: #1c1b17; line-height: 1.35;">
+                  <div style="font-family: var(--font-code); font-size: .82em; margin-bottom: 3px; color: #527c9e; font-weight: 900;">上下文体积</div>
+                  投入 Token 数直接决定费用，精简无关内容
+                </div>
+                <div style="padding: 8px 9px; background: rgba(255,249,233,.78); border: 1px solid #1c1b17; border-radius: 4px; font-size: .56em; font-weight: 800; color: #1c1b17; line-height: 1.35;">
+                  <div style="font-family: var(--font-code); font-size: .82em; margin-bottom: 3px; color: #527c9e; font-weight: 900;">流程步数</div>
+                  Agent Loop 越长消耗越大，学会拆分任务
+                </div>
+                <div style="padding: 8px 9px; background: rgba(255,249,233,.78); border: 1px solid #1c1b17; border-radius: 4px; font-size: .56em; font-weight: 800; color: #1c1b17; line-height: 1.35;">
+                  <div style="font-family: var(--font-code); font-size: .82em; margin-bottom: 3px; color: #527c9e; font-weight: 900;">解决手段</div>
+                  截图比对、视觉验证等多模态输入会显著增加成本
+                </div>
+                <div style="padding: 8px 9px; background: rgba(255,249,233,.78); border: 1px solid #1c1b17; border-radius: 4px; font-size: .56em; font-weight: 800; color: #1c1b17; line-height: 1.35;">
+                  <div style="font-family: var(--font-code); font-size: .82em; margin-bottom: 3px; color: #527c9e; font-weight: 900;">过渡校验</div>
+                  中间结果人工确认可节省后续返工 Token
+                </div>
+              </div>
+              <div style="padding: 7px 10px; background: rgba(28,27,23,.1); border-radius: 4px; font-size: .55em; font-weight: 800; color: #1c1b17;">
+                <i class="fa-solid fa-triangle-exclamation" style="margin-right: 5px; color: #e86652;"></i>控制单次任务 Token 消耗 &gt; 追求最强模型
+              </div>
+            </div>
+
+          </div>
+
+          <div style="max-width: 1260px; margin: 16px auto 0; padding: 10px 14px; display: flex; align-items: center; gap: 10px; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 6px; box-shadow: 3px 3px 0 #1c1b17; font-size: .56em; font-weight: 800; color: #1c1b17;">
+            <i class="fa-solid fa-circle-info" style="color: #527c9e; font-size: 1.2em; flex: 0 0 auto;"></i>
+            <span>实战心法：<strong>先用够用的模型</strong>跑通主流程，再识别瓶颈节点、按需升级。上下文工程与任务拆分对结果的影响，常常大于换一个更贵的模型。</span>
+          </div>
+
+          <aside class="notes">这张页的核心论点：模型选型不是参数军备竞赛。国产模型已经很强，上下文策略和任务分解决定了真实输出质量，成本应该被纳入工程决策。</aside>
         </section>
       </section>
 
