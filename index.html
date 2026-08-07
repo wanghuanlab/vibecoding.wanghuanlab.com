@@ -727,8 +727,11 @@
     }
     .deck-github:hover { color: #fff9e9 !important; transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #e86652; }
     .deck-github small { font-family: var(--font-code); font-size: 9px; opacity: .65; }
-    /* Ensure long API configuration title remains safely below the fixed panorama edge. */
-    .reveal .slides > section > section.endpoint-config-slide { padding-top: 320px !important; }
+    /* Dense content slides need clearance below the fixed panorama edge. */
+    .reveal .slides > section > section.endpoint-config-slide { padding-top: 78px !important; }
+    .reveal .slides > section > section.plugin-structure-slide { padding-top: 70px !important; }
+    .reveal .slides > section > section.rules-guide-slide { padding-top: 220px !important; }
+    .reveal .slides > section > section.command-config-slide { padding-top: 184px !important; }
     @media (max-width: 900px) {
       .panorama-band { height: 15vh; background-size: 100% auto; background-position: center 42%; }
       .deck-masthead { top: 12px; left: 16px; right: 16px; }
@@ -737,7 +740,10 @@
       .deck-brand-title { font-size: 11px; }
       .deck-github { padding: 6px 9px; font-size: 10px; }
       .deck-github small { display: none; }
-      .reveal .slides > section > section.endpoint-config-slide { padding-top: 220px !important; }
+      .reveal .slides > section > section.endpoint-config-slide { padding-top: 56px !important; }
+      .reveal .slides > section > section.plugin-structure-slide,
+      .reveal .slides > section > section.rules-guide-slide,
+      .reveal .slides > section > section.command-config-slide { padding-top: 48px !important; }
     }
 
     /* 插件与 MCP 列表美化 */
@@ -1346,7 +1352,7 @@ claude</code></pre>
         </section>
 
         <!-- 3.4 插件与工程结构 -->
-        <section>
+        <section class="plugin-structure-slide">
           <h2>扩展插件 (MCP/Skills) 与标准工程结构</h2>
           <div class="grid-2" style="gap: 20px; align-items: start;">
             <div>
@@ -1839,7 +1845,7 @@ claude</code></pre>
         </section>
 
         <!-- 4.4 深度解析：CLAUDE.md & AGENTS.md 最佳实践指南 -->
-        <section>
+        <section class="rules-guide-slide">
           <h2>核心大脑：<code>CLAUDE.md</code> / <code>AGENTS.md</code> 最佳实践指南</h2>
           <div class="grid-2" style="gap: 24px; align-items: start;">
             <div>
@@ -1905,7 +1911,7 @@ claude</code></pre>
         </section>
 
         <!-- 4.5 常用命令与权限配置 -->
-        <section>
+        <section class="command-config-slide">
           <h2 style="margin-top: 15px !important; margin-bottom: 20px;">常用 Slash 命令与 <code>settings.json</code> 权限控制</h2>
           <div class="grid-2" style="gap: 20px; align-items: start;">
             <!-- 左侧：常用命令及描述 -->
@@ -3053,10 +3059,10 @@ const config = { dbHost: "DB_HOST", dbPassword: "DB_PASSWORD", apiKey: "API_KEY"
             </div>
             
             <!-- GitHub 仓库入口 Banner -->
-            <div class="vibe-card" style="display: inline-block; padding: 10px 24px; background: #fff9e9; border: 2px solid #1c1b17; font-size: 0.85em; color: #1c1b17;">
+            <!-- <div class="vibe-card" style="display: inline-block; padding: 10px 24px; background: #fff9e9; border: 2px solid #1c1b17; font-size: 0.85em; color: #1c1b17;">
               <i class="fa-brands fa-github" style="margin-right: 8px; font-size: 1.2em;"></i> 开源项目仓库：
               <a href="https://github.com/wanghuanlab/vibecoding.wanghuanlab.com" target="_blank" style="color: var(--accent-blue); font-weight: 800; text-decoration: underline;">https://github.com/wanghuanlab/vibecoding.wanghuanlab.com</a>
-            </div>
+            </div> -->
           </div>
         </section>
 
