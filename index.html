@@ -2304,81 +2304,170 @@
             </div>
           </div>
         </section>
-
-        <!-- 4.4 上下文管理技巧 & Rules 规则体系 -->
+        <!-- 4.5 上下文工程：窗口、污染与长期记忆 -->
         <section>
-          <h2 style="margin-top: 10px !important; margin-bottom: 18px;">上下文管理技巧 &amp; Rules 规则系统设计</h2>
-
-          <div class="grid-2" style="gap: 20px; align-items: start;">
-            <!-- 左侧：上下文管理 4 大黄金技巧 -->
-            <div>
-              <h3 style="font-size: 1.05em; margin-bottom: 10px;"><i class="fa-solid fa-layer-group list-item-icon"></i> 上下文工程 (Context Engineering) 技巧</h3>
-
-              <div style="display: flex; flex-direction: column; gap: 8px;">
-
-                <div class="plugin-item" style="padding: 8px 12px; background: #fff9e9;">
-                  <div>
-                    <div style="font-weight: 800; font-size: 0.85em; color: #1c1b17;">
-                      <i class="fa-solid fa-crosshairs" style="color: var(--accent-blue);"></i> 行级精准引用 (Line-level Context)
-                    </div>
-                    <div style="font-size: 0.72em; color: var(--text-muted); margin-top: 2px;">
-                      使用 <code>@src/user.ts#L15-L40</code> 限定特定函数片段，比全量载入文件提升 5 倍聚焦度。
-                    </div>
-                  </div>
-                </div>
-
-                <div class="plugin-item" style="padding: 8px 12px; background: #fff9e9;">
-                  <div>
-                    <div style="font-weight: 800; font-size: 0.85em; color: #1c1b17;">
-                      <i class="fa-solid fa-shield-virus" style="color: var(--accent-red);"></i> 屏蔽噪声文件 (<code>.claudeignore</code>)
-                    </div>
-                    <div style="font-size: 0.72em; color: var(--text-muted); margin-top: 2px;">
-                      排除 <code>node_modules/</code>、<code>dist/</code>、<code>.env*</code> 及庞大日志，防止无谓全库扫描。
-                    </div>
-                  </div>
-                </div>
-
-                <div class="plugin-item" style="padding: 8px 12px; background: #fff9e9;">
-                  <div>
-                    <div style="font-weight: 800; font-size: 0.85em; color: #1c1b17;">
-                      <i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-orange);"></i> 慎用 <code>@codebase</code> 全量向量检索
-                    </div>
-                    <div style="font-size: 0.72em; color: var(--text-muted); margin-top: 2px;">
-                      全局检索易夹带无关大文本噪音，建议优先使用显式文件关联或 AST 函数图谱。
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="vibe-card" style="margin-top: 10px; padding: 8px 12px; font-size: 0.65em; background: #b9dec5; border: 2px solid #1c1b17;">
-                <i class="fa-solid fa-lightbulb"></i> <strong>黄金法则：</strong> “把 AI 视为只有 256MB 内存的超频 CPU，只给最干货的 Context！”
-              </div>
+          <h2 style="margin-top: 5px !important; margin-bottom: 8px; color: #1c1b17;">上下文工程：让 AI 始终“记得”你要什么</h2>
+          <p style="font-size: .78em; color: #1c1b17; margin-bottom: 12px;">VibeCoding 最容易被忽视、却影响最大的核心技能，不是提示词写得多华丽，而是<strong>让真正重要的信息始终留在 AI 看得见的窗口里</strong>。</p>
+          <div class="grid-2" style="gap: 18px; align-items: stretch;">
+            <div class="vibe-card" style="padding: 16px; background: #fff9e9; border: 2px solid #1c1b17; color: #1c1b17;">
+              <div style="font-size: .78em; font-weight: 900; letter-spacing: .08em; margin-bottom: 10px;"><i class="fa-solid fa-brain" style="color: var(--accent-blue);"></i> 上下文窗口（Context Window）</div>
+              <pre style="margin: 0; font-size: .59em; background: #1c1b17; color: #fff9e9; border: 0; padding: 12px; line-height: 1.55;"><code>┌──────────────────────────────────────┐
+│ System Prompt                         │
+│ + 历史对话 Round 1 ... Round N        │
+│ + 当前文件 / 已加载的资料             │
+│ + 你的新问题                          │
+│                                      │
+│ [████████████████████░░░░] 80% 已用 │
+└──────────────────────────────────────┘
+窗口满了 → 最早的信息先被压缩或遗忘</code></pre>
             </div>
-
-            <!-- 右侧：Rules 模块化规约系统架构 -->
-            <div>
-              <h3 style="font-size: 1.05em; margin-bottom: 10px;"><i class="fa-solid fa-sitemap list-item-icon"></i> Rules 模块化规则文件架构</h3>
-
-              <div class="tree-container" style="max-height: none; padding: 12px; font-size: 0.6em;">
-                <div style="color: #f5d363; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 4px; margin-bottom: 8px;">
-                  <i class="fa-solid fa-folder-tree"></i> .claude/rules/ 规范化分层目录
-                </div>
-                <pre style="margin: 0; background: transparent; border: 0; box-shadow: none; padding: 0;"><code class="language-plaintext">.claude/rules/
-├── 00-security.md       # [最高权重] 安全校验、注入拦截与敏感信息防护
-├── 01-code-style.md     # [全局] TypeScript/Rust 统一代码风格与命名规约
-├── 10-api-design.md     # [模块] RESTful / gRPC 标准响应结构与状态码定义
-├── 11-frontend-ui.md    # [按路径匹配] React / Tailwind 组件编写与可访问性
-└── 20-testing-rules.md  # [质量门槛] Jest / Playwright 自动化单测覆盖率阈值</code></pre>
-              </div>
-
-              <div class="vibe-card" style="margin-top: 8px; padding: 8px 12px; font-size: 0.65em; background: #fff9e9; border: 2px solid #1c1b17;">
-                <i class="fa-solid fa-circle-info"></i> <strong>规则生效机制：</strong> 文件名数字前缀决定加载权重优先级；支持通过 Markdown Frontmatter 配置路径匹配匹配（Glob Matching）动态激活。
-              </div>
+            <div class="vibe-card" style="padding: 16px; background: #b9dec5; border: 2px solid #1c1b17; color: #1c1b17;">
+              <div style="font-size: 1.15em; font-weight: 900; margin: 10px 0 12px;"><span style="background:#f8c96d; border:2px solid #1c1b17; padding:2px 8px;">没有真正的“长期记忆”</span></div>
+              <p style="font-size: .82em; line-height: 1.65; margin: 0 0 12px;">模型每次回答，只能基于当前窗口中的内容推理。窗口内的信号越清楚，输出越稳定；无关历史、整文件粘贴和混杂任务越多，约束越容易被稀释。</p>
+              <div style="border-top: 2px solid #1c1b17; padding-top: 10px; font-size: .8em;"><strong>上下文工程的本质：</strong>不是“塞得更多”，而是用有限窗口保存最高价值的信息。</div>
             </div>
+          </div>
+          <aside class="notes">这一页先纠正一个误解：模型并没有持续可靠的记忆。上下文工程就是管理有限窗口里的信息密度。</aside>
+        </section>
+
+        <!-- 4.6 上下文容量与 Token 成本 -->
+        <section>
+          <h2 style="margin-top: 5px !important; margin-bottom: 8px; color: #1c1b17;">窗口不是无限的：Token 是你的上下文预算</h2>
+          <div class="grid-2" style="gap: 14px; align-items: start;">
+            <div>
+              <table class="vibe-table" style="border: 2px solid #1c1b17; font-size: .72em; margin: 0;">
+                <thead><tr><th style="color:#1c1b17;">窗口级别</th><th style="color:#1c1b17;">模型（示例，已聚合）</th><th style="color:#1c1b17;">上下文预算感知</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>1M 级</strong><br>1M～1.05M tokens</td><td><strong>GPT-5.6 Sol</strong>（1.05M）<br>DeepSeek V4 Flash / Pro、GLM-5.2、Kimi K3、MiniMax M3、Claude Opus 4.8</td><td>容量充裕，但无关历史仍会稀释规则。</td></tr>
+                  <tr><td><strong>25 万级</strong><br>256K tokens</td><td><strong>Kimi K2.6</strong></td><td>长任务可用；应按模块保持会话聚焦。</td></tr>
+                  <tr><td><strong>20 万级</strong><br>204.8K tokens</td><td><strong>MiniMax M2.7</strong></td><td>仍需精选代码片段和稳定项目约定。</td></tr>
+                </tbody>
+              </table>
+              <p style="font-size: .62em; color:#1c1b17; margin: 8px 0 0;">* 以上按当前课件口径聚合；模型版本与实际可用窗口以所用平台的实时说明为准。</p>
+            </div>
+            <div class="vibe-card" style="padding: 14px; background: #fff9e9; border: 2px solid #1c1b17; color:#1c1b17;">
+              <h4 style="color:#1c1b17; margin-bottom: 10px;"><i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-red);"></i> Token ≠ 字数</h4>
+              <ul style="font-size: .78em; line-height: 1.65; margin: 0 0 12px 1.1em;">
+                <li>1 个汉字约消耗 <strong>1.5～2 tokens</strong>。</li>
+                <li>代码符号、类型定义、长变量名的 token 密度通常更高。</li>
+                <li>一个中等规模函数文件，轻松消耗 <strong>2000+ tokens</strong>。</li>
+              </ul>
+              <div style="background:#1c1b17; color:#fff9e9; padding:10px; font-size:.72em; font-family:var(--font-code);">预算思维：每粘贴一段内容，都要问——它是否能改变本次决策？</div>
+            </div>
+          </div>
+          <aside class="notes">容量大的模型不是不需要管理上下文。长窗口会降低遗忘概率，但不会自动提高信噪比。</aside>
+        </section>
+
+        <!-- 4.7 上下文污染的四种死法 -->
+        <section>
+          <h2 style="margin-top: 5px !important; margin-bottom: 8px; color: #1c1b17;">上下文污染的四种“死法”</h2>
+          <div class="grid-2" style="gap: 10px;">
+            <div class="vibe-card" style="padding: 12px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;"><h4 style="color:#1c1b17; font-size:.82em; margin-bottom:5px;"><span class="badge badge-red">01</span> 对话过长导致遗忘</h4><p style="font-size:.7em; line-height:1.45; margin:0;">Round 1 约定 PostgreSQL，Round 20 生成 SQL 时却开始使用 MySQL 语法——早期约束已被挤出窗口。</p></div>
+            <div class="vibe-card" style="padding: 12px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;"><h4 style="color:#1c1b17; font-size:.82em; margin-bottom:5px;"><span class="badge badge-red">02</span> 代码把窗口撑爆</h4><p style="font-size:.7em; line-height:1.45; margin:0;">粘贴 1000 行文件 + 长对话 + 长回复，90% 预算被占用，真正的需求与安全约束最先被截断。</p></div>
+            <div class="vibe-card" style="padding: 12px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;"><h4 style="color:#1c1b17; font-size:.82em; margin-bottom:5px;"><span class="badge badge-red">03</span> 多任务混在同一会话</h4><p style="font-size:.7em; line-height:1.45; margin:0;">修登录 Bug、优化数据库、设计新 UI、再改登录——相关上下文被噪音淹没，前后矛盾概率上升。</p></div>
+            <div class="vibe-card" style="padding: 12px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;"><h4 style="color:#1c1b17; font-size:.82em; margin-bottom:5px;"><span class="badge badge-red">04</span> 隐式假设悄悄丢失</h4><p style="font-size:.7em; line-height:1.45; margin:0;">“所有接口必须 JWT 验证”若只在早期说过一次，几十轮后新接口可能漏掉认证，风险最难被及时发现。</p></div>
+          </div>
+          <div class="vibe-card" style="padding: 10px 14px; margin-top: 10px; background:#f8c96d; border:2px solid #1c1b17; color:#1c1b17; font-size:.76em;"><strong>共同根因：</strong>没有把稳定约束、当前任务和相关代码分层管理，导致“重要信息”与“聊天噪音”争夺同一个窗口。</div>
+        </section>
+
+        <!-- 4.8 永久记忆与单任务会话 -->
+        <section>
+          <h2 style="margin-top: 5px !important; margin-bottom: 8px; color: #1c1b17;">两件最有效的事：永久规则 + 单任务会话</h2>
+          <div class="grid-2" style="gap: 14px;">
+            <div class="vibe-card" style="padding:14px; background:#b9dec5; border:2px solid #1c1b17; color:#1c1b17;"><h3 style="font-size:.92em; color:#1c1b17; margin-bottom:8px;"><i class="fa-solid fa-book-open"></i> 1. 把不变约定写入 AGENTS.md / CLAUDE.md</h3><pre style="margin:0; font-size:.54em; background:#1c1b17; color:#fff9e9; border:0; padding:10px; line-height:1.45;"><code class="language-markdown">## 项目基本信息
+- Next.js + TypeScript + PostgreSQL
+- pnpm；禁止 npm / yarn
+- Tailwind；禁止内联 style
+
+## 安全规范
+- API 路由必须验证 JWT
+- 用户输入必须经过 zod 校验
+- 日志禁止输出敏感信息</code></pre><p style="font-size:.66em; margin:8px 0 0;">它们是项目“长期记忆”：每次会话都应最先进入上下文。</p></div>
+            <div class="vibe-card" style="padding:14px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;"><h3 style="font-size:.92em; color:#1c1b17; margin-bottom:8px;"><i class="fa-solid fa-arrow-right-arrow-left"></i> 2. 单任务单会话</h3><div style="font-size:.78em; line-height:1.6;"><div style="padding:7px; border-bottom:1px dashed #1c1b17;"><strong style="color:var(--accent-red);">❌ 一个会话</strong> = 整个项目的所有问题</div><div style="padding:7px; border-bottom:1px dashed #1c1b17;"><strong style="color:var(--accent-green);">✅ 会话 A</strong> = 登录功能</div><div style="padding:7px; border-bottom:1px dashed #1c1b17;"><strong style="color:var(--accent-green);">✅ 会话 B</strong> = 商品列表页</div><div style="padding:7px;"><strong style="color:var(--accent-green);">✅ 会话 C</strong> = 数据库性能优化</div></div><p style="font-size:.66em; margin:9px 0 0;"><strong>该开新会话时：</strong>任务完成、跨越模块、答案矛盾，或对话已超过约 20 轮。</p></div>
           </div>
         </section>
 
+        <!-- 4.9 开场白、精准喂食与压缩 -->
+        <section>
+          <h2 style="margin-top: 5px !important; margin-bottom: 8px; color: #1c1b17;">会话开始要立边界，过程里要精准喂食</h2>
+          <div class="grid-2" style="gap: 14px;">
+            <div class="vibe-card" style="padding:13px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;"><h4 style="color:#1c1b17; margin-bottom:6px; font-size:.82em;">标准开场白模板</h4><pre style="margin:0; font-size:.53em; background:#1c1b17; color:#fff9e9; border:0; padding:9px; line-height:1.4;"><code class="language-markdown">## 当前任务背景
+电商后台；Next.js + PostgreSQL
+
+## 本次任务
+实现订单状态流转：待付款 → 已付款 → 已发货…
+
+## 相关约束
+- 变更必须记录操作日志
+- 退款调用 /lib/payment.ts
+- 所有操作需要管理员权限
+
+## 现有代码
+[仅粘贴相关函数、类型与接口签名]</code></pre></div>
+            <div class="vibe-card" style="padding:13px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;"><h4 style="color:#1c1b17; margin-bottom:6px; font-size:.82em;">精准喂食，不是整文件粘贴</h4><div style="font-family:var(--font-code); font-size:.67em; line-height:1.6;"><p style="margin:0 0 8px;"><span style="color:var(--accent-red); font-weight:900;">❌</span> 整个 500 行 <code>userController.ts</code></p><p style="margin:0 0 8px;"><span style="color:var(--accent-green); font-weight:900;">✅</span> 相关 30 行函数 + 类型定义 + 接口签名</p><p style="margin:0; background:#b9dec5; padding:8px; border:1px solid #1c1b17;">// 其余 200 行是 CRUD，结构相同，此处省略</p></div><div style="margin-top:10px; font-size:.69em; line-height:1.45;"><strong>对话变长时主动压缩：</strong>“请用 200 字总结已确定的技术决策和约定，我将用它开启新会话。”</div></div>
+          </div>
+        </section>
+
+        <!-- 4.10 上下文管理总览 -->
+        <section>
+          <h2 style="margin-top: 5px !important; margin-bottom: 8px; color: #1c1b17;">上下文管理的本质：信噪比管理</h2>
+          <div class="grid-2" style="gap: 14px;">
+            <div class="vibe-card" style="padding:14px; background:#b9dec5; border:2px solid #1c1b17; color:#1c1b17;"><h3 style="font-size:.9em; color:#1c1b17; margin-bottom:8px;">高质量上下文</h3><div style="font-family:var(--font-code); font-size:.7em; line-height:1.8; border:2px solid #1c1b17; padding:10px; background:#fff9e9;">项目约定（AGENTS.md） <strong>20%</strong>　← 永远在<br>任务背景说明　　　 <strong>20%</strong>　← 开场建立<br>相关代码片段　　　 <strong>40%</strong>　← 精准投喂<br>当前问题　　　　　 <strong>20%</strong>　← 清晰表达</div></div>
+            <div class="vibe-card" style="padding:14px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;"><h3 style="font-size:.9em; color:#1c1b17; margin-bottom:8px;">低质量上下文</h3><div style="font-family:var(--font-code); font-size:.7em; line-height:1.8; border:2px solid #1c1b17; padding:10px;">无关历史对话　　　 <strong style="color:var(--accent-red);">40%</strong>　← 噪音<br>整个文件的无关代码 <strong style="color:var(--accent-red);">35%</strong>　← 噪音<br>真正需要的内容　　 <strong style="color:var(--accent-red);">25%</strong>　← 被淹没</div></div>
+          </div>
+          <div class="quote-card" style="margin-top:14px; background:#f8c96d; border:2px solid #1c1b17; color:#1c1b17; font-size:1em;"><strong>核心心法：</strong>把 AI 当作一位每次上班都会失忆的超级程序员——工作手册是 <code>AGENTS.md</code>，开场白是今天的任务简报，精准代码片段是他需要的参考资料。</div>
+          <aside class="notes">结尾回扣：上下文工程不是一项小技巧，而是 VibeCoding 的生产环境。把规则、任务与代码分层，才有稳定产出。</aside>
+        </section>
+
+
+
+        <!-- 4.4 Rules：把工程约束固化为长期记忆 -->
+        <section>
+          <h2 style="margin-top: 5px !important; margin-bottom: 8px; color: #1c1b17;">Rules：让 AI 长期按工程方式做事</h2>
+          <div class="grid-2" style="gap: 14px; align-items: stretch;">
+            <div class="vibe-card" style="padding: 13px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;">
+              <h3 style="font-size:.9em; color:#1c1b17; margin-bottom:8px;"><i class="fa-solid fa-comment-dots" style="color:var(--accent-blue);"></i> Prompt 是临时任务简报</h3>
+              <p style="font-size:.78em; line-height:1.55; margin:0;"><strong>回答：写什么？</strong><br>“实现订单状态流转”“修复登录 Bug”“为该页面增加筛选器”。</p>
+            </div>
+            <div class="vibe-card" style="padding: 13px; background:#b9dec5; border:2px solid #1c1b17; color:#1c1b17;">
+              <h3 style="font-size:.9em; color:#1c1b17; margin-bottom:8px;"><i class="fa-solid fa-scale-balanced" style="color:var(--accent-red);"></i> Rules 是长期工程宪法</h3>
+              <p style="font-size:.78em; line-height:1.55; margin:0;"><strong>回答：应该怎样写？</strong><br>把架构约束、技术偏好、编码规范和禁止事项固化，让 Agent 无需每次被重复提醒。</p>
+            </div>
+          </div>
+
+          <div class="vibe-card" style="margin-top:10px; padding:10px 14px; background:#1c1b17; border:2px solid #1c1b17; color:#fff9e9; text-align:center;">
+            <div style="font-family:var(--font-code); font-size:.72em; line-height:1.6;">读取：项目架构　→　技术栈　→　编码规范　→　禁止事项　→　当前业务约束　　<span style="color:#f8c96d;">↓</span>　　生成代码</div>
+            <div style="font-size:.66em; margin-top:4px; color:#b9dec5;">System Prompt（系统人格） + Engineering Constitution（工程宪法）</div>
+          </div>
+
+          <div class="grid-2" style="gap:14px; margin-top:10px; align-items:start;">
+            <div>
+              <h3 style="font-size:.82em; color:#1c1b17; margin:0 0 7px;"><i class="fa-solid fa-layer-group"></i> 最重要的 Rules 类别</h3>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:.66em;">
+                <div class="plugin-item" style="padding:6px 9px; background:#fff9e9;"><strong>① 技术栈</strong><br>语言、框架、依赖与工具链</div>
+                <div class="plugin-item" style="padding:6px 9px; background:#fff9e9;"><strong>② 架构</strong><br>模块边界、分层与依赖方向</div>
+                <div class="plugin-item" style="padding:6px 9px; background:#fff9e9;"><strong>③ 代码风格</strong><br>命名、错误处理、测试要求</div>
+                <div class="plugin-item" style="padding:6px 9px; background:#fff9e9;"><strong>④ 数据库</strong><br>表设计、迁移、查询与索引</div>
+                <div class="plugin-item" style="padding:6px 9px; background:#fff9e9; grid-column:1 / -1;"><strong>⑤ 安全</strong>　认证鉴权、输入校验、敏感信息与日志边界</div>
+              </div>
+            </div>
+            <div class="tree-container" style="max-height:none; padding:9px 12px; font-size:.58em;">
+              <div style="color:#f5d363; margin-bottom:5px;"><i class="fa-solid fa-folder-tree"></i> 可按团队领域拆分 Rules</div>
+              <pre style="margin:0; background:transparent; border:0; box-shadow:none; padding:0;"><code class="language-plaintext">.ai-rules/
+├── global.md          ├── java.md
+├── architecture.md    ├── spring.md
+├── database.md        ├── security.md
+├── frontend.md        ├── android.md
+└── business.md</code></pre>
+            </div>
+          </div>
+
+          <div class="quote-card" style="margin-top:10px; padding:9px 14px; background:#f8c96d; border:2px solid #1c1b17; color:#1c1b17; font-size:.72em; display:flex; align-items:center; justify-content:space-between; gap:14px;">
+            <span><strong>持续改进闭环：</strong>AI 犯错 → 记录原因 → 增加 Rule → 以后自动避免</span>
+            <code style="white-space:nowrap;">Prompt = 指挥员　Context = 情报　Rules = 制度　Model = 工程师</code>
+          </div>
+          <aside class="notes">Vibe Coding 进入 Agent 开发后，关键不再是每次都说清楚，而是把反复出现的工程判断沉淀成 Rules。Prompt 指派任务，Rules 约束做法。</aside>
+        </section>
         <!-- 4.4 深度解析：CLAUDE.md & AGENTS.md 最佳实践指南 -->
         <section class="rules-guide-slide">
           <h2>核心大脑：<code>CLAUDE.md</code> / <code>AGENTS.md</code> 最佳实践指南</h2>
@@ -2443,6 +2532,54 @@
 - 提交代码前必须确保单元测试 100% 通过</code></pre>
             </div>
           </div>
+        </section>
+
+        <!-- 4.4.1 Plan 模式：先对齐方案，再执行改动 -->
+        <section>
+          <h2 style="margin-top: 5px !important; margin-bottom: 8px; color:#1c1b17;">Plan 模式：先让 AI 交方案，再让它动手</h2>
+          <p style="font-size:.76em; color:#1c1b17; margin:0 0 10px;">大型功能、重构或陌生代码库中，先进入 <strong>Plan / Ask</strong> 阶段：AI 只理解、分析与提出方案，<strong>不直接修改代码</strong>。确认方向后，再切换到执行模式。</p>
+
+          <div class="grid-2" style="gap:14px; align-items:stretch;">
+            <div class="vibe-card" style="padding:12px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;">
+              <h3 style="font-size:.84em; color:#1c1b17; margin-bottom:7px;"><i class="fa-solid fa-magnifying-glass" style="color:var(--accent-blue);"></i> Plan 阶段：先理解，不执行</h3>
+              <ul style="font-size:.7em; line-height:1.55; margin:0 0 0 1.1em;">
+                <li>阅读相关代码、规则与现有实现</li>
+                <li>识别影响范围、依赖、风险与未知项</li>
+                <li>必要时提出澄清问题，不凭空假设</li>
+                <li>输出可审阅的改动清单与验证方案</li>
+              </ul>
+            </div>
+            <div class="vibe-card" style="padding:12px; background:#b9dec5; border:2px solid #1c1b17; color:#1c1b17;">
+              <h3 style="font-size:.84em; color:#1c1b17; margin-bottom:7px;"><i class="fa-solid fa-hammer" style="color:var(--accent-red);"></i> Execute 阶段：按批准方案落地</h3>
+              <ul style="font-size:.7em; line-height:1.55; margin:0 0 0 1.1em;">
+                <li>逐项实施，变更范围不随意膨胀</li>
+                <li>遇到新信息时说明偏差并重新确认</li>
+                <li>运行计划中约定的测试、构建与检查</li>
+                <li>交付变更摘要、验证结果与剩余风险</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:7px; margin:10px 0; font-family:var(--font-code); font-size:.65em; color:#1c1b17;">
+            <span class="badge badge-blue">01</span> 任务与约束
+            <i class="fa-solid fa-arrow-right"></i><span class="badge badge-blue">02</span> 探索代码库
+            <i class="fa-solid fa-arrow-right"></i><span class="badge badge-blue">03</span> 提出计划
+            <i class="fa-solid fa-arrow-right"></i><span class="badge badge-orange">04</span> 人工确认
+            <i class="fa-solid fa-arrow-right"></i><span class="badge badge-green">05</span> 执行 + 验证
+          </div>
+
+          <div class="grid-2" style="gap:14px; align-items:start;">
+            <div class="vibe-card" style="padding:11px; background:#fff9e9; border:2px solid #1c1b17; color:#1c1b17;">
+              <h3 style="font-size:.78em; color:#1c1b17; margin-bottom:6px;">什么时候必须先 Plan？</h3>
+              <div style="font-size:.66em; line-height:1.55;"><strong>适合：</strong>跨多个文件的功能、架构重构、数据库迁移、权限/安全变更、接手陌生模块。<br><strong>不必：</strong>范围明确的文案、样式或单点修复——直接执行更快。</div>
+            </div>
+            <div class="vibe-card" style="padding:11px; background:#1c1b17; border:2px solid #1c1b17; color:#fff9e9;">
+              <h3 style="font-size:.78em; color:#f8c96d; margin-bottom:6px;">高质量 Plan 提示词</h3>
+              <code style="display:block; font-size:.59em; line-height:1.5; color:#fff9e9; white-space:normal;">“先不要改代码。分析实现 ××× 所涉及的文件、现有模式和风险；给出分步计划、每步的验证方式，以及需要我确认的决策。”</code>
+            </div>
+          </div>
+          <div class="quote-card" style="margin-top:10px; padding:8px 13px; background:#f8c96d; border:2px solid #1c1b17; color:#1c1b17; font-size:.7em;"><strong>Plan 的价值：</strong>把“AI 想到什么就改什么”变成“人机共同确认后再改什么”——成本最低的控制点，恰好在第一行代码写入之前。</div>
+          <aside class="notes">不同工具可能称为 Plan、Ask 或 Architect。核心不是按钮名称，而是先用只读探索产出可审阅计划，再由人确认进入执行。Claude Code 的 plan 权限模式和 Codex 的 Ask 后进入 Code 都体现了这种工作流。</aside>
         </section>
 
         <!-- 4.5 常用命令与权限配置 -->
@@ -2907,7 +3044,7 @@
                 <i class="fa-solid fa-screwdriver-wrench"></i> 1. 工具异构
               </div>
               <p style="font-size: 0.7em; margin: 0; color: #1c1b17; line-height: 1.4;">
-                成员分别使用 Cursor、Claude Code、Trae、ChatGPT 等不同编辑器/客户端。
+                成员分别使用 Trae、VSCode、Qoder、CodeBuddy、IDEA 等不同编辑器/客户端。
               </p>
             </div>
 
@@ -2916,7 +3053,7 @@
                 <i class="fa-solid fa-microchip"></i> 2. 模型异构
               </div>
               <p style="font-size: 0.7em; margin: 0; color: #1c1b17; line-height: 1.4;">
-                后台混用 Claude、GPT、DeepSeek、GLM 等不同厂商模型。
+                后台混用 DeepSeek、GLM、QianWen、Minimax 等不同厂商模型。
               </p>
             </div>
 
@@ -3009,7 +3146,7 @@
           <div class="vibe-card" style="padding: 10px 14px; background: #b9dec5; border: 2px solid #1c1b17; color: #1c1b17;">
             <div style="font-weight: 800; font-size: 0.8em; margin-bottom: 3px; display: flex; align-items: center; gap: 6px;">
               <i class="fa-solid fa-file-code" style="color: #1c1b17;"></i>
-              <span>AGENTS.md 实战落地方案（支持 Cursor / Claude Code / TRAE 自动感知）：</span>
+              <span>AGENTS.md 实战落地方案（支持 CLI / AI IDEA / IDEA Plugin / AI Desktop 自动感知）：</span>
             </div>
             <pre style="margin: 0; font-size: 0.58em; background: transparent; border: 0; padding: 0; color: #1c1b17; line-height: 1.4;"><code class="language-markdown"># AGENTS.md 项目入口基线
 - 任务与 Skill 路由映射：新增 Vue 页面必须调用 `frontend-page-builder` Skill

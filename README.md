@@ -22,7 +22,7 @@
 3. **03. 环境安装与基础配置**
    - IDE (Cursor/Claude Code) 选型、推荐插件与系统环境初始化
 4. **04. 概念演进与实用方法**
-   - Prompt 黄金公式、Meta-Prompting 提示词自动重构、上下文管理、Token 指南与 10 大 VibeCoding 黄金法则
+   - Prompt 黄金公式、Meta-Prompting 提示词自动重构、上下文工程（窗口、污染、长期规则与会话压缩）、Token 指南与 10 大 VibeCoding 黄金法则
 5. **05. 项目实战经验**
    - 标杆案例：长江电力新一代生产经营管理系统（https://prototype.wanghuanlab.com 多人协作构建 600+ 页面超大型管理系统）
    - 产品组/非技术团队 Git 3-Skill 规范化工作流（可全屏放大架构图）
