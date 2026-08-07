@@ -792,6 +792,74 @@
       flex-direction: column;
       gap: 2px;
     }
+    /* Two-lane ecosystem ticker used beneath the AI coding tool overview. */
+    .tool-ecosystem-ticker { width: 100%; max-width: none; margin: 32px 0 0; text-align: left; }
+    .tool-ecosystem-caption { display: flex; align-items: center; justify-content: space-between; margin: 0 0 10px; color: #504d43; font-size: .58em; font-weight: 800; }
+    .tool-ecosystem-caption strong { color: #1c1b17; }
+    .tool-ecosystem-caption strong > i { color: #527c9e; }
+    .tool-ecosystem-caption small { font-family: var(--font-code); font-size: .88em; }
+    .tool-ticker-lane { position: relative; overflow: hidden; padding: 11px 0; border-top: 2px solid #1c1b17; }
+    .tool-ticker-lane:last-child { border-bottom: 2px solid #1c1b17; }
+    .tool-ticker-lane.is-global { background: rgba(169,200,223,.32); }
+    .tool-ticker-lane.is-china { background: rgba(185,222,197,.42); }
+    .tool-ticker-label { display: inline-flex; position: absolute; top: 50%; left: 8px; z-index: 2; align-items: center; gap: 5px; padding: 4px 7px; color: #1c1b17; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 3px; font-size: .45em; font-weight: 900; transform: translateY(-50%); }
+    .tool-ticker-viewport { overflow: hidden; margin-left: 78px; }
+    .tool-ticker-track { display: flex; width: max-content; gap: 9px; animation: tool-ticker-scroll 42s linear infinite; }
+    .tool-ticker-lane.is-china .tool-ticker-track { animation-direction: reverse; animation-duration: 46s; }
+    .tool-ticker-group { display: flex; flex: 0 0 auto; gap: 9px; }
+    .tool-ticker-item { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 5px 10px; color: #1c1b17; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 4px; box-shadow: 2px 2px 0 #1c1b17; font-size: .54em; font-weight: 900; white-space: nowrap; }
+    .tool-ticker-item i { color: #e86652; }
+    .tool-ticker-item small { padding-left: 5px; color: #625e53; border-left: 1px solid rgba(28,27,23,.28); font-family: var(--font-code); font-size: .8em; font-weight: 800; }
+    @keyframes tool-ticker-scroll { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 4.5px)); } }
+    @media (prefers-reduced-motion: reduce) { .tool-ticker-track { animation: none; } }
+    @media (max-width: 900px) { .tool-ecosystem-caption { font-size: .62em; } .tool-ticker-viewport { margin-left: 68px; } .tool-ticker-label { left: 5px; } }
+    .tool-type-page { padding-top: 70px !important; }
+    .tool-type-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; max-width: 1260px; margin: 20px auto 0; text-align: left; }
+    .tool-type-card { min-width: 0; min-height: 292px; padding: 16px 15px 14px; color: #1c1b17; border: 3px solid #1c1b17; border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; }
+    .tool-type-card.is-cli { background: #f8c96d; }
+    .tool-type-card.is-ide { background: #a9c8df; }
+    .tool-type-card.is-plugin { background: #b9dec5; }
+    .tool-type-card.is-desktop { background: #f3b1a2; }
+    .tool-type-card-head { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+    .tool-type-icon { display: inline-flex; width: 34px; height: 34px; flex: 0 0 34px; align-items: center; justify-content: center; color: #fff9e9; background: #1c1b17; border: 2px solid #1c1b17; border-radius: 4px; font-size: .8em; }
+    .tool-type-card h3 { margin: 0; font-size: .85em; line-height: 1.08; }
+    .tool-type-card h3 small { display: block; margin-top: 3px; font-family: var(--font-code); font-size: .58em; letter-spacing: .05em; }
+    .tool-type-card > p { min-height: 52px; margin: 0 0 11px; font-size: .61em; font-weight: 700; line-height: 1.42; }
+    .tool-type-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .tool-type-chip { padding: 4px 6px; background: rgba(255,249,233,.78); border: 1px solid #1c1b17; border-radius: 3px; font-family: var(--font-code); font-size: .44em; font-weight: 800; line-height: 1.1; }
+    .tool-type-fit { padding-top: 10px; border-top: 2px dashed rgba(28,27,23,.42); font-size: .56em; font-weight: 800; line-height: 1.4; }
+    .tool-type-fit strong { display: block; margin-bottom: 2px; }
+    .tool-selection-note { display: flex; align-items: stretch; max-width: 1260px; margin: 19px auto 0; padding: 12px 14px; color: #1c1b17; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 6px; box-shadow: 3px 3px 0 #1c1b17; font-size: .58em; font-weight: 800; text-align: left; }
+    .tool-essence { display: grid; grid-template-columns: 285px minmax(0, 1fr); gap: 16px; width: 100%; align-items: center; }
+    .tool-essence-formula { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 6px 10px; background: #1c1b17; border-radius: 4px; color: #fff9e9; }
+    .tool-essence-term { padding: 5px 7px; border: 1px solid rgba(255,249,233,.72); border-radius: 3px; font-family: var(--font-code); font-size: 1.05em; letter-spacing: .02em; }
+    .tool-essence-term.is-model { color: #1c1b17; background: #8ac9a5; border-color: #8ac9a5; }
+    .tool-essence-plus { color: #f5d363; font-family: Georgia, 'Songti SC', serif; font-size: 1.75em; line-height: 1; }
+    .tool-essence-copy { padding-left: 16px; border-left: 3px solid #e86652; font-size: 1.04em; line-height: 1.55; }
+    .tool-essence-copy strong { color: #1c1b17; }
+    .tool-essence-emphasis { display: inline-block; padding: 0 .16em; color: #1c1b17; background: linear-gradient(transparent 60%, #f5d363 60%); }
+    @media (max-width: 900px) { .tool-essence { grid-template-columns: 1fr; gap: 10px; } .tool-essence-copy { padding-left: 10px; } }
+    @media (max-width: 900px) { .tool-type-page { padding-top: 52px !important; } .tool-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tool-type-card { min-height: 0; } }
+    .practice-page { padding-top: 70px !important; }
+    .practice-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; max-width: 1260px; margin: 20px auto 0; text-align: left; }
+    .practice-card { min-width: 0; min-height: 305px; padding: 15px; border: 3px solid #1c1b17; border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; }
+    .practice-card.is-cli { background: #f8c96d; }
+    .practice-card.is-ide { background: #a9c8df; }
+    .practice-card.is-plugin { background: #b9dec5; }
+    .practice-card.is-desktop { background: #f3b1a2; }
+    .practice-card-head { display: flex; align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 2px dashed rgba(28,27,23,.4); }
+    .practice-card-head i { display: inline-flex; width: 30px; height: 30px; align-items: center; justify-content: center; color: #fff9e9; background: #1c1b17; border-radius: 4px; font-size: .72em; }
+    .practice-card-head h3 { margin: 0; font-size: .82em; }
+    .practice-card-head small { display: block; margin-top: 2px; font-family: var(--font-code); font-size: .58em; letter-spacing: .04em; }
+    .practice-steps { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+    .practice-steps li { display: grid; grid-template-columns: 19px minmax(0, 1fr); gap: 7px; align-items: start; font-size: .57em; font-weight: 700; line-height: 1.35; }
+    .practice-step-number { display: inline-flex; width: 19px; height: 19px; align-items: center; justify-content: center; color: #1c1b17; background: #fff9e9; border: 1px solid #1c1b17; border-radius: 50%; font-family: var(--font-code); font-size: .78em; font-weight: 900; }
+    .practice-command { display: block; margin-top: 4px; padding: 4px 5px; overflow-wrap: anywhere; color: #fff9e9; background: #1c1b17; border-radius: 3px; font-family: var(--font-code); font-size: .82em; font-weight: 700; }
+    .practice-outcome { margin-top: 12px; padding-top: 9px; border-top: 2px dashed rgba(28,27,23,.4); font-size: .54em; font-weight: 800; line-height: 1.4; }
+    .practice-outcome strong { display: block; margin-bottom: 2px; }
+    .practice-footer { max-width: 1260px; margin: 18px auto 0; padding: 9px 13px; color: #1c1b17; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 6px; box-shadow: 3px 3px 0 #1c1b17; font-size: .57em; font-weight: 800; }
+    .practice-footer i { color: #527c9e; margin-right: 6px; }
+    @media (max-width: 900px) { .practice-page { padding-top: 52px !important; } .practice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .practice-card { min-height: 0; } }
     .plugin-item-title {
       font-weight: 800;
       color: #1c1b17;
@@ -848,7 +916,7 @@
     }
     .tree-header-title {
       font-weight: 800;
-      color: #f5d363;
+      color: #a9c8df;
       font-size: 1.1em;
     }
     .tree-btn-group {
@@ -900,7 +968,7 @@
       display: inline-block;
       font-size: 0.7em;
       transition: transform 0.15s ease;
-      color: #f8c96d;
+      color: #8ac9a5;
     }
     .tree-node details[open] > summary::before {
       transform: rotate(90deg);
@@ -1311,88 +1379,188 @@
         <!-- 3.1 工具全景图 -->
         <section>
           <h2>主流 AI Coding 工具全景图</h2>
-          <div class="grid-3" style="margin-top: 35px;">
+          <div class="grid-4" style="margin-top: 35px; gap: 16px;">
             <div class="vibe-card fragment">
               <span class="badge badge-blue">CLI Agent 类</span>
-              <h3 style="margin: 15px 0 10px 0;">Claude Code / Codex CLI  </h3>
-              <h3 style="margin: 15px 0 10px 0;">Opencode CLI / AntiGravity CLI</h3>
-              <h3 style="margin: 15px 0 10px 0;">Codebuddy CLI / Kimi Code CLI</h3>
-              <p style="font-size: 0.78em; color: var(--text-muted);">运行于终端的强力 Agent，具备文件系统自主读写、Git 操作、命令执行及自动化闭环能力。</p>
+              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">Claude Code / Codex CLI </h3>
+              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">OpenCode CLI / Kimi Code CLI</h3>
+              <p style="font-size: 0.68em; color: var(--text-muted);">运行于终端的 Agent：文件读写、Git 操作、命令执行与自动化闭环。</p>
             </div>
             <div class="vibe-card fragment">
               <span class="badge badge-purple">AI 架构 IDE 类</span>
-              <h3 style="margin: 15px 0 10px 0;">Cursor / Trae </h3>
-              <h3 style="margin: 15px 0 10px 0;">Opencode / Qwen Code</h3>
-              <h3 style="margin: 15px 0 10px 0;">Qoder / CodeBuddy</h3>
-              <p style="font-size: 0.78em; color: var(--text-muted);">深度定制的原生 IDE，通常基于VSCode，原生支持 @代码库索引、规则文件解析、Composer 多文件并行编辑。</p>
+              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">Cursor / Windsurf / Trae</h3>
+              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">Qoder / CodeBuddy / Kimi Code</h3>
+              <p style="font-size: 0.68em; color: var(--text-muted);">原生 AI 编辑器：代码库索引、规则文件、多文件并行编辑与 Agent 工作区。</p>
             </div>
             <div class="vibe-card fragment">
-              <span class="badge badge-green">插件 / 客户端</span>
-              <h3 style="margin: 15px 0 10px 0;">Codex / AntiGravity </h3>
-              <h3 style="margin: 15px 0 10px 0;">Copilot / JetBrains AI</h3>
-              <h3 style="margin: 15px 0 10px 0;">Codebuddy / Qwen Code IDE 插件</h3>
-              <p style="font-size: 0.78em; color: var(--text-muted);">传统 IDE 的增强插件或独立客户端，提供行内补全、侧边栏 Chat 及单模块重构助手。</p>
+              <span class="badge badge-green">IDE 插件 Plugin</span>
+              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">GitHub Copilot / Cline</h3>
+              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">JetBrains AI / CodeBuddy Plugin</h3>
+              <p style="font-size: 0.68em; color: var(--text-muted);">嵌入现有 IDE：行内补全、Chat、局部重构及第三方 Agent 接入。</p>
+            </div>
+            <div class="vibe-card fragment">
+              <span class="badge badge-orange">客户端 Desktop</span>
+              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">Codex = ChatGPT / Claude Desktop</h3>
+              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">AntiGravity / SOLO Coder / Eigent</h3>
+              <p style="font-size: 0.68em; color: var(--text-muted);">独立桌面入口：多项目会话、任务队列、MCP 连接与可视化操作。</p>
+            </div>
+          </div>
+
+          <div class="tool-ecosystem-ticker" aria-label="国内外主流 AI Coding 工具清单">
+            <div class="tool-ecosystem-caption"><strong><i class="fa-solid fa-layer-group"></i> 主流工具生态清单</strong><small>CLI · IDE · 插件 / Agent · Desktop</small></div>
+            <div class="tool-ticker-lane is-global">
+              <span class="tool-ticker-label"><i class="fa-solid fa-globe"></i> 国际</span>
+              <div class="tool-ticker-viewport">
+                <div class="tool-ticker-track">
+                  <div class="tool-ticker-group">
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Claude Code <small>CLI</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Codex <small>CLI / Web</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Gemini CLI <small>CLI</small></span>
+                    <span class="tool-ticker-item"><i class="fa-brands fa-github"></i> GitHub Copilot <small>IDE / CLI</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> Cursor <small>AI IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> Windsurf <small>AI IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-puzzle-piece"></i> Cline <small>VS Code</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Aider <small>CLI</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-desktop"></i> JetBrains AI / Junie <small>IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> Zed AI <small>IDE</small></span>
+                  </div>
+                  <div class="tool-ticker-group" aria-hidden="true">
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Claude Code <small>CLI</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Codex <small>CLI / Web</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Gemini CLI <small>CLI</small></span>
+                    <span class="tool-ticker-item"><i class="fa-brands fa-github"></i> GitHub Copilot <small>IDE / CLI</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> Cursor <small>AI IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> Windsurf <small>AI IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-puzzle-piece"></i> Cline <small>VS Code</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Aider <small>CLI</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-desktop"></i> JetBrains AI / Junie <small>IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> Zed AI <small>IDE</small></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tool-ticker-lane is-china">
+              <span class="tool-ticker-label"><i class="fa-solid fa-location-dot"></i> 国内</span>
+              <div class="tool-ticker-viewport">
+                <div class="tool-ticker-track">
+                  <div class="tool-ticker-group">
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> Trae <small>AI IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> Qoder CN <small>IDE / 插件</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-desktop"></i> CodeBuddy <small>IDE / CLI</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Kimi Code <small>CLI / VS Code</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-puzzle-piece"></i> 百度 Comate <small>IDE 插件</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-puzzle-piece"></i> CodeGeeX <small>IDE 插件</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Qwen Code <small>CLI / IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> MarsCode <small>AI IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-desktop"></i> Comate 智能体 <small>Desktop</small></span>
+                  </div>
+                  <div class="tool-ticker-group" aria-hidden="true">
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> Trae <small>AI IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> Qoder CN <small>IDE / 插件</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-desktop"></i> CodeBuddy <small>IDE / CLI</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Kimi Code <small>CLI / VS Code</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-puzzle-piece"></i> 百度 Comate <small>IDE 插件</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-puzzle-piece"></i> CodeGeeX <small>IDE 插件</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-terminal"></i> Qwen Code <small>CLI / IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-code"></i> MarsCode <small>AI IDE</small></span>
+                    <span class="tool-ticker-item"><i class="fa-solid fa-desktop"></i> Comate 智能体 <small>Desktop</small></span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- 3.1 工具分类表格 -->
-        <section>
+        <!-- 3.1 工具分类与组合逻辑 -->
+        <section class="tool-type-page">
           <h2>工具类型划分与组合逻辑</h2>
-          <table class="vibe-table" style="margin-top: 25px;">
-            <thead>
-              <tr>
-                <th>工具类型</th>
-                <th>代表工具举例</th>
-                <th>典型适用场景</th>
-                <th>核心优势</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span class="badge badge-blue">CLI 命令行终端</span></td>
-                <td>Claude Code, OpenAI Codex CLI</td>
-                <td>自动化任务、脚本批量生成、Git工作流</td>
-                <td>轻量、高权限、适合无图形界面环境</td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-purple">客户端 GUI</span></td>
-                <td>ChatGPT, OpenClaude, AntiGravity</td>
-                <td>方案讨论、文档编写、独立开发</td>
-                <td>界面友好、多模态支持好、插件生态直观</td>
-              </tr>
-              <tr>
-                <td><span class="badge badge-green">集成商 / AI IDE</span></td>
-                <td>Cursor, Trae, Qoder, CodeBuddy</td>
-                <td>项目日常开发、重构、全局调试</td>
-                <td>上下文检索强、代码Diff实时审查</td>
-              </tr>
-            </tbody>
-          </table>
+          <p style="margin: 0; font-size: .74em; color: var(--text-muted);">先选工作界面，再选模型与权限边界：四种形态可以并存，不必把一款工具当成全部工作流。</p>
 
-          <div class="quote-card fragment" style="margin-top: 25px; padding: 15px 25px; font-size: 1.1em;">
-            <i class="fa-solid fa-key list-item-icon"></i> 核心公式：<strong>高效 VibeCoding 架构 = 现代化工具客户端 + 顶级 LLM API (如 Claude / GPT / DeepSeek / GLM 等)</strong>
+          <div class="tool-type-grid">
+            <article class="tool-type-card is-cli fragment">
+              <div class="tool-type-card-head"><span class="tool-type-icon"><i class="fa-solid fa-terminal"></i></span><h3>CLI Agent<small>TERMINAL FIRST</small></h3></div>
+              <p>把自然语言直接接入终端、代码库和 Git，是自动化与复杂任务的主力入口。</p>
+              <div class="tool-type-chips"><span class="tool-type-chip">Claude Code</span><span class="tool-type-chip">Codex CLI</span><span class="tool-type-chip">Gemini CLI</span><span class="tool-type-chip">Aider</span></div>
+              <div class="tool-type-fit"><strong>适合：</strong>批处理、脚本、代码审查、Git 工作流与无图形界面环境。</div>
+            </article>
+            <article class="tool-type-card is-ide fragment">
+              <div class="tool-type-card-head"><span class="tool-type-icon"><i class="fa-solid fa-code"></i></span><h3>AI IDE<small>PROJECT WORKSPACE</small></h3></div>
+              <p>以项目工作区为核心，提供代码索引、规则文件、多文件编辑和可追踪的 Diff。</p>
+              <div class="tool-type-chips"><span class="tool-type-chip">Cursor</span><span class="tool-type-chip">Windsurf</span><span class="tool-type-chip">Trae</span><span class="tool-type-chip">Qoder</span></div>
+              <div class="tool-type-fit"><strong>适合：</strong>日常开发、跨文件重构、调试与长期项目协作。</div>
+            </article>
+            <article class="tool-type-card is-plugin fragment">
+              <div class="tool-type-card-head"><span class="tool-type-icon"><i class="fa-solid fa-puzzle-piece"></i></span><h3>IDE Plugin<small>KEEP YOUR IDE</small></h3></div>
+              <p>保留团队既有 IDE 与快捷键习惯，在编码现场补齐 Chat、补全和局部 Agent 能力。</p>
+              <div class="tool-type-chips"><span class="tool-type-chip">GitHub Copilot</span><span class="tool-type-chip">JetBrains AI</span><span class="tool-type-chip">Cline</span><span class="tool-type-chip">Comate</span></div>
+              <div class="tool-type-fit"><strong>适合：</strong>存量 IDE 团队、轻量辅助、逐步引入 AI 的研发组织。</div>
+            </article>
+            <article class="tool-type-card is-desktop fragment">
+              <div class="tool-type-card-head"><span class="tool-type-icon"><i class="fa-solid fa-desktop"></i></span><h3>Desktop Client<small>VISUAL AGENT HUB</small></h3></div>
+              <p>以独立会话与任务面板承接编码 Agent，并适合图文、文件与 MCP 的可视化操作。</p>
+              <div class="tool-type-chips"><span class="tool-type-chip">Codex App</span><span class="tool-type-chip">Claude Desktop</span><span class="tool-type-chip">CodeBuddy</span><span class="tool-type-chip">Qoder</span></div>
+              <div class="tool-type-fit"><strong>适合：</strong>方案讨论、多项目任务队列、非终端用户与可视化协作。</div>
+            </article>
+          </div>
+
+          <div class="tool-selection-note fragment">
+            <div class="tool-essence">
+              <div class="tool-essence-formula" aria-label="AI 客户端加 LLM">
+                <span class="tool-essence-term">AI 客户端 / 调用端</span><span class="tool-essence-plus">+</span><span class="tool-essence-term is-model">LLM</span>
+              </div>
+              <div class="tool-essence-copy"><strong>本质上，四种工具只是交互界面与工作流不同。</strong>多数工具本身不生产模型，而是连接 Claude、GPT、Gemini、DeepSeek、GLM 等模型接口。<span class="tool-essence-emphasis">有自研模型的厂商可一体化交付</span>；没有自研模型的厂商，则把模型能力封装成更适合开发的工作台。</div>
+            </div>
           </div>
         </section>
 
-        <!-- 3.2 全局安装 Claude Code CLI -->
-        <section>
-          <h2>实操：全局安装 Claude Code CLI</h2>
-          <p style="font-size: 0.85em; color: var(--text-muted);">使用 <code>-g</code> 参数将命令安装至全局，确保任意工程目录下均可召唤 Agent：</p>
+        <!-- 3.2 四种工具形态的实操入口 -->
+        <section class="practice-page">
+          <h2>实操：四种工具形态如何开始</h2>
+          <p style="margin: 0; font-size: .74em; color: var(--text-muted);">任选与你当前工作界面最接近的一种开始。关键不是安装得多，而是让工具真正读取项目、执行任务并产出可审查的变更。</p>
 
-          <pre><code class="language-bash"># 1. 使用 npm 全局安装 Claude Code
-npm install -g @anthropic-ai/claude-code
+          <div class="practice-grid">
+            <article class="practice-card is-cli fragment">
+              <div class="practice-card-head"><i class="fa-solid fa-terminal"></i><h3>CLI Agent<small>终端直接驱动</small></h3></div>
+              <ol class="practice-steps">
+                <li><span class="practice-step-number">1</span><span>安装 Agent<span class="practice-command">npm i -g @anthropic-ai/claude-code</span></span></li>
+                <li><span class="practice-step-number">2</span><span>进入项目根目录，运行 <code>claude</code> 并完成授权。</span></li>
+                <li><span class="practice-step-number">3</span><span>从一个可验证任务开始：读代码、改一个函数、运行测试。</span></li>
+              </ol>
+              <div class="practice-outcome"><strong>首个成果</strong>提交一份可审查的 Git Diff 与测试结果。</div>
+            </article>
 
-# 2. 验证安装结果与版本信息
-claude --version
-# 输出示例: @anthropic-ai/claude-code/0.1.25 darwin-x64 node-v20.11.0
+            <article class="practice-card is-ide fragment">
+              <div class="practice-card-head"><i class="fa-solid fa-code"></i><h3>AI IDE<small>项目工作区主场</small></h3></div>
+              <ol class="practice-steps">
+                <li><span class="practice-step-number">1</span><span>安装 Cursor、Trae、Qoder 或同类 AI IDE，并登录账号。</span></li>
+                <li><span class="practice-step-number">2</span><span>以<strong>项目根目录</strong>打开工作区，等待代码索引完成。</span></li>
+                <li><span class="practice-step-number">3</span><span>写入项目规则，再用多文件任务生成并检查 Diff。</span></li>
+              </ol>
+              <div class="practice-outcome"><strong>首个成果</strong>完成一次跨文件小重构，并逐块接受变更。</div>
+            </article>
 
-# 3. 启动并完成首次 API 授权认证
-claude</code></pre>
+            <article class="practice-card is-plugin fragment">
+              <div class="practice-card-head"><i class="fa-solid fa-puzzle-piece"></i><h3>IDE Plugin<small>不换 IDE 的入口</small></h3></div>
+              <ol class="practice-steps">
+                <li><span class="practice-step-number">1</span><span>在 VS Code / JetBrains 市场安装 Copilot、Cline、Comate 等插件。</span></li>
+                <li><span class="practice-step-number">2</span><span>登录并设置模型或团队授权，打开现有代码仓。</span></li>
+                <li><span class="practice-step-number">3</span><span>从当前文件选中一段代码，让 Agent 解释、补全或重构。</span></li>
+              </ol>
+              <div class="practice-outcome"><strong>首个成果</strong>保留既有快捷键与调试习惯，完成局部改造。</div>
+            </article>
 
-          <div class="vibe-card fragment" style="margin-top: 15px; border-left: 4px solid var(--accent-orange);">
-            <i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-orange);"></i> <strong>提示：</strong> 若在 macOS/Linux 环境中遇到权限报错，请检查 npm 全局路径或使用 <code>sudo npm install -g @anthropic-ai/claude-code</code>。
+            <article class="practice-card is-desktop fragment">
+              <div class="practice-card-head"><i class="fa-solid fa-desktop"></i><h3>Desktop Client<small>可视化任务中枢</small></h3></div>
+              <ol class="practice-steps">
+                <li><span class="practice-step-number">1</span><span>安装 Codex App、Claude Desktop 或团队指定客户端并登录。</span></li>
+                <li><span class="practice-step-number">2</span><span>创建项目会话；按产品能力授权文件夹、Git 或 MCP。</span></li>
+                <li><span class="practice-step-number">3</span><span>用任务卡描述目标、验收标准与边界，再审查执行记录。</span></li>
+              </ol>
+              <div class="practice-outcome"><strong>首个成果</strong>将需求、附件、执行过程和结果集中到一个会话。</div>
+            </article>
           </div>
+
+          <div class="practice-footer fragment"><i class="fa-solid fa-circle-check"></i><strong>统一验收标准：</strong>无论入口是哪一种，最终都要回到同一件事——看 Diff、跑测试、检查日志，再决定是否合并。</div>
         </section>
 
         <!-- 3.3 模型与 Endpoint 配置 -->
@@ -1528,19 +1696,19 @@ claude</code></pre>
                 <ul class="tree-view">
                   <li class="tree-node">
                     <details open onclick="event.stopPropagation();">
-                      <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">my-vibecoding-project/</span> <span class="tree-comment"># 项目根目录</span></summary>
+                      <summary><i class="fa-regular fa-folder-open" style="color:#a9c8df;"></i> <span class="tree-name">my-vibecoding-project/</span> <span class="tree-comment"># 项目根目录</span></summary>
                       <ul>
-                        <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#f8c96d;"></i> <span class="tree-name">AGENTS.md</span> <span class="tree-comment"># 根目录多 Agent 智能体协同全局规范与行为约束</span></li>
-                        <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#f8c96d;"></i> <span class="tree-name">CLAUDE.md</span> <span class="tree-comment"># 根目录 Claude Code 顶层指令契约与项目全景知识库</span></li>
+                        <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#8ac9a5;"></i> <span class="tree-name">AGENTS.md</span> <span class="tree-comment"># 根目录多 Agent 智能体协同全局规范与行为约束</span></li>
+                        <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#8ac9a5;"></i> <span class="tree-name">CLAUDE.md</span> <span class="tree-comment"># 根目录 Claude Code 顶层指令契约与项目全景知识库</span></li>
                         <li class="tree-node">
                           <details open onclick="event.stopPropagation();">
-                            <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">.claude/</span> <span class="tree-comment"># Agent 核心配置与上下文根目录</span></summary>
+                            <summary><i class="fa-regular fa-folder-open" style="color:#a9c8df;"></i> <span class="tree-name">.claude/</span> <span class="tree-comment"># Agent 核心配置与上下文根目录</span></summary>
                             <ul>
                               <li class="tree-node tree-file"><i class="fa-regular fa-file-code" style="color:#a9c8df;"></i> <span class="tree-name">settings.json</span> <span class="tree-comment"># 环境变量、模型及执行权限边界定义</span></li>
-                              <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#f8c96d;"></i> <span class="tree-name">CLAUDE.md</span> <span class="tree-comment"># Agent 长期记忆与团队高频指令指南</span></li>
+                              <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#8ac9a5;"></i> <span class="tree-name">CLAUDE.md</span> <span class="tree-comment"># Agent 长期记忆与团队高频指令指南</span></li>
                               <li class="tree-node">
                                 <details open onclick="event.stopPropagation();">
-                                  <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">commands/</span> <span class="tree-comment"># 团队自定义 Slash 指令库</span></summary>
+                                  <summary><i class="fa-regular fa-folder-open" style="color:#a9c8df;"></i> <span class="tree-name">commands/</span> <span class="tree-comment"># 团队自定义 Slash 指令库</span></summary>
                                   <ul>
                                     <li class="tree-node tree-file"><i class="fa-regular fa-file-code"></i> <span class="tree-name">review.md</span> <span class="tree-comment"># /review 代码审查与重构规范指令</span></li>
                                   </ul>
@@ -1548,11 +1716,11 @@ claude</code></pre>
                               </li>
                               <li class="tree-node">
                                 <details open onclick="event.stopPropagation();">
-                                  <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">skills/</span> <span class="tree-comment"># 领域技能包 (Reusable Skill Packs)</span></summary>
+                                  <summary><i class="fa-regular fa-folder-open" style="color:#a9c8df;"></i> <span class="tree-name">skills/</span> <span class="tree-comment"># 领域技能包 (Reusable Skill Packs)</span></summary>
                                   <ul>
                                     <li class="tree-node">
                                       <details open onclick="event.stopPropagation();">
-                                        <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">api-design/</span> <span class="tree-comment"># API 规范技能</span></summary>
+                                        <summary><i class="fa-regular fa-folder-open" style="color:#a9c8df;"></i> <span class="tree-name">api-design/</span> <span class="tree-comment"># API 规范技能</span></summary>
                                         <ul>
                                           <li class="tree-node tree-file"><i class="fa-regular fa-file-lines"></i> <span class="tree-name">SKILL.md</span> <span class="tree-comment"># 提示词模板与响应规则说明</span></li>
                                         </ul>
@@ -1563,7 +1731,7 @@ claude</code></pre>
                               </li>
                               <li class="tree-node">
                                 <details open onclick="event.stopPropagation();">
-                                  <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">rules/</span> <span class="tree-comment"># 模块化细粒度规则 (Modular Rules)</span></summary>
+                                  <summary><i class="fa-regular fa-folder-open" style="color:#a9c8df;"></i> <span class="tree-name">rules/</span> <span class="tree-comment"># 模块化细粒度规则 (Modular Rules)</span></summary>
                                   <ul>
                                     <li class="tree-node tree-file"><i class="fa-regular fa-file-lines"></i> <span class="tree-name">00-security.md</span> <span class="tree-comment"># 密码学、SQL 注入等安全防护红线</span></li>
                                     <li class="tree-node tree-file"><i class="fa-regular fa-file-lines"></i> <span class="tree-name">01-code-style.md</span> <span class="tree-comment"># TypeScript/Rust 规范与风格约定</span></li>
@@ -1576,7 +1744,7 @@ claude</code></pre>
                         </li>
                         <li class="tree-node">
                           <details onclick="event.stopPropagation();">
-                            <summary><i class="fa-regular fa-folder" style="color:#f5d363;"></i> <span class="tree-name">.agents/</span> <span class="tree-comment"># Subagent & 多 Agent 协作流程配置</span></summary>
+                            <summary><i class="fa-regular fa-folder" style="color:#a9c8df;"></i> <span class="tree-name">.agents/</span> <span class="tree-comment"># Subagent & 多 Agent 协作流程配置</span></summary>
                             <ul>
                               <li class="tree-node tree-file"><i class="fa-regular fa-file-code"></i> <span class="tree-name">workflows.json</span> <span class="tree-comment"># 多 Agent 协同工作流编排图</span></li>
                             </ul>
@@ -1584,7 +1752,7 @@ claude</code></pre>
                         </li>
                         <li class="tree-node">
                           <details onclick="event.stopPropagation();">
-                            <summary><i class="fa-regular fa-folder" style="color:#f5d363;"></i> <span class="tree-name">.cursor/</span> <span class="tree-comment"># Cursor IDE 专属规则映射</span></summary>
+                            <summary><i class="fa-regular fa-folder" style="color:#a9c8df;"></i> <span class="tree-name">.cursor/</span> <span class="tree-comment"># Cursor IDE 专属规则映射</span></summary>
                             <ul>
                             <li class="tree-node tree-file"><i class="fa-regular fa-file-code"></i> <span class="tree-name">rules/*.mdc</span> <span class="tree-comment"># Cursor 语境 Rule 文件</span></li>
                             </ul>
@@ -1594,7 +1762,7 @@ claude</code></pre>
                         <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#a6b8b1;"></i> <span class="tree-name">.claudeignore</span> <span class="tree-comment"># 告之 Agent 屏蔽构建产物与依赖项，大幅节省 Token</span></li>
                         <li class="tree-node">
                           <details open onclick="event.stopPropagation();">
-                            <summary><i class="fa-regular fa-folder-open" style="color:#f5d363;"></i> <span class="tree-name">docs/</span> <span class="tree-comment"># 架构设计、PRD、接口契约与调试文档</span></summary>
+                            <summary><i class="fa-regular fa-folder-open" style="color:#a9c8df;"></i> <span class="tree-name">docs/</span> <span class="tree-comment"># 架构设计、PRD、接口契约与调试文档</span></summary>
                             <ul>
                               <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#8ac9a5;"></i> <span class="tree-name">PRD.md</span> <span class="tree-comment"># 产品需求文档、业务场景与 User Story 定义</span></li>
                               <li class="tree-node tree-file"><i class="fa-regular fa-file-lines" style="color:#8ac9a5;"></i> <span class="tree-name">architecture.md</span> <span class="tree-comment"># 核心业务系统设计说明书与技术架构图</span></li>
@@ -1603,7 +1771,7 @@ claude</code></pre>
                         </li>
                         <li class="tree-node">
                           <details onclick="event.stopPropagation();">
-                            <summary><i class="fa-regular fa-folder" style="color:#f5d363;"></i> <span class="tree-name">tests/</span> <span class="tree-comment"># 自动化单元测试与 E2E 回归套件</span></summary>
+                            <summary><i class="fa-regular fa-folder" style="color:#a9c8df;"></i> <span class="tree-name">tests/</span> <span class="tree-comment"># 自动化单元测试与 E2E 回归套件</span></summary>
                             <ul>
                               <li class="tree-node tree-file"><i class="fa-regular fa-file-code"></i> <span class="tree-name">e2e/app.spec.ts</span> <span class="tree-comment"># Playwright 端到端界面回归用例</span></li>
                             </ul>
@@ -1611,7 +1779,7 @@ claude</code></pre>
                         </li>
                         <li class="tree-node">
                           <details onclick="event.stopPropagation();">
-                            <summary><i class="fa-regular fa-folder" style="color:#f5d363;"></i> <span class="tree-name">src/</span> <span class="tree-comment"># 应用主业务源码目录</span></summary>
+                            <summary><i class="fa-regular fa-folder" style="color:#a9c8df;"></i> <span class="tree-name">src/</span> <span class="tree-comment"># 应用主业务源码目录</span></summary>
                             <ul>
                               <li class="tree-node tree-file"><i class="fa-regular fa-file-code"></i> <span class="tree-name">index.ts</span> <span class="tree-comment"># 业务入口模块</span></li>
                             </ul>
