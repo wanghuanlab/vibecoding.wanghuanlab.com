@@ -861,6 +861,50 @@
     .practice-footer { max-width: 1260px; margin: 12px auto 0; padding: 8px 12px; color: #1c1b17; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 6px; box-shadow: 3px 3px 0 #1c1b17; font-size: .54em; font-weight: 800; }
     .practice-footer i { color: #527c9e; margin-right: 6px; }
     @media (max-width: 900px) { .practice-page { padding-top: 80px !important; } .practice-grid { grid-template-columns: 1fr; } .practice-card { grid-template-columns: 112px minmax(0, 1fr); min-height: 0; } }
+    /* 3.3 数据流向对比：默认 Anthropic 直连 vs 第三方 API */
+    .endpoint-flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1200px; margin: 18px auto 0; text-align: left; }
+    /* 3.3 数据流向：architecture-diagram 设计语言（暗色架构图） */
+    .archflow-card { display: flex; flex-direction: column; padding: 14px 14px 12px; color: #e2e8f0; background: #020617; border: 1px solid #1e293b; border-radius: 14px; box-shadow: 0 18px 40px rgba(2,6,23,.42), 0 0 0 1px rgba(34,211,238,.05); }
+    .archflow-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin: 0 2px 10px; }
+    .archflow-head h3 { margin: 0; font-size: .76em; line-height: 1.2; color: #e2e8f0; }
+    .archflow-head h3 small { display: block; margin-top: 3px; font-family: var(--font-code); font-size: .54em; letter-spacing: .04em; color: #94a3b8; }
+    .archflow-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; color: #a5f3fc; background: rgba(34,211,238,.08); border: 1px solid rgba(34,211,238,.35); border-radius: 999px; font-family: var(--font-code); font-size: .5em; letter-spacing: .04em; font-weight: 700; white-space: nowrap; }
+    .archflow-badge.is-third { color: #fde68a; background: rgba(251,191,36,.08); border-color: rgba(251,191,36,.4); }
+    .archflow-svg { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .archflow-svg text { font-family: 'JetBrains Mono', monospace; }
+    .archflow-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; max-width: 1200px; margin: 14px auto 0; font-family: var(--font-code); font-size: .5em; color: #475569; }
+    .legend-chip { display: inline-flex; align-items: center; gap: 6px; }
+    .legend-chip::before { content: ""; width: 11px; height: 11px; border-radius: 3px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(2,6,23,.35); }
+    .endpoint-flow-note { max-width: 1200px; margin: 18px auto 0; padding: 9px 13px; color: #1c1b17; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 6px; box-shadow: 3px 3px 0 #1c1b17; font-size: .56em; font-weight: 800; text-align: left; }
+    .endpoint-flow-note i { color: #e86652; margin-right: 6px; }
+    /* 3.3 推荐组合：Claude Code CLI vs VS Code 插件 */
+    .endpoint-combo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1320px; margin: 12px auto 0; text-align: left; }
+    .endpoint-combo-card { display: flex; flex-direction: column; min-width: 0; padding: 12px 14px; color: #1c1b17; border: 3px solid #1c1b17; border-radius: 8px; box-shadow: 5px 5px 0 #1c1b17; }
+    .endpoint-combo-card.is-cli { background: #f8c96d; }
+    .endpoint-combo-card.is-ide { background: #a9c8df; }
+    .endpoint-combo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 2px dashed rgba(28,27,23,.42); }
+    .endpoint-combo-head i { display: inline-flex; width: 28px; height: 28px; flex: 0 0 28px; align-items: center; justify-content: center; color: #fff9e9; background: #1c1b17; border-radius: 4px; font-size: .66em; }
+    .endpoint-combo-head h3 { margin: 0; font-size: .72em; line-height: 1.12; }
+    .endpoint-combo-head h3 small { display: block; margin-top: 2px; font-family: var(--font-code); font-size: .52em; letter-spacing: .03em; opacity: .8; }
+    .endpoint-combo-steps { display: grid; grid-template-columns: 1fr; gap: 4px; margin: 0; padding: 0; list-style: none; }
+    .endpoint-combo-steps li { display: grid; grid-template-columns: 19px minmax(0, 1fr); gap: 6px; align-items: start; min-width: 0; padding: 4px 6px; color: #1c1b17; background: rgba(255,249,233,.6); border: 1px solid rgba(28,27,23,.3); border-radius: 4px; font-size: .52em; font-weight: 700; line-height: 1.28; }
+    .endpoint-combo-steps li > span:last-child { grid-column: 2; grid-row: 1; min-width: 0; }
+    .endpoint-combo-steps code { font-size: .92em; }
+    .endpoint-combo-card pre { margin: 9px 0 7px; font-size: .5em; }
+    .endpoint-combo-card pre code { padding: 10px 12px; }
+    .endpoint-config-share { max-width: 1320px; margin: 6px auto 0; text-align: left; }
+    .endpoint-config-share-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 5px; padding: 7px 13px; color: #1c1b17; background: #f5d363; border: 2px solid #1c1b17; border-radius: 6px; box-shadow: 3px 3px 0 #1c1b17; font-size: .54em; font-weight: 800; }
+    .endpoint-config-share-head i { color: #e86652; margin-right: 6px; }
+    .endpoint-config-share-head code { font-size: 1em; }
+    .endpoint-config-share pre { margin: 0; font-size: .46em; }
+    .endpoint-config-share pre code { padding: 9px 14px; line-height: 1.3; }
+    .endpoint-combo-outcome { margin-top: 9px; padding: 7px 9px; color: #1c1b17; background: rgba(255,249,233,.72); border: 2px solid rgba(28,27,23,.34); border-radius: 5px; font-size: .52em; font-weight: 800; line-height: 1.35; }
+    .endpoint-combo-outcome strong { display: block; margin-bottom: 1px; }
+    .endpoint-combo-ref { display: flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 9px; border-top: 2px dashed rgba(28,27,23,.42); font-size: .5em; font-weight: 700; }
+    .endpoint-combo-ref i { color: #527c9e; }
+    .endpoint-combo-ref a { color: var(--accent-blue); text-decoration: underline; overflow-wrap: anywhere; }
+    kbd { min-width: 20px; padding: 2px 5px; color: #1c1b17; background: #fff9e9; border: 1px solid #1c1b17; border-radius: 3px; box-shadow: 1px 1px 0 #1c1b17; font-family: var(--font-code); font-size: .9em; line-height: 1; }
+    @media (max-width: 900px) { .endpoint-flow-grid, .endpoint-combo-grid { grid-template-columns: 1fr; } }
     .plugin-item-title {
       font-weight: 800;
       color: #1c1b17;
@@ -1384,7 +1428,7 @@
             <div class="vibe-card fragment">
               <span class="badge badge-blue">CLI Agent 类</span>
               <h3 style="margin: 13px 0 8px 0; font-size: .83em;">Claude Code / Codex CLI </h3>
-              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">OpenCode CLI / Kimi Code CLI</h3>
+              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">OpenCode CLI / Kimi Code CLI / CodeWhale</h3>
               <p style="font-size: 0.68em; color: var(--text-muted);">运行于终端的 Agent：文件读写、Git 操作、命令执行与自动化闭环。</p>
             </div>
             <div class="vibe-card fragment">
@@ -1401,7 +1445,7 @@
             </div>
             <div class="vibe-card fragment">
               <span class="badge badge-orange">客户端 Desktop</span>
-              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">Codex = ChatGPT / Claude Desktop</h3>
+              <h3 style="margin: 13px 0 8px 0; font-size: .83em;">ChatGPT / Claude Desktop / OpenCode</h3>
               <h3 style="margin: 13px 0 8px 0; font-size: .83em;">AntiGravity / SOLO Coder / Eigent</h3>
               <p style="font-size: 0.68em; color: var(--text-muted);">独立桌面入口：多项目会话、任务队列、MCP 连接与可视化操作。</p>
             </div>
@@ -1524,7 +1568,7 @@
               <div class="practice-card-head"><i class="fa-solid fa-terminal"></i><h3>CLI Agent<small>终端直接驱动</small></h3></div>
               <ol class="practice-steps">
                 <li><span class="practice-step-number">1</span><span>安装 Agent<span class="practice-command">npm i -g @anthropic-ai/claude-code</span></span></li>
-                <li><span class="practice-step-number">2</span><span>进入项目根目录，运行 <code>claude</code> 并完成授权。</span></li>
+                <li><span class="practice-step-number">2</span><span>进入项目根目录，运行 <code>claude</code>（复用 <code>~/.claude/settings.json</code> 中的 DeepSeek / GLM 配置，无需 Anthropic 账号登录）。</span></li>
                 <li><span class="practice-step-number">3</span><span>从一个可验证任务开始：读代码、改一个函数、运行测试。</span></li>
               </ol>
               <div class="practice-outcome"><strong>首个成果</strong>提交一份可审查的 Git Diff 与测试结果。</div>
@@ -1564,36 +1608,174 @@
           <div class="practice-footer fragment"><i class="fa-solid fa-circle-check"></i><strong>统一验收标准：</strong>无论入口是哪一种，最终都要回到同一件事——看 Diff、跑测试、检查日志，再决定是否合并。</div>
         </section>
 
-        <!-- 3.3 模型与 Endpoint 配置 -->
+        <!-- 3.3 数据流向：默认 Anthropic 直连 vs 第三方 API -->
         <section class="endpoint-config-slide">
-          <h2>国内推荐组合：Claude Code + DeepSeek / GLM API</h2>
-          <p style="font-size: 0.85em; color: var(--text-muted);">通过环境变量配置自定义 API Endpoint，兼顾性能与成本：</p>
+          <h2>你的代码与 Prompt，最终落在谁的服务器？</h2>
+          <p style="font-size: 0.78em; color: var(--text-muted);">Claude Code 本身不生产模型：它把你的代码与 Prompt 转发给模型服务商。区别只在于“数据最终停留在谁的服务器上”。</p>
 
-          <pre><code class="language-bash"># 编辑或新增 `settings.json` 文件
-# macOS &amp; Linux 为 `~/.claude/settings.json`
-# Windows 为 `用户目录/.claude/settings.json`
-# 新增或修改里面的 env 字段
-# 注意替换里面的 `YOUR_API_KEY` 为您上一步获取到的 API Key
-# 新增 `hasCompletedOnboarding` 参数
-{
-  "hasCompletedOnboarding": true,
+          <div class="endpoint-flow-grid">
+            <article class="archflow-card fragment">
+              <div class="archflow-head">
+                <h3>默认情况<small>（走 Anthropic 直连）</small></h3>
+                <span class="archflow-badge"><i class="fa-solid fa-cloud"></i> Anthropic 直连</span>
+              </div>
+              <svg class="archflow-svg" viewBox="0 0 460 310" role="img" aria-label="默认情况：代码与 Prompt 流向 Anthropic">
+                <defs>
+                  <pattern id="af1-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+                  </pattern>
+                  <marker id="af1-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+                  </marker>
+                </defs>
+
+                <!-- 背景网格 -->
+                <rect width="460" height="310" fill="url(#af1-grid)"/>
+
+                <!-- ① 输入 -->
+                <rect x="40" y="16" width="380" height="48" rx="6" fill="rgba(30,41,59,0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+                <text x="230" y="36" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">你的代码 / Prompt</text>
+                <text x="230" y="53" fill="#94a3b8" font-size="9" text-anchor="middle">本地输入 · 待执行任务</text>
+
+                <!-- 箭头 -->
+                <line x1="230" y1="66" x2="230" y2="88" stroke="#64748b" stroke-width="1.5" marker-end="url(#af1-arrow)"/>
+
+                <!-- ② CLI -->
+                <rect x="40" y="92" width="380" height="48" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+                <text x="230" y="112" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">Claude Code CLI</text>
+                <text x="230" y="129" fill="#94a3b8" font-size="9" text-anchor="middle">本机调用端 · 转发请求</text>
+
+                <!-- 箭头 -->
+                <line x1="230" y1="142" x2="230" y2="164" stroke="#64748b" stroke-width="1.5" marker-end="url(#af1-arrow)"/>
+
+                <!-- ③ API 服务器（数据落点） -->
+                <rect x="40" y="168" width="380" height="64" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+                <text x="230" y="186" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">Anthropic API 服务器</text>
+                <text x="230" y="204" fill="#94a3b8" font-size="9" text-anchor="middle">模型推理 · 数据最终停留处</text>
+                <text x="230" y="222" fill="#34d399" font-size="8" text-anchor="middle">api.anthropic.com</text>
+
+                <!-- 数据在这里 标签 -->
+                <rect x="256" y="154" width="164" height="20" rx="10" fill="#be123c" stroke="#fb7185" stroke-width="1"/>
+                <text x="338" y="167" fill="#fff1f2" font-size="9" font-weight="700" text-anchor="middle">← 数据在这里</text>
+
+                <!-- 箭头 -->
+                <line x1="230" y1="234" x2="230" y2="256" stroke="#64748b" stroke-width="1.5" marker-end="url(#af1-arrow)"/>
+
+                <!-- ④ 响应 -->
+                <rect x="40" y="260" width="380" height="48" rx="6" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+                <text x="230" y="280" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">Claude 模型响应</text>
+                <text x="230" y="297" fill="#94a3b8" font-size="9" text-anchor="middle">推理结果返回本机 · 审查 Diff / 测试</text>
+              </svg>
+            </article>
+
+            <article class="archflow-card fragment">
+              <div class="archflow-head">
+                <h3>配置第三方 API 后<small>（不走 Anthropic）</small></h3>
+                <span class="archflow-badge is-third"><i class="fa-solid fa-diagram-project"></i> 国内 API</span>
+              </div>
+              <svg class="archflow-svg" viewBox="0 0 460 310" role="img" aria-label="配置第三方 API：代码与 Prompt 流向 GLM / DeepSeek">
+                <defs>
+                  <pattern id="af2-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+                  </pattern>
+                  <marker id="af2-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+                  </marker>
+                </defs>
+
+                <!-- 背景网格 -->
+                <rect width="460" height="310" fill="url(#af2-grid)"/>
+
+                <!-- ① 输入 -->
+                <rect x="40" y="16" width="380" height="48" rx="6" fill="rgba(30,41,59,0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+                <text x="230" y="36" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">你的代码 / Prompt</text>
+                <text x="230" y="53" fill="#94a3b8" font-size="9" text-anchor="middle">本地输入 · 待执行任务</text>
+
+                <!-- 箭头 -->
+                <line x1="230" y1="66" x2="230" y2="88" stroke="#64748b" stroke-width="1.5" marker-end="url(#af2-arrow)"/>
+
+                <!-- ② CLI -->
+                <rect x="40" y="92" width="380" height="48" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+                <text x="230" y="112" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">Claude Code CLI</text>
+                <text x="230" y="129" fill="#94a3b8" font-size="9" text-anchor="middle">本机调用端 · 转发请求</text>
+
+                <!-- 箭头 -->
+                <line x1="230" y1="142" x2="230" y2="164" stroke="#64748b" stroke-width="1.5" marker-end="url(#af2-arrow)"/>
+
+                <!-- ③ 第三方 API 服务器（数据落点） -->
+                <rect x="40" y="168" width="380" height="64" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+                <text x="230" y="186" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">GLM / DeepSeek API 服务器</text>
+                <text x="230" y="204" fill="#94a3b8" font-size="9" text-anchor="middle">第三方模型推理 · 数据最终停留处</text>
+                <text x="230" y="222" fill="#fbbf24" font-size="8" text-anchor="middle">open.bigmodel.cn / api.deepseek.com</text>
+
+                <!-- 数据在这里 标签 -->
+                <rect x="256" y="154" width="164" height="20" rx="10" fill="#be123c" stroke="#fb7185" stroke-width="1"/>
+                <text x="338" y="167" fill="#fff1f2" font-size="9" font-weight="700" text-anchor="middle">← 数据在这里</text>
+
+                <!-- 箭头 -->
+                <line x1="230" y1="234" x2="230" y2="256" stroke="#64748b" stroke-width="1.5" marker-end="url(#af2-arrow)"/>
+
+                <!-- ④ 响应 -->
+                <rect x="40" y="260" width="380" height="48" rx="6" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+                <text x="230" y="280" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">第三方模型响应</text>
+                <text x="230" y="297" fill="#94a3b8" font-size="9" text-anchor="middle">推理结果返回本机 · 审查 Diff / 测试</text>
+              </svg>
+            </article>
+          </div>
+
+          <div class="archflow-legend fragment">
+            <span class="legend-chip" style="--c:#94a3b8;">输入（本地）</span>
+            <span class="legend-chip" style="--c:#22d3ee;">Claude Code CLI · 调用端</span>
+            <span class="legend-chip" style="--c:#34d399;">Anthropic API 服务器</span>
+            <span class="legend-chip" style="--c:#fbbf24;">GLM / DeepSeek API 服务器</span>
+            <span class="legend-chip" style="--c:#a78bfa;">模型响应</span>
+            <span class="legend-chip" style="--c:#fb7185;">数据最终停留处</span>
+          </div>
+
+          <div class="endpoint-flow-note fragment"><i class="fa-solid fa-circle-info"></i><strong>对团队意味着什么：</strong>无论走哪条链路，代码与 Prompt 都会离开本机、上传到模型服务商。选择“数据落点”，是合规与安全的第一道选择题。</div>
+        </section>
+
+        <!-- 3.3 国内推荐组合：Claude Code CLI / VS Code 插件 -->
+        <section class="endpoint-config-slide">
+          <h2>国内推荐组合（二选一）</h2>
+          <p style="font-size: 0.78em; color: var(--text-muted);">任选其一即可开工；两者共用同一份 <code>~/.claude/settings.json</code>，先选工作界面，再配置模型接口。</p>
+
+          <div class="endpoint-combo-grid">
+            <article class="endpoint-combo-card is-cli fragment">
+              <div class="endpoint-combo-head"><i class="fa-solid fa-terminal"></i><h3>方案一：Claude Code + DeepSeek / GLM API<small>CLI 终端驱动 · 适合自动化与批处理</small></h3></div>
+              <ol class="endpoint-combo-steps">
+                <li><span class="practice-step-number">1</span><span>安装 CLI：<code>npm i -g @anthropic-ai/claude-code</code></span></li>
+                <li><span class="practice-step-number">2</span><span>在 <code>~/.claude/settings.json</code> 中配置共享环境变量（见下方配置块）。</span></li>
+                <li><span class="practice-step-number">3</span><span>运行 <code>claude</code>，用 <code>/model</code> 切换 DeepSeek / GLM 模型。</span></li>
+                <li><span class="practice-step-number">4</span><span>接 DeepSeek：<code>ANTHROPIC_BASE_URL</code> 改为 <code>api.deepseek.com/anthropic</code>，模型用 <code>deepseek-chat</code>。</span></li>
+              </ol>
+              <div class="endpoint-combo-ref"><i class="fa-solid fa-link"></i><a href="https://docs.bigmodel.cn/cn/coding-plan/quick-start" target="_blank">docs.bigmodel.cn/cn/coding-plan/quick-start</a></div>
+            </article>
+
+            <article class="endpoint-combo-card is-ide fragment">
+              <div class="endpoint-combo-head"><i class="fa-brands fa-vscode"></i><h3>方案二：VS Code + Claude Code 插件<small>图形化面板 · 原生 Diff 审查</small></h3></div>
+              <ol class="endpoint-combo-steps">
+                <li><span class="practice-step-number">1</span><span>扩展市场（<kbd>Cmd/Ctrl+Shift+X</kbd>）搜索 <strong>Claude Code</strong> 并安装（需 VS Code 1.94+）。</span></li>
+                <li><span class="practice-step-number">2</span><span>复用同一份 <code>~/.claude/settings.json</code>（已含 DeepSeek / GLM 的 <code>ANTHROPIC_BASE_URL</code> 与 <code>ANTHROPIC_AUTH_TOKEN</code>），<strong>无需再登录 Anthropic 账号</strong>。</span></li>
+                <li><span class="practice-step-number">3</span><span>点击右上角 Spark 图标；若仍弹出登录提示，勾选 <code>Disable Login Prompt</code> 改走第三方 API 凭据。</span></li>
+                <li><span class="practice-step-number">4</span><span>选中代码用 <kbd>Option/Alt+K</kbd> 插入 @-mention，在 Diff 视图逐条接受 / 拒绝改动。</span></li>
+              </ol>
+              <div class="endpoint-combo-outcome"><strong>统一验收</strong>看 Diff、跑测试、检查日志，再决定是否合并。</div>
+              <div class="endpoint-combo-ref"><i class="fa-solid fa-link"></i><a href="https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code" target="_blank">marketplace.visualstudio.com/items?itemName=anthropic.claude-code</a></div>
+            </article>
+          </div>
+
+          <div class="endpoint-config-share fragment">
+            <div class="endpoint-config-share-head"><span><i class="fa-solid fa-share-nodes"></i>共享配置：<code>~/.claude/settings.json</code>（CLI 与 VS Code 插件通用）</span><span>替换 <code>YOUR_API_KEY</code> 为你上一步获取的 API Key</span></div>
+            <pre><code class="language-json">{
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "YOUR_API_KEY",
     "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4.7",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5.2[1m]",
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5.2[1m]",
-    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "1000000",
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1,
-    "API_TIMEOUT_MS": "3000000"
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1
   }
 }</code></pre>
-
-          <div class="quote-card fragment" style="margin-top: 20px; font-size: 0.9em; padding: 16px 24px;">
-            <i class="fa-solid fa-link list-item-icon"></i> <strong>参考链接：</strong>
-            <a href="https://docs.bigmodel.cn/cn/coding-plan/quick-start" target="_blank" style="color: var(--accent-blue); text-decoration: underline;">
-              https://docs.bigmodel.cn/cn/coding-plan/quick-start
-            </a>
           </div>
         </section>
 
