@@ -727,8 +727,8 @@
     }
     .deck-github:hover { color: #fff9e9 !important; transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #e86652; }
     .deck-github small { font-family: var(--font-code); font-size: 9px; opacity: .65; }
-    /* Long API configuration title needs clearance below the fixed panorama edge. */
-    .reveal .slides > section > section.endpoint-config-slide { padding-top: 78px; }
+    /* Ensure long API configuration title remains safely below the fixed panorama edge. */
+    .reveal .slides > section > section.endpoint-config-slide { padding-top: 320px !important; }
     @media (max-width: 900px) {
       .panorama-band { height: 15vh; background-size: 100% auto; background-position: center 42%; }
       .deck-masthead { top: 12px; left: 16px; right: 16px; }
@@ -737,7 +737,7 @@
       .deck-brand-title { font-size: 11px; }
       .deck-github { padding: 6px 9px; font-size: 10px; }
       .deck-github small { display: none; }
-      .reveal .slides > section > section.endpoint-config-slide { padding-top: 56px; }
+      .reveal .slides > section > section.endpoint-config-slide { padding-top: 220px !important; }
     }
 
     /* 插件与 MCP 列表美化 */
@@ -987,7 +987,7 @@
       </section>
 
       <!-- 目录页 -->
-      <section style="text-align: center; padding-top: 50px !important;">
+      <section style="text-align: center;">
         <span class="section-badge">Table of Contents</span>
         <h1 style="font-size: 2.2em; margin: 12px 0 6px; color: #1c1b17;">章节目录</h1>
         <p style="margin: 0 0 16px 0; font-size: .85em; color: #1c1b17;">从认知建立到工程化协作，按 8 大章节逐步深入实战。</p>
@@ -1593,7 +1593,7 @@ claude</code></pre>
         </section>
 
         <!-- 4.2 Prompt 黄金公式与实战对比 -->
-        <section style="padding-top: 50px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 12px; color: #1c1b17;">Prompt 黄金公式与正反实战对比</h2>
 
           <!-- 黄金公式 Banner -->
@@ -1656,7 +1656,7 @@ claude</code></pre>
         </section>
 
         <!-- 4.3 提示词工程四大核心方法论 -->
-        <section style="padding-top: 60px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">提示词工程四大核心方法论</h2>
 
           <div class="grid-2" style="gap: 22px; align-items: start;">
@@ -1765,7 +1765,7 @@ claude</code></pre>
         </section>
 
         <!-- 4.4 上下文管理技巧 & Rules 规则体系 -->
-        <section style="padding-top: 60px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 18px;">上下文管理技巧 &amp; Rules 规则系统设计</h2>
 
           <div class="grid-2" style="gap: 20px; align-items: start;">
@@ -1905,7 +1905,7 @@ claude</code></pre>
         </section>
 
         <!-- 4.5 常用命令与权限配置 -->
-        <section style="padding-top: 65px !important;">
+        <section>
           <h2 style="margin-top: 15px !important; margin-bottom: 20px;">常用 Slash 命令与 <code>settings.json</code> 权限控制</h2>
           <div class="grid-2" style="gap: 20px; align-items: start;">
             <!-- 左侧：常用命令及描述 -->
@@ -1995,7 +1995,7 @@ claude</code></pre>
         </section>
 
         <!-- 4.6 快捷符号体系与 Agent 终端交互全指南 -->
-        <section style="padding-top: 60px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 18px;">快捷符号体系与 Agent 终端交互指南</h2>
 
           <div class="grid-3" style="gap: 16px; align-items: stretch;">
@@ -2120,7 +2120,7 @@ claude</code></pre>
         </section>
 
         <!-- 4.7 Token 消耗防爆与成本控制全指南 -->
-        <section style="padding-top: 60px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 18px;">Token 消耗防爆与成本控制指南</h2>
           <div class="grid-3" style="gap: 14px; align-items: stretch;">
 
@@ -2200,7 +2200,7 @@ claude</code></pre>
         </section>
 
         <!-- 4.8 10 大 VibeCoding 实战黄金法则 -->
-        <section style="padding-top: 60px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">10 大 VibeCoding 实战黄金法则</h2>
           <div class="grid-2" style="font-size: 0.85em; gap: 14px; align-items: stretch;">
             <div class="vibe-card" style="padding: 10px 14px; background: #fff9e9; border: 2px solid #1c1b17;"><i class="fa-solid fa-code-commit list-item-icon" style="color: #1c1b17;"></i><strong style="color: #1c1b17;">1. 小步快跑，频繁 Commit：</strong> 生成可用片段即提交，方便快捷 Rollback。</div>
@@ -2217,7 +2217,7 @@ claude</code></pre>
         </section>
 
         <!-- 4.9 常见踩坑案例分析 -->
-        <section style="padding-top: 60px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">常见踩坑案例分析 (Real Stories)</h2>
           <div class="grid-3" style="gap: 16px; align-items: stretch;">
             <div class="vibe-card" style="padding: 14px; background: #fff9e9; border: 2px solid #1c1b17;">
@@ -2296,7 +2296,7 @@ claude</code></pre>
 
 
         <!-- 5.1 非技术/产品团队 Git 工作流规范化 -->
-        <section style="padding-top: 45px !important;">
+        <section>
           <h2 style="margin-top: 5px !important; margin-bottom: 8px; color: #1c1b17;">非技术/产品团队 Git 工作流规范化</h2>
           <p style="font-size: 0.75em; color: #1c1b17; margin-bottom: 10px;">
             成员大多为非技术背景（产品组），通过<strong>自建 3 个自动化 Skill</strong> 封装底层复杂 Git 指令，实现全员高可靠协作
@@ -2353,7 +2353,7 @@ claude</code></pre>
         </section>
 
         <!-- 5.2 异构团队 600+ 页面风格统一：USP 治理体系 (MD + SKILLs) -->
-        <section style="padding-top: 50px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 12px; color: #1c1b17;">异构团队 600+ 页面风格统一：USP 治理体系 (MD + SKILLs)</h2>
           <p style="font-size: 0.75em; color: #1c1b17; margin-bottom: 12px;">
             12 位跨背景成员（含产品组）、4 种 AI 工具、多大模型混用下，基于开源项目 <a href="https://github.com/wanghuanlab/ui-style-pilot" target="_blank" style="color: var(--accent-blue); font-weight: bold; text-decoration: underline;">UI Style Pilot (USP)</a> 实现组件代码和视觉规范统一
@@ -2420,7 +2420,7 @@ claude</code></pre>
         </section>
 
         <!-- 5.3 项目级 AI 生成规范：长江电力 AGENTS.md / CLAUDE.md 实践拆解 -->
-        <section style="padding-top: 45px !important;">
+        <section>
           <h2 style="margin-top: 5px !important; margin-bottom: 8px; color: #1c1b17;">项目级 AI 生成规范：长江电力 AGENTS.md 实践拆解</h2>
           <p style="font-size: 0.74em; color: #1c1b17; margin-bottom: 10px;">
             团队统一制定 <code>AGENTS.md</code> / <code>CLAUDE.md</code> 作为 Agent 长期生效基线，约束 12 异构团队构建 600+ 页面 100% 规范一致
@@ -2478,7 +2478,7 @@ claude</code></pre>
         </section>
 
         <!-- 5.4 长江电力 600个 页面系统：VibeCoding 研发质效量化对比 -->
-        <section style="padding-top: 45px !important;">
+        <section>
           <h2 style="margin-top: 5px !important; margin-bottom: 8px; color: #1c1b17;">长江电力 600 个页面系统：VibeCoding 研发质效量化对比</h2>
           <p style="font-size: 0.74em; color: #1c1b17; margin-bottom: 10px;">
             基于长江电力新一代生产经营管理系统实战（12 人团队，相关技术开发人员只4人，全栈仅1人，交付 <strong>600+ 页面</strong>与复杂业务流），传统模式与 VibeCoding 体系的实际量化对比
@@ -2657,7 +2657,7 @@ claude</code></pre>
         </section>
 
         <!-- 6.3 普及壁垒与技术演进展望 -->
-        <section style="padding-top: 50px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 16px; color: #1c1b17;">AI 普及壁垒与技术演进展望</h2>
 
           <!-- 上半部分：2 大限制因素 -->
@@ -2696,7 +2696,7 @@ claude</code></pre>
         </section>
 
         <!-- 6.4 敏捷迭代与工作流坍缩：祝碳基生物好运！ -->
-        <section style="padding-top: 50px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 16px; color: #1c1b17;">敏捷迭代与流程坍缩</h2>
 
           <div class="grid-3" style="gap: 16px; align-items: stretch; margin-bottom: 16px;">
@@ -2755,7 +2755,7 @@ claude</code></pre>
         </section>
 
         <!-- 7.1 绝对红线：严禁上传的 4 大敏感内容 -->
-        <section style="padding-top: 50px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 14px; color: #1c1b17;">绝对红线：严禁上传与暴露的 4 大敏感内容</h2>
 
           <div class="grid-4" style="gap: 12px; align-items: stretch; margin-top: 16px; margin-bottom: 14px;">
@@ -2821,7 +2821,7 @@ claude</code></pre>
         </section>
 
         <!-- 7.2 开发人员操作规范：隔离、脱敏与安全自检 -->
-        <section style="padding-top: 50px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 14px; color: #1c1b17;">开发人员实战规范：隔离、脱敏与代码自检</h2>
 
           <div class="grid-2" style="gap: 16px; align-items: start;">
@@ -2872,7 +2872,7 @@ const config = { dbHost: "DB_HOST", dbPassword: "DB_PASSWORD", apiKey: "API_KEY"
         </section>
 
         <!-- 7.3 供应链安全与合规 AI 工具选型矩阵 -->
-        <section style="padding-top: 50px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 14px; color: #1c1b17;">供应链安全审查与合规 AI 工具选型矩阵</h2>
 
           <!-- 上半部分：供应链依赖扫描 -->
@@ -2936,7 +2936,7 @@ const config = { dbHost: "DB_HOST", dbPassword: "DB_PASSWORD", apiKey: "API_KEY"
         </section>
 
         <!-- 7.4 团队/企业级规范建设与 Review Checklist -->
-        <section style="padding-top: 50px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 14px; color: #1c1b17;">团队级安全策略建设与 Code Review 检查清单</h2>
 
           <div class="grid-2" style="gap: 16px; align-items: stretch;">
@@ -2994,7 +2994,7 @@ const config = { dbHost: "DB_HOST", dbPassword: "DB_PASSWORD", apiKey: "API_KEY"
         </section>
 
         <!-- 8.1 VibeCoding 时代工程师的核心竞争力 -->
-        <section style="padding-top: 60px !important;">
+        <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">VibeCoding 时代工程师的核心竞争力</h2>
           <div class="grid-3" style="gap: 16px; align-items: stretch; margin-top: 25px;">
             <div class="vibe-card" style="padding: 20px 16px; background: #fff9e9; border: 2px solid #1c1b17; text-align: center;">
