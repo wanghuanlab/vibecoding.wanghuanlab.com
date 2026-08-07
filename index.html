@@ -661,6 +661,41 @@
     .subtitle-connector { color: #e86652; font-size: 1em; line-height: 1; }
     .subtitle-copy { font-weight: 600; }
     .deck-brand-subtitle .subtitle-journey { font-size: .92em; }
+    .cover-nav-hint {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 9px 14px;
+      color: #504d43;
+      background: rgba(255,249,233,.78);
+      border: 2px dashed rgba(28,27,23,.56);
+      border-radius: 7px;
+      font-size: .57em;
+      font-weight: 700;
+    }
+    .cover-nav-hint > i { color: #e86652; }
+    .cover-nav-hint kbd {
+      min-width: 20px;
+      padding: 2px 4px;
+      color: #1c1b17;
+      background: #fff9e9;
+      border: 1px solid #1c1b17;
+      border-radius: 3px;
+      box-shadow: 1px 1px 0 #1c1b17;
+      font-family: var(--font-code);
+      font-size: .9em;
+      line-height: 1;
+    }
+    .cover-nav-hint .hint-divider { width: 1px; height: 15px; background: rgba(28,27,23,.32); margin: 0 2px; }
+    .cover-nav-hint-note {
+      flex-basis: 100%;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(28,27,23,.3);
+      color: #6b675b;
+      font-size: .92em;
+    }
     .deck-context {
       display: flex;
       align-items: center;
@@ -925,6 +960,15 @@
               <div style="font-size: 0.8em; color: var(--text-muted);">面向</div>
               <div style="font-weight: 600;">部门内部交流</div>
             </div>
+          </div>
+
+          <div class="cover-nav-hint" aria-label="键盘浏览提示">
+            <i class="fa-solid fa-keyboard" aria-hidden="true"></i>
+            <span>键盘浏览</span>
+            <kbd>←</kbd><kbd>→</kbd><span>切换章节</span>
+            <span class="hint-divider" aria-hidden="true"></span>
+            <kbd>↑</kbd><kbd>↓</kbd><span>切换章节内页面</span>
+            <span class="cover-nav-hint-note"><i class="fa-solid fa-arrow-down-right-from-square" aria-hidden="true"></i> 右下角导航箭头有操作提示，也可点击切换页面</span>
           </div>
 
           <!-- GitHub 仓库入口 Banner -->
