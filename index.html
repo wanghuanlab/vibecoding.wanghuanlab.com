@@ -634,6 +634,33 @@
     .deck-brand-copy { display: flex; flex-direction: column; gap: 2px; line-height: 1; }
     .deck-brand-title { font-family: var(--font-code); font-size: 13px; font-weight: 900; letter-spacing: .08em; }
     .deck-brand-subtitle { font-size: 10px; font-weight: 700; letter-spacing: .04em; opacity: .72; }
+    .subtitle-journey {
+      display: inline-flex;
+      align-items: center;
+      gap: .18em;
+      margin: 0 .18em;
+      font-weight: 800;
+      letter-spacing: 0;
+      vertical-align: middle;
+    }
+    .subtitle-prefix, .subtitle-connector {
+      font-family: var(--font-sans);
+      font-weight: 700;
+    }
+    .subtitle-term {
+      display: inline-block;
+      padding: 0 .13em;
+      color: #1c1b17;
+      background: linear-gradient(transparent 58%, #f5d363 58%);
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      line-height: 1.25;
+    }
+    .subtitle-term.is-ai { background: linear-gradient(transparent 58%, #8ac9a5 58%); }
+    .subtitle-connector { color: #e86652; font-size: 1em; line-height: 1; }
+    .subtitle-copy { font-weight: 600; }
+    .deck-brand-subtitle .subtitle-journey { font-size: .92em; }
     .deck-context {
       display: flex;
       align-items: center;
@@ -847,12 +874,12 @@
     <a class="deck-brand" href="#/0" aria-label="返回封面">
       <span class="deck-brand-mark">/&gt;</span>
       <span class="deck-brand-copy">
-        <span class="deck-brand-title">VIBECODING / 26</span>
-        <span class="deck-brand-subtitle">AI-assisted development field notes</span>
+        <span class="deck-brand-title">VibeCoding 实战总结</span>
+        <span class="deck-brand-subtitle"><span class="subtitle-prefix">从 &nbsp;</span><span class="subtitle-journey"><span class="subtitle-term">写代码</span><span class="subtitle-connector">到</span><span class="subtitle-term is-ai">驾驭 AI</span></span><span class="subtitle-copy">：团队研发方式的实战演进</span></span>
       </span>
     </a>
     <div class="deck-context" aria-hidden="true">
-      <span class="deck-context-label">实战总结 · 08 CHAPTERS</span>
+      <span class="deck-context-label">部门内部交流 · 2026.08</span>
       <span class="deck-context-rule"></span>
     </div>
     <a class="deck-github" href="https://github.com/wanghuanlab/vibecoding.wanghuanlab.com" target="_blank" rel="noopener noreferrer" title="访问 GitHub 源码仓库">
@@ -879,7 +906,7 @@
             <span style="color: var(--accent-blue);">VibeCoding</span> 实战总结
           </h1>
           <h3 style="color: var(--text-muted); font-weight: 400; margin-bottom: 35px;">
-            从 AI 辅助编码到智能开发工作流 (Intent-Driven Development)
+            <span class="subtitle-prefix">从</span><span class="subtitle-journey"><span class="subtitle-term">写代码</span><span class="subtitle-connector">到</span><span class="subtitle-term is-ai">驾驭 AI</span></span><span class="subtitle-copy">：团队研发方式的实战演进</span>
           </h3>
 
           <div class="grid-3" style="max-width: 800px; margin: 0 auto 20px auto; gap: 20px;">
@@ -901,10 +928,10 @@
           </div>
 
           <!-- GitHub 仓库入口 Banner -->
-          <div class="vibe-card" style="display: inline-block; padding: 8px 20px; background: #fff9e9; border: 2px solid #1c1b17; font-size: 0.82em; color: #1c1b17;">
+          <!-- <div class="vibe-card" style="display: inline-block; padding: 8px 20px; background: #fff9e9; border: 2px solid #1c1b17; font-size: 0.82em; color: #1c1b17;">
             <i class="fa-brands fa-github" style="margin-right: 6px; font-size: 1.1em;"></i> 项目 GitHub 仓库：
             <a href="https://github.com/wanghuanlab/vibecoding.wanghuanlab.com" target="_blank" style="color: var(--accent-blue); font-weight: 800; text-decoration: underline;">https://github.com/wanghuanlab/vibecoding.wanghuanlab.com</a>
-          </div>
+          </div> -->
         </div>
 
         <aside class="notes">
