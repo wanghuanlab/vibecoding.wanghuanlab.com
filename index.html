@@ -727,6 +727,8 @@
     }
     .deck-github:hover { color: #fff9e9 !important; transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #e86652; }
     .deck-github small { font-family: var(--font-code); font-size: 9px; opacity: .65; }
+    /* Long API configuration title needs clearance below the fixed panorama edge. */
+    .reveal .slides > section > section.endpoint-config-slide { padding-top: 78px; }
     @media (max-width: 900px) {
       .panorama-band { height: 15vh; background-size: 100% auto; background-position: center 42%; }
       .deck-masthead { top: 12px; left: 16px; right: 16px; }
@@ -735,6 +737,7 @@
       .deck-brand-title { font-size: 11px; }
       .deck-github { padding: 6px 9px; font-size: 10px; }
       .deck-github small { display: none; }
+      .reveal .slides > section > section.endpoint-config-slide { padding-top: 56px; }
     }
 
     /* 插件与 MCP 列表美化 */
@@ -1310,7 +1313,7 @@ claude</code></pre>
         </section>
 
         <!-- 3.3 模型与 Endpoint 配置 -->
-        <section>
+        <section class="endpoint-config-slide">
           <h2>国内推荐组合：Claude Code + DeepSeek / GLM API</h2>
           <p style="font-size: 0.85em; color: var(--text-muted);">通过环境变量配置自定义 API Endpoint，兼顾性能与成本：</p>
 
