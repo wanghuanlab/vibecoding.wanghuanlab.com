@@ -6,11 +6,12 @@
 
 ## 项目说明
 
-这是一个基于 Reveal.js 的单页 Web PPT。核心内容位于 `index.html`，无需任何构建编译步骤；图片与图形资源位于 `assets/`。
+这是一个基于 Reveal.js 的单页 Web PPT。核心内容位于 `index.html`，无需任何构建编译步骤；图片、图形及第三方依赖均位于 `assets/`。
 
 - **视觉风格**：复古奶油纸张底色、高对比度硬朗黑描边卡片与现代矢量图标
 - **交互体验**：集成图片全屏点击放大（Lightbox Modal）、全景插画、键盘导航与演讲者视图
 - **设计适配**：适合 16:9 投影、全屏演讲及移动端高保真浏览
+- **本地依赖**：Reveal.js、代码高亮主题、Font Awesome、Inter 与 JetBrains Mono 字体均已存放于 `assets/vendor/`，页面加载不依赖 CDN 或第三方字体服务
 
 ## 课程/演讲 8 大章节结构
 
@@ -75,9 +76,9 @@ python3 -m http.server 8000
 生产站点目录为 `/opt/1panel/www/sites/vibecoding.wanghuanlab.com/index/`。具备服务器权限时，可按以下方式更新：
 
 ```bash
-ssh root@vibecoding.wanghuanlab.com 'mkdir -p /opt/1panel/www/sites/vibecoding.wanghuanlab.com/index/assets'
+ssh root@vibecoding.wanghuanlab.com 'mkdir -p /opt/1panel/www/sites/vibecoding.wanghuanlab.com/index'
 scp index.html root@vibecoding.wanghuanlab.com:/opt/1panel/www/sites/vibecoding.wanghuanlab.com/index/
-scp assets/* root@vibecoding.wanghuanlab.com:/opt/1panel/www/sites/vibecoding.wanghuanlab.com/index/assets/
+scp -r assets root@vibecoding.wanghuanlab.com:/opt/1panel/www/sites/vibecoding.wanghuanlab.com/index/
 ```
 
 部署后访问线上地址，确认静态资源加载成功。
