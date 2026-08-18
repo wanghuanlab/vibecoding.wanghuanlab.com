@@ -739,6 +739,29 @@
     }
     .deck-github:hover { color: #fff9e9 !important; transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #e86652; }
     .deck-github small { font-family: var(--font-code); font-size: 9px; opacity: .65; }
+    .deck-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      pointer-events: auto;
+    }
+    .deck-docs-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      color: #1c1b17 !important;
+      background: rgba(255,249,233,.9);
+      border: 2px solid #1c1b17;
+      border-radius: 4px;
+      box-shadow: 2px 2px 0 #527c9e;
+      font-size: 11px;
+      font-weight: 800;
+      text-decoration: none !important;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .deck-docs-link:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #527c9e; }
     /* Dense content slides need clearance below the fixed panorama edge. */
     .reveal .slides > section > section.endpoint-config-slide { padding-top: 220px !important; }
     .reveal .slides > section > section.plugin-structure-slide { padding-top: 220px !important; }
@@ -1032,6 +1055,187 @@
       margin-left: 8px;
       font-style: italic;
     }
+
+    /* Vibe Coding framework: a paired constraint / capability diagram */
+    .vibe-framework-slide {
+      color: #1c1b17;
+    }
+    .vibe-framework-grid {
+      display: grid;
+      grid-template-columns: 0.94fr 1.06fr;
+      gap: 26px;
+      align-items: stretch;
+      margin-top: 12px;
+    }
+    .framework-panel {
+      min-height: 315px;
+      padding: 16px 20px;
+      background: rgba(255, 249, 233, 0.94);
+      border: 2px solid #1c1b17;
+      border-radius: 8px;
+      box-shadow: 5px 5px 0 #1c1b17;
+      text-align: left;
+    }
+    .framework-panel h3 {
+      margin: 0 0 4px;
+      color: #1c1b17;
+      font-size: 1.02em;
+    }
+    .framework-kicker {
+      margin: 0;
+      color: #58635e;
+      font-size: 0.56em;
+      line-height: 1.35;
+    }
+    .impossible-triangle {
+      position: relative;
+      width: 270px;
+      height: 206px;
+      margin: 22px auto 3px;
+    }
+    .impossible-triangle::before {
+      content: '';
+      position: absolute;
+      left: 48px;
+      top: 18px;
+      width: 166px;
+      height: 146px;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      background: linear-gradient(145deg, rgba(82,124,158,.2), rgba(248,201,109,.34));
+      border: 3px solid #1c1b17;
+    }
+    .impossible-triangle::after {
+      content: '三者不可\A同时拉满';
+      white-space: pre;
+      position: absolute;
+      left: 91px;
+      top: 90px;
+      width: 88px;
+      text-align: center;
+      color: #1c1b17;
+      font-size: 0.58em;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+    .triangle-point {
+      position: absolute;
+      z-index: 1;
+      padding: 5px 9px;
+      border: 2px solid #1c1b17;
+      border-radius: 5px;
+      background: #fff9e9;
+      box-shadow: 2px 2px 0 #1c1b17;
+      font-size: 0.62em;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .triangle-point.speed { top: 0; left: 91px; background: #b9dec5; }
+    .triangle-point.quality { bottom: 0; left: 0; background: #b9d9ed; }
+    .triangle-point.cost {
+      bottom: -2px;
+      right: -18px;
+      width: 142px;
+      white-space: normal;
+      font-size: 0.48em;
+      line-height: 1.22;
+      text-align: center;
+      background: #f8c96d;
+    }
+    .triangle-footnote {
+      margin: 5px 0 0;
+      color: #58635e;
+      font-size: 0.56em;
+      line-height: 1.45;
+      text-align: center;
+    }
+    .dimension-orbit {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-rows: 72px 1fr;
+      column-gap: 8px;
+      row-gap: 13px;
+      align-items: stretch;
+      height: 211px;
+      margin: 13px 0 0;
+    }
+    .dimension-core {
+      position: relative;
+      z-index: 1;
+      grid-column: 1 / -1;
+      grid-row: 2;
+      width: 178px;
+      height: 68px;
+      margin: 5px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #1c1b17;
+      border-radius: 8px;
+      background: #f8c96d;
+      box-shadow: 3px 3px 0 #1c1b17;
+      color: #1c1b17;
+      font-size: 0.65em;
+      font-weight: 900;
+      line-height: 1.2;
+      text-align: center;
+    }
+    .dimension-core::before {
+      content: '↓';
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #527c9e;
+      font-size: 1.55em;
+      font-weight: 900;
+    }
+    .dimension-chip {
+      position: relative;
+      z-index: 1;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      min-height: 0;
+      padding: 5px 4px;
+      border: 2px solid #1c1b17;
+      border-radius: 5px;
+      box-shadow: 2px 2px 0 #1c1b17;
+      color: #1c1b17;
+      font-size: 0.48em;
+      font-weight: 900;
+      line-height: 1.12;
+      text-align: center;
+    }
+    .dimension-chip small { margin-top: 2px; font-size: .78em; font-weight: 600; }
+    .dimension-chip.model { grid-column: 1; background: #b9d9ed; }
+    .dimension-chip.context { grid-column: 2; background: #b9dec5; }
+    .dimension-chip.agent { grid-column: 3; background: #f8c96d; }
+    .dimension-chip.engineering { grid-column: 4; background: #e8c7dd; }
+    .dimension-chip.human { grid-column: 5; background: #f3b9ae; }
+    .framework-conclusion {
+      margin-top: 18px;
+      padding: 15px 20px 14px;
+      border: 2px solid #1c1b17;
+      border-left: 9px solid #527c9e;
+      border-radius: 7px;
+      background: #b9dec5;
+      box-shadow: 4px 4px 0 #1c1b17;
+      text-align: left;
+    }
+    .framework-conclusion h4 {
+      margin: 0 0 6px;
+      color: #1c1b17;
+      font-size: .8em;
+    }
+    .framework-conclusion p {
+      margin: 0;
+      color: #1c1b17;
+      font-size: .63em;
+      line-height: 1.48;
+    }
+    .framework-conclusion strong { color: #263f52; }
   </style>
 </head>
 <body>
@@ -1053,11 +1257,18 @@
       <span class="deck-context-label">部门内部交流 · 2026.08</span>
       <span class="deck-context-rule"></span>
     </div>
-    <a class="deck-github" href="https://github.com/wanghuanlab/vibecoding.wanghuanlab.com" target="_blank" rel="noopener noreferrer" title="访问 GitHub 源码仓库">
-      <i class="fa-brands fa-github"></i>
-      <span>查看源码</span>
-      <small>↗</small>
-    </a>
+    <div class="deck-actions">
+      <a class="deck-github" href="https://github.com/wanghuanlab/vibecoding.wanghuanlab.com" target="_blank" rel="noopener noreferrer" title="访问 GitHub 源码仓库">
+        <i class="fa-brands fa-github"></i>
+        <span>查看源码</span>
+        <small>↗</small>
+      </a>
+      <a class="deck-docs-link" href="docs/index.html" title="查看 VibeCoding 延伸文章">
+        <i class="fa-solid fa-book-open"></i>
+        <span>阅读文章</span>
+        <small>↗</small>
+      </a>
+    </div>
   </header>
 
   <div class="reveal">
@@ -1225,6 +1436,7 @@
             </p>
           </div>
         </section>
+
       </section>
 
       <!-- ==================================================================== -->
@@ -2869,7 +3081,51 @@
           </div>
         </section>
 
-        <!-- 4.8 10 大 VibeCoding 实战黄金法则 -->
+        <!-- 4.8 Vibe Coding 不可能三角与五维模型（插入于 #/5/15 后） -->
+        <section class="vibe-framework-slide">
+          <h2 style="margin: 4px 0 5px; color: #1c1b17;">Vibe Coding 的不可能三角和五维模型</h2>
+          <p style="margin: 0; color: #58635e; font-size: .63em;">从单点工具能力，走向可持续放大的工程生产力系统</p>
+
+          <div class="vibe-framework-grid">
+            <article class="framework-panel">
+              <h3><i class="fa-solid fa-triangle-exclamation" style="color: #e86652;"></i> 不可能三角</h3>
+              <p class="framework-kicker">速度、质量、成本可以优化，但不能只依赖模型同时拉满。</p>
+              <div class="impossible-triangle" aria-label="速度、质量与成本构成不可能三角">
+                <span class="triangle-point speed">交付速度</span>
+                <span class="triangle-point quality">工程质量</span>
+                <span class="triangle-point cost">人工成本<br>（人工干预、可控性）</span>
+              </div>
+              <p class="triangle-footnote">只靠“换更强模型”往往只是把约束从一角，转移到另一角。</p>
+            </article>
+
+            <article class="framework-panel">
+              <h3><i class="fa-solid fa-compass-drafting" style="color: #527c9e;"></i> Vibe Coding 五维模型</h3>
+              <p class="framework-kicker">每一维都决定 AI 能否稳定地产出可验证、可维护的工程结果。</p>
+              <div class="dimension-orbit" aria-label="Vibe Coding 五维模型">
+                <div class="dimension-core">有效工程量<br>／人工介入</div>
+                <div class="dimension-chip model">模型能力<small>理解与生成</small></div>
+                <div class="dimension-chip context">上下文工程<small>读对关键信息</small></div>
+                <div class="dimension-chip agent">Agent 工程<small>分工与编排</small></div>
+                <div class="dimension-chip engineering">软件工程<small>约束与验证</small></div>
+                <div class="dimension-chip human">人机协同<small>判断与校准</small></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="framework-conclusion">
+            <h4><i class="fa-solid fa-bullseye" style="margin-right: 6px;"></i>最后真正要优化的是：单位人工介入下，AI 完成的有效工程量。</h4>
+            <p>这已经不是单纯“哪个模型更聪明”的问题，而是 <strong>Context Engineering + Agent Engineering + Software Engineering</strong> 三者的交叉问题。一个反直觉的结论是：当模型上下文从 200K 发展到 1M，下一阶段的竞争点可能不再是谁能“塞更多 Token”，而是谁能<strong>“更少地读、但恰好读对”</strong>。这也是 <strong>Rules、Repo Map、Semantic Search、Sub-Agent、Context Compaction</strong> 越来越重要的原因。</p>
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 12px; margin-top: 10px; font-size: .52em; font-weight: 800;">
+            <a href="docs/impossible-triangle.html" style="padding: 5px 10px; color: #1c1b17; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 4px; box-shadow: 2px 2px 0 #e86652; text-decoration: none;">展开阅读：不可能三角 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="docs/five-dimensional-model.html" style="padding: 5px 10px; color: #1c1b17; background: #fff9e9; border: 2px solid #1c1b17; border-radius: 4px; box-shadow: 2px 2px 0 #527c9e; text-decoration: none;">展开阅读：五维模型 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+
+          <aside class="notes">这一页把 Vibe Coding 的关注点从模型参数，转向整体工程系统。模型窗口变大不意味着把仓库全部塞进去；真正的工程能力，是让 AI 在正确的时刻读取正确的上下文，并以尽可能少的人工介入完成可验证的产出。</aside>
+        </section>
+
+        <!-- 4.9 10 大 VibeCoding 实战黄金法则 -->
         <section>
           <h2 style="margin-top: 10px !important; margin-bottom: 18px; color: #1c1b17;">10 大 VibeCoding 实战黄金法则</h2>
           <div class="grid-2" style="font-size: 0.85em; gap: 14px; align-items: stretch;">

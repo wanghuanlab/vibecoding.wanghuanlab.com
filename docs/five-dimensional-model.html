@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VibeCoding 的五维模型</title>
+  <link rel="stylesheet" href="../assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="index.html">/&gt; VIBECODING / NOTES</a>
+    <a class="header-link" href="index.html">文章目录 ←</a>
+  </header>
+  <main class="page-shell article-page">
+    <article class="article-main">
+      <p class="eyebrow">SOURCE TEXT / FULL VERSION</p>
+      <h1>VibeCoding 的五维模型</h1>
+      <pre class="source-article">可以。这个“五维模型”比“效率—速度—Token”三角更适合分析真实的 Vibe Coding，因为很多时候真正拖垮开发体验的，并不是 Token，而是**上下文质量和人工介入频率**。
+
+我会把它定义成五个维度：
+
+```text
+             正确率
+               ▲
+               │
+   上下文质量 ─┼─ 速度
+               │
+         Token成本
+               │
+          人工介入
+```
+
+但这五个维度不是彼此独立的，它们实际上形成一个动态系统。
+
+---
+
+## 1. 正确率：不是“代码能跑”，而是“任务真正完成”
+
+这是最核心的维度。
+
+Vibe Coding 里经常会出现一种假成功：
+
+```text
+代码生成成功
+编译成功
+测试成功
+```
+
+但业务其实没完成。
+
+所以我更倾向把正确率拆成四层：
+
+```text
+L1 语法正确
+L2 技术正确
+L3 业务正确
+L4 工程正确
+```
+
+比如让 Agent 实现：
+
+&gt; 给设备缺陷增加分页查询。
+
+### L1：语法正确
+
+```java
+public Page&lt;DeviceDefect&gt; query(Pageable pageable) {
+    return repository.findAll(pageable);
+}
+```
+
+能编译。
+
+### L2：技术正确
+
+分页、JPA、事务都没问题。
+
+### L3：业务正确
+
+它还需要知道：
+
+```text
+只能查询当前组织
+需要过滤已删除记录
+权限范围按照部门树
+默认按照发现时间倒序
+```
+
+### L4：工程正确
+
+还要符合：
+
+```text
+统一 Result&lt;T&gt;
+DTO 转换
+异常体系
+权限注解
+日志规范
+测试规范
+数据库索引
+```
+
+真正 Vibe Coding 的成功率应该算：
+
+&gt; **L4 一次通过率。**
+
+而不是：
+
+&gt; AI 有没有生成代码。
+
+---
+
+# 2. 速度：至少有三种速度
+
+很多人说：
+
+&gt; Claude 好像慢。
+&gt;
+&gt; GPT 很快。
+&gt;
+&gt; DeepSeek 输出特别快。
+
+其实这里混淆了三个指标。
+
+### 第一种：响应速度
+
+```text
+Prompt → 首个 Token
+```
+
+也就是 TTFT。
+
+体感最明显。
+
+---
+
+### 第二种：执行速度
+
+比如 Agent 完成：
+
+```text
+搜索代码
+→ 修改 8 个文件
+→ 编译
+→ 测试
+```
+
+一共多久。
+
+这才是 Coding Agent 的真实速度。
+
+---
+
+### 第三种：任务完成速度
+
+这个最重要：
+
+```text
+需求提出
+↓
+AI实现
+↓
+人工Review
+↓
+修复
+↓
+重新测试
+↓
+最终合并
+```
+
+总共花了多久。
+
+可以叫：
+
+&gt; **Time To Done**
+
+例如：
+
+### 模型 A
+
+```text
+第一次生成：30秒
+
+返工：
+5次
+
+最终：
+20分钟
+```
+
+### 模型 B
+
+```text
+第一次生成：3分钟
+
+返工：
+0次
+
+最终：
+3分钟
+```
+
+所以模型 B 才是真快。
+
+这也是为什么我一直觉得：
+
+&gt; Tokens/s 对 Coding Agent 的参考价值被严重高估了。
+
+---
+
+# 3. Token 成本：不能只看输入输出 Token
+
+Token 成本其实应该分成四类。
+
+```text
+总 Token
+=
+输入上下文
++
+推理 Token
++
+输出 Token
++
+返工 Token
+```
+
+很多人只看到：
+
+```text
+输入 100K
+输出 10K
+```
+
+却忽略了最大的一部分：
+
+&gt; **返工 Token。**
+
+比如：
+
+```text
+Task
+   ↓
+读取 repo 80K
+   ↓
+写代码 15K
+   ↓
+报错
+   ↓
+重新读取 50K
+   ↓
+修复 10K
+   ↓
+又报错
+   ↓
+再分析 60K
+```
+
+最后：
+
+```text
+总成本 = 215K+
+```
+
+所以真正应该计算的是：
+
+&gt; **Token / Completed Task**
+
+而不是：
+
+&gt; Token / Request
+
+这个差别非常大。
+
+---
+
+# 4. 上下文：我认为这是五维模型里面最重要的“中间变量”
+
+很多 Vibe Coding 的问题表面看起来是：
+
+```text
+模型不聪明
+```
+
+其实真正的问题是：
+
+```text
+模型没看到正确的信息
+```
+
+所以我建议不要把 Context 衡量成：
+
+```text
+Context Length
+```
+
+而应该衡量成：
+
+&gt; **Context Quality**
+
+可以简单定义：
+
+```text
+上下文质量
+=
+相关信息 / 总输入信息
+```
+
+比如给 AI 100K token：
+
+```text
+90K 无关代码
+10K 关键代码
+```
+
+其实是低质量 Context。
+
+反过来：
+
+```text
+10K Rules
+20K 相关代码
+5K 架构说明
+```
+
+反而可能效果更好。
+
+---
+
+## Context 可以分成四层
+
+### A. Persistent Context
+
+长期稳定信息：
+
+```text
+AGENTS.md
+CLAUDE.md
+Rules
+项目架构
+编码规范
+技术栈
+```
+
+例如：
+
+```text
+Java 17
+Spring Boot 3
+PostgreSQL
+JPA
+统一 Result&lt;T&gt;
+```
+
+这是最适合 Rules 的。
+
+---
+
+### B. Repository Context
+
+项目实际情况：
+
+```text
+目录结构
+依赖关系
+类关系
+调用链
+数据库 Schema
+```
+
+通常来自：
+
+```text
+Repo Map
+Search
+AST
+LSP
+Semantic Index
+```
+
+---
+
+### C. Task Context
+
+当前任务相关内容：
+
+```text
+需求
+相关类
+相关 SQL
+相关 API
+日志
+错误堆栈
+```
+
+这是 Agent 每次应该动态获取的。
+
+---
+
+### D. Session Context
+
+当前聊天已经发生的事情：
+
+```text
+之前尝试了什么
+改了什么
+为什么这么改
+哪些方案失败
+```
+
+这是最容易膨胀的部分。
+
+长期 Session 最终经常变成：
+
+```text
+Useful Context
+20%
+
+Historical Noise
+80%
+```
+
+这就是为什么需要：
+
+&gt; **Context Compaction。**
+
+---
+
+# 5. 人工介入：这是最容易被忽视，但实际上最重要的指标
+
+假设两个 Coding Agent。
+
+### Agent A
+
+每 2 分钟问你：
+
+```text
+要不要继续？
+
+是否允许修改？
+
+你想选方案A还是B？
+
+这个类在哪里？
+
+数据库是什么？
+```
+
+即使 Token 很便宜、速度很快，你仍然得一直盯着。
+
+这种 Agent 没有真正提高生产力。
+
+---
+
+### Agent B
+
+你给一句：
+
+&gt; 把设备缺陷分页查询性能问题解决掉，完成测试，不能改变接口。
+
+然后它自己：
+
+```text
+定位
+↓
+分析
+↓
+修改
+↓
+测试
+↓
+发现失败
+↓
+修复
+↓
+重新测试
+↓
+给出结果
+```
+
+20分钟以后你 Review。
+
+这个 Agent 才真正创造价值。
+
+所以一个非常重要的指标应该是：
+
+&gt; **Human Interruptions Per Task**
+
+例如：
+
+```text
+HIT = Human Intervention Times
+```
+
+理想情况：
+
+```text
+简单任务：0
+中等任务：0~1
+复杂任务：1~3
+```
+
+而不是：
+
+```text
+每一步都需要人确认
+```
+
+---
+
+# 五个维度真正的关系
+
+这里开始有意思了。
+
+## 上下文 ↑ → 正确率通常 ↑
+
+但：
+
+```text
+Context ↑
+→ Input Token ↑
+→ Latency ↑
+→ Cost ↑
+```
+
+所以不能无限增加。
+
+---
+
+## 速度 ↑ → 正确率可能 ↓
+
+如果 Agent：
+
+```text
+不规划
+不搜索
+不测试
+直接写
+```
+
+当然快。
+
+但是：
+
+```text
+返工 ↑
+```
+
+最终 Time To Done 反而增加。
+
+---
+
+## Token ↓ → 人工介入可能 ↑
+
+比如你为了省 Token：
+
+&gt; 不让 Agent 搜整个 repo。
+
+于是它开始问：
+
+```text
+UserService 在哪里？
+
+权限体系怎么实现？
+
+返回结构是什么？
+```
+
+Token 看似省了，
+
+但你成了：
+
+&gt; **Human Context Retriever**
+
+这其实是把机器成本转嫁成了人工成本。
+
+---
+
+# 所以五维实际上形成了一个优化问题
+
+可以粗略写成：
+
+```text
+Developer Productivity
+≈
+
+Correctness × Autonomy
+
+────────────────────
+
+Time × Token Cost
+```
+
+再乘一个：
+
+```text
+Context Efficiency
+```
+
+更完整：
+
+```text
+Productivity
+=
+Correctness
+× Autonomy
+× Context Efficiency
+──────────────────────
+Time To Done × Cost
+```
+
+其中：
+
+```text
+Autonomy
+≈ 1 / 人工介入次数
+```
+
+这比“哪个模型 benchmark 高”更接近真实开发生产力。
+
+---
+
+# 一个非常典型的四种 Coding 模式
+
+可以拿这个五维模型分析。
+
+## 模式 1：裸 Prompt
+
+```text
+需求
+↓
+AI
+```
+
+表现：
+
+| 维度      | 表现    |
+| ------- | ----- |
+| 正确率     | ★★    |
+| 速度      | ★★★★★ |
+| Token   | ★★★★★ |
+| Context | ★     |
+| 人工介入    | ★★    |
+
+适合：
+
+```text
+写算法
+写工具函数
+写 demo
+```
+
+---
+
+# 模式 2：整个 Repo 全塞
+
+```text
+Repo
++
+Prompt
+↓
+模型
+```
+
+表现：
+
+| 维度      | 表现   |
+| ------- | ---- |
+| 正确率     | ★★★★ |
+| 速度      | ★★   |
+| Token   | ★    |
+| Context | ★★★  |
+| 人工介入    | ★★★★ |
+
+问题：
+
+&gt; Context 很大，但 Context Quality 未必高。
+
+---
+
+# 模式 3：Rules + Search
+
+```text
+Rules
++
+Repo Search
++
+Task
+↓
+Agent
+```
+
+表现：
+
+| 维度      | 表现    |
+| ------- | ----- |
+| 正确率     | ★★★★☆ |
+| 速度      | ★★★★  |
+| Token   | ★★★★  |
+| Context | ★★★★★ |
+| 人工介入    | ★★★★  |
+
+这其实已经是目前比较理想的 Vibe Coding 模式。
+
+---
+
+# 模式 4：Agent Workflow
+
+再升级：
+
+```text
+                Task
+                  │
+                  ▼
+               Planner
+                  │
+       ┌──────────┴─────────┐
+       ▼                    ▼
+Context Retriever       Repo Mapper
+       │                    │
+       └──────────┬─────────┘
+                  ▼
+               Coder
+                  │
+                  ▼
+                Test
+                  │
+             ┌────┴────┐
+            PASS       FAIL
+             │          │
+             ▼          ▼
+           Review    Diagnose
+                        │
+                        └────→ Coder
+```
+
+再配合：
+
+```text
+Rules
++
+Context Compaction
++
+Model Routing
++
+Failure Limit
+```
+
+这时候五维才可能同时比较优秀。
+
+---
+
+# 这里还有一个很关键的“第六个隐含变量”
+
+其实五维背后还有：
+
+&gt; **任务粒度。**
+
+这个东西非常重要。
+
+任务太大：
+
+```text
+帮我重构整个订单系统
+```
+
+会导致：
+
+```text
+Context ↑↑
+Token ↑↑
+错误率 ↑
+Agent Loop ↑
+```
+
+任务太小：
+
+```text
+改这一行
+改下一行
+再改那个方法
+```
+
+则：
+
+```text
+人工介入 ↑↑
+Session ↑↑
+上下文重复读取 ↑↑
+```
+
+所以有一个最佳任务粒度。
+
+我通常称它：
+
+&gt; **AI-sized Task**
+
+一个比较好的 Task 通常满足：
+
+```text
+1个明确目标
++
+有限修改范围
++
+明确验收条件
++
+Agent 可以独立完成
+```
+
+例如：
+
+差：
+
+&gt; 优化订单系统。
+
+好：
+
+&gt; 将订单列表接口 P95 从目前约 4 秒降低到 1 秒以内。允许修改 Repository、索引和查询逻辑，不改变 API 返回结构；完成后运行现有订单模块测试并解释性能瓶颈。
+
+这个 Prompt 本身就在优化五维：
+
+```text
+Context ↓
+搜索空间 ↓
+正确率 ↑
+人工介入 ↓
+总时间 ↓
+```
+
+---
+
+# 所以我会把成熟 Vibe Coding 看成三个层次
+
+### 第一阶段
+
+```text
+Prompt Engineering
+```
+
+关注：
+
+&gt; 怎么把话说清楚。
+
+### 第二阶段
+
+```text
+Context Engineering
+```
+
+关注：
+
+&gt; 给 AI 看什么。
+
+### 第三阶段
+
+```text
+Agent Engineering
+```
+
+关注：
+
+&gt; AI 怎么完成整个任务。
+
+真正进入第三阶段以后，人不应该再主要负责：
+
+```text
+告诉 AI 每一步怎么做
+```
+
+而应该负责：
+
+```text
+Goal
+Constraints
+Acceptance Criteria
+Architecture Decisions
+```
+
+AI 负责：
+
+```text
+Search
+Implement
+Test
+Debug
+Verify
+```
+
+---
+
+## 最终我认为最重要的指标
+
+如果让我只选一个，我不会选：
+
+```text
+Token
+Latency
+Benchmark
+Context Window
+```
+
+而会选：
+
+&gt; **Human Minutes per Completed Task**
+
+也就是：
+
+```text
+完成一个真正可交付任务，
+需要开发者亲自投入多少分钟。
+```
+
+例如：
+
+```text
+模型 A：
+
+AI运行 3分钟
+人工修改 25分钟
+
+Human Cost = 25 min
+```
+
+对比：
+
+```text
+模型 B：
+
+AI运行 12分钟
+人工Review 3分钟
+
+Human Cost = 3 min
+```
+
+对于企业开发，**B 的生产力可能高出一个数量级**。
+
+所以如果把我们刚才的“五维模型”浓缩成一句话：
+
+&gt; **Vibe Coding 的终极目标，不是让 AI 输出得更快、更便宜，而是在尽可能少的人类注意力投入下，让 AI 使用尽可能少但足够准确的上下文，一次完成高质量的软件工程任务。**
+
+而这也是为什么我认为未来 Coding Agent 最核心的竞争会从 **“谁模型最聪明”**，慢慢转向 **“谁的 Context Management + Agent Loop + Tooling 最好”**。
+</pre>
+      <a class="back-deck" href="../index.html#/5/16">返回 PPT：不可能三角与五维模型 ↗</a>
+    </article>
+  </main>
+  <footer class="site-footer">VibeCoding 实战总结 · 延伸阅读</footer>
+  <script src="render-markdown.js"></script>
+</body>
+</html>
