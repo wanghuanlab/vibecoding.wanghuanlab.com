@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VibeCoding 的不可能三角</title>
+  <link rel="stylesheet" href="../assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="index.html">/&gt; VIBECODING / NOTES</a>
+    <a class="header-link" href="index.html">文章目录 ←</a>
+  </header>
+  <main class="page-shell article-page">
+    <article class="article-main">
+      <p class="eyebrow">SOURCE TEXT / FULL VERSION</p>
+      <h1>VibeCoding 的不可能三角</h1>
+      <pre class="source-article">这个“不可能三角”很适合描述 Vibe Coding：
+
+&gt; **效率、速度、Token 消耗，通常很难同时做到最优。**
+
+更准确一点，可以把它定义成：
+
+* **效率**：一次任务真正完成到可用状态的概率，包括正确性、修改次数、返工成本。
+* **速度**：从下达任务到拿到结果的时间。
+* **Token 消耗**：模型读取上下文、推理、工具调用、输出所消耗的总 token，也基本对应成本。
+
+三者的冲突，本质上来自一个事实：
+
+&gt; AI 要想“更懂你的项目”，就必须读更多；
+&gt; 要想“更快”，就不能每次都读很多、想很久；
+&gt; 要想“更省 Token”，就必须减少上下文、减少尝试，但这样又可能增加返工。
+
+## 一个很典型的例子
+
+假设你对 Codex / Claude Code 说：
+
+&gt; 给现有 Spring Boot 项目增加“设备缺陷管理”功能。
+
+### 模式 A：追求速度
+
+Agent 只看当前几个文件：
+
+```text
+Controller
+Service
+Entity
+Repository
+```
+
+然后直接写。
+
+优点：
+
+```text
+速度 ★★★★★
+Token ★★★★★（省）
+```
+
+但很容易出现：
+
+```text
+Result&lt;T&gt; 没遵循
+异常体系没遵循
+权限体系没遵循
+DTO 命名不一致
+数据库字段规范不一致
+已有工具类重复造轮子
+```
+
+于是：
+
+```text
+第一次 2 分钟
+修改 5 次
+总共 20 分钟
+```
+
+所以：
+
+&gt; **局部速度快，不代表整体效率高。**
+
+---
+
+### 模式 B：追求一次成功率
+
+Agent 先读：
+
+```text
+AGENTS.md
+README
+pom.xml
+项目目录
+已有类似模块
+统一返回值
+异常体系
+权限代码
+数据库 migration
+测试
+```
+
+可能先消费：
+
+```text
+50K～200K tokens
+```
+
+然后再实现。
+
+结果很可能：
+
+```text
+第一次就完成 80～95%
+```
+
+特点：
+
+```text
+效率 ★★★★★
+速度 ★★★
+Token ★★
+```
+
+这实际上是很多成熟 Vibe Coding 工作流的选择。
+
+---
+
+### 模式 C：极端省 Token
+
+只给：
+
+```text
+需求
++
+3 个相关文件
++
+几条 Rules
+```
+
+特点：
+
+```text
+Token ★★★★★
+速度 ★★★★
+```
+
+但是依赖于一个前提：
+
+&gt; **你本人必须非常清楚到底哪些上下文是重要的。**
+
+否则 Agent 会因为缺少信息而猜。
+
+这就引出了我认为 Vibe Coding 最关键的一件事。
+
+# 真正优化的不是 Token，而是“有效 Token”
+
+很多人会看：
+
+```text
+这次 Agent 用了 200K token
+```
+
+觉得很浪费。
+
+其实应该看：
+
+```text
+有效工作 / Token
+```
+
+也就是我称之为：
+
+&gt; **Token Efficiency / Token ROI**
+
+例如：
+
+### Agent A
+
+用了：
+
+```text
+50K tokens
+```
+
+但因为上下文不足：
+
+```text
+生成
+→ 报错
+→ 修复
+→ 又错
+→ 查项目
+→ 重构
+→ 测试
+```
+
+最终：
+
+```text
+250K tokens
+```
+
+### Agent B
+
+开始先花：
+
+```text
+120K
+```
+
+理解项目。
+
+然后：
+
+```text
+一次完成
+```
+
+总共：
+
+```text
+170K
+```
+
+所以：
+
+&gt; **“少读上下文”经常是假节省。**
+
+这一点在大型 Java 项目尤其明显。
+
+---
+
+# Vibe Coding 最容易出现的 Token 黑洞
+
+我觉得主要有 5 类。
+
+### 第一类：每次重新理解整个项目
+
+例如每个 Task 都：
+
+```text
+扫描 repo
+读取 README
+读取 pom
+搜索类
+分析架构
+```
+
+这是最明显的浪费。
+
+解决办法就是你上一问提到的：
+
+```text
+Rules
+AGENTS.md
+Architecture.md
+Repo Map
+```
+
+把稳定知识压缩掉。
+
+原来需要：
+
+```text
+读取 80 个文件
+↓
+70K token
+```
+
+可以变成：
+
+```text
+读取 AGENTS.md
+↓
+5K token
+```
+
+所以 Rules 本质上不仅仅是规范。
+
+它其实还是：
+
+&gt; **上下文压缩技术。**
+
+---
+
+# 第二类：超长会话
+
+这也是你之前问 Codex 长会话是否需要归档的核心原因。
+
+比如一个会话：
+
+```text
+Turn 1   10K
+Turn 2   30K
+Turn 3   60K
+Turn 4   100K
+Turn 5   150K
+...
+```
+
+后面的任务哪怕只是：
+
+&gt; 改一个 Controller。
+
+Agent 每轮都有可能背着巨大的历史上下文。
+
+于是出现：
+
+```text
+简单修改
+↓
+几十万 token
+```
+
+而且长上下文还有另一个问题：
+
+&gt; **Context ≠ Attention。**
+
+上下文越大，模型未必越聪明。
+
+大量无关历史反而形成：
+
+```text
+Context Noise
+```
+
+因此我非常赞成：
+
+```text
+一个目标
+=
+一个相对独立的 Session
+```
+
+而不是：
+
+```text
+整个项目
+=
+一个永不结束的 Session
+```
+
+---
+
+# 第三类：Agent 无目标探索
+
+这类特别烧 Token。
+
+比如：
+
+&gt; 帮我看看这个项目有什么问题。
+
+Agent 可能开始：
+
+```text
+ls
+find
+grep
+cat
+search
+read
+search
+read
+```
+
+十几二十轮工具调用。
+
+你会看到它似乎很勤奋，但实际上：
+
+&gt; 搜索空间没有被约束。
+
+如果改成：
+
+&gt; 检查订单查询接口为什么超过 5 秒，重点看 PostgreSQL SQL、索引和 JPA 查询，先定位问题，不要修改代码。
+
+搜索空间一下缩小。
+
+于是：
+
+```text
+Token ↓
+速度 ↑
+准确率 ↑
+```
+
+这是一种少见的：
+
+&gt; **三者同时改善。**
+
+所以 Vibe Coding 最大的杠杆其实不是模型，而是：
+
+&gt; **Task Definition Quality。**
+
+---
+
+# 第四类：让最强模型干所有事情
+
+例如全程 GPT-5.6 / Opus 级模型：
+
+```text
+找文件
+改 import
+格式化
+写 DTO
+分析架构
+Debug
+```
+
+这其实很浪费。
+
+更合理的是：
+
+```text
+简单任务 → Flash/Fast 模型
+
+中等编码 → 主力 coding 模型
+
+复杂 Debug / 架构 → Pro/Reasoning 模型
+```
+
+这就是：
+
+&gt; **Model Routing**
+
+成熟 AI Coding 最终一定会变成这种模式。
+
+类似传统计算机：
+
+```text
+CPU
+GPU
+Cache
+RAM
+Disk
+```
+
+不是所有东西都放 GPU 算。
+
+---
+
+# 第五类：让 Agent 无限自我修复
+
+例如：
+
+```text
+实现
+↓
+build
+↓
+error
+↓
+修
+↓
+build
+↓
+error
+↓
+修
+↓
+test
+↓
+error
+...
+```
+
+如果方向本身错了，就会形成：
+
+&gt; Agent Loop。
+
+这种时候：
+
+```text
+Token ↑↑↑
+时间 ↑↑↑
+效率 ↓↓↓
+```
+
+比较好的机制应该是：
+
+```text
+连续失败 2～3 次
+
+↓
+
+停止编码
+
+↓
+
+重新分析 root cause
+
+↓
+
+再继续
+```
+
+这实际上是 Agent Workflow 设计问题。
+
+---
+
+# 所以三角真正应该这样理解
+
+我更愿意画成：
+
+```text
+                 一次成功率 / 效率
+                       ▲
+                      / \
+                     /   \
+                    /     \
+                   /       \
+                  /         \
+                 /           \
+                /             \
+               /               \
+        速度 ◀────────────────▶ Token成本
+```
+
+你不可能无限同时优化三者。
+
+但是可以通过：
+
+```text
+Rules
+Repo Map
+Context Engineering
+Model Routing
+Task Decomposition
+Session Management
+```
+
+把整个三角形**向外推**。
+
+这点非常重要。
+
+“不可能三角”不是说：
+
+&gt; 三选二。
+
+更准确是：
+
+&gt; **在既定模型和工作流下存在 Pareto Frontier。**
+
+好的 Vibe Coding 工程体系，就是不断把这个 Frontier 往外推。
+
+---
+
+# 举个非常实际的优化过程
+
+最原始：
+
+```text
+Prompt
+↓
+Agent
+↓
+整个 Repo
+```
+
+可能表现：
+
+| 指标    | 表现 |
+| ----- | -- |
+| 速度    | 低  |
+| Token | 很高 |
+| 成功率   | 中  |
+
+升级成：
+
+```text
+Prompt
++
+Rules
++
+Repo Map
++
+Relevant Files
+↓
+Agent
+```
+
+变成：
+
+| 指标    | 表现 |
+| ----- | -- |
+| 速度    | 高  |
+| Token | 中  |
+| 成功率   | 高  |
+
+再加入：
+
+```text
+Task decomposition
++
+Model routing
++
+自动测试
++
+失败熔断
+```
+
+可能进一步变成：
+
+```text
+               Planner
+                  │
+          ┌───────┴───────┐
+          ↓               ↓
+     Context Select     Task Split
+          │               │
+          └───────┬───────┘
+                  ↓
+             Coding Agent
+                  ↓
+              Test Agent
+                  ↓
+             Review Agent
+```
+
+这才是真正的企业级 Vibe Coding。
+
+---
+
+## 我认为最值得追求的不是“速度最快”
+
+而是一个指标：
+
+&gt; **完成一个可交付 Task 的总成本。**
+
+可以写成：
+
+```text
+Task Cost
+=
+模型调用成本
++
+Token
++
+等待时间
++
+人工介入
++
+返工成本
+```
+
+甚至还应该算：
+
+```text
+Defect Cost
+```
+
+如果一个模型：
+
+```text
+30秒
+10万 token
+```
+
+完成，但是你后面人工修 1 小时，
+
+它其实非常贵。
+
+另一个模型：
+
+```text
+3分钟
+30万 token
+```
+
+但一次完成，
+
+反而便宜得多。
+
+所以对于专业开发者，我会把排序定成：
+
+```text
+1. 正确完成
+2. 少人工干预
+3. 总耗时
+4. Token成本
+5. 单次响应速度
+```
+
+而不是很多 Vibe Coding 产品宣传里的：
+
+```text
+Tokens/sec
+```
+
+Tokens/sec 更多体现的是“体感爽不爽”，不等于工程生产力。
+
+---
+
+你还可以进一步把这个“不可能三角”细化成我认为更有价值的一个 **Vibe Coding 五维模型**：
+
+```text
+        正确率
+          ▲
+          │
+上下文 ──┼── 速度
+          │
+    Token │ 人工干预
+```
+
+最后真正要优化的是：
+
+&gt; **单位人工介入下，AI 完成的有效工程量。**
+
+这其实已经不是单纯的“哪个模型更聪明”的问题，而是 **Context Engineering + Agent Engineering + Software Engineering 三者的交叉问题**。
+
+而且这里面有一个很反直觉的结论：**模型上下文从 200K 发展到 1M 以后，Vibe Coding 下一阶段最大的竞争点可能不再是谁能“塞更多 Token”，而是谁能“更少地读、但恰好读对”。**这也是 Rules、Repo Map、Semantic Search、Sub-Agent、Context Compaction 越来越重要的原因。
+</pre>
+      <a class="back-deck" href="../index.html#/5/16">返回 PPT：不可能三角与五维模型 ↗</a>
+    </article>
+  </main>
+  <footer class="site-footer">VibeCoding 实战总结 · 延伸阅读</footer>
+  <script src="render-markdown.js"></script>
+</body>
+</html>
