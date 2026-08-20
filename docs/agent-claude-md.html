@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>项目级 AI 规范：AGENT.md / CLAUDE.md 最佳实践</title>
+  <title>项目级 AI 规范：CLAUDE.md 深度指南</title>
   <link rel="stylesheet" href="../assets/vendor/fonts/fonts.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -15,137 +15,373 @@
   <main class="page-shell article-page">
     <article class="article-main">
       <p class="eyebrow">PRACTICAL EXPERIENCE / CORE HANDBOOK</p>
-      <h1>项目级 AI 规范：AGENT.md / CLAUDE.md 最佳实践</h1>
-      <pre class="source-article">在 Vibe Coding（氛围/感觉编码）时代，我们往往会遇到一个反直觉的现象：**工具越来越聪明，开发体验却可能越来越乱。** 
+      <h1>项目大脑：CLAUDE.md 深度指南</h1>
+      <pre class="source-article">在 Vibe Coding 时代，AI Agent 经常被抱怨"不听话"——每次新建会话都要重新交代规范，多轮对话后忘记项目约定，或者写出与项目完全不搭调的代码。
 
-很多开发者会抱怨 AI Agent 经常“不听话”、“自作聪明写出了一堆冗余代码”，或者“每次新建会话都要把项目规范重新复制一遍”。
+这一切问题的答案，都指向同一个文件：**`CLAUDE.md`**。
 
-这背后的根本原因，在于我们没有为 Agent 提供一个**“核心大脑”与“项目宪法”**。在实际工程中，`AGENT.md` 与 `CLAUDE.md` 正是扮演这一角色的关键配置文件。它们是 AI Agent 长期生效的基线，帮助团队将 AI 编码能力转化为稳定、高质量、可交付的工程产出。
-
----
-
-## 1. 为什么 AGENT.md / CLAUDE.md 至关重要？
-
-我们可以把 AI Agent 看作是一个**“每次上班都会失忆的超级程序员”**。即使它拥有极强的编码推理能力，但每次开启新的 Session，它对你的项目都是一无所知的。
-
-如果不进行约束，AI Agent 在面对任务时通常会有以下致命痛点：
-
-* **上班失忆症**：会话一旦拉长，或者新建会话，AI 就会忘掉你之前口头交代的所有规范，开始随性发挥。
-* **Token 黑洞与效率低下**：为了让 AI 理解项目，它可能会漫无目的地读取几十个文件，扫描整个目录，单次交互耗费数十万 Token。更糟糕的是，由于缺乏明确的构建和测试指令，AI 遇到报错时只能无限自我修复（Agent Loop），烧费大量时间与成本。
-* **隐性技术偏差**：AI 默认会采用其训练数据中最主流的通用方案。如果你的项目有自研的组件库（例如长江电力项目中的 `Ds*` 库）、特定的脚手架或特定的 API 契约，AI 根本无从得知，只会一遍遍重复造轮子，写出与项目格格不入的代码。
-* **无视“业务守恒原则”**：在进行代码重构或迁移时，AI 很容易因为理解偏差，凭空删减原有页面上的查询字段、权限按钮或接口契约，导致功能降级。
-
-因此，`AGENT.md`（或等效的 `CLAUDE.md`、`.cursorrules`）就成了**上下文压缩技术**和**项目宪法**的载体。它把稳定的项目知识压缩在几 KB 的 Markdown 文件中，在 Agent 初始化时自动感知，从而让 AI 拥有了“长期记忆”。
+`CLAUDE.md` 是 Claude Code 官方支持的项目记忆文件。每次会话启动时，Claude Code 自动将其注入上下文，相当于给这位"会失忆的超级程序员"配备了一本永远摆在桌上的工作手册。本文结合官方文档与大型项目实战，全面解析 `CLAUDE.md` 的机制、写法与最佳实践。
 
 ---
 
-## 2. 应该包含哪些核心内容？
+## 1. 两种互补的记忆机制
 
-一个合格的 `AGENT.md` / `CLAUDE.md` 绝不是一堆废话，而是只包含**模型无法从已有源码中推断出来的习惯、命令与红线**。它应该包含以下五个核心板块：
+Claude Code 提供两种持久记忆机制，两者相互补充，在每次会话启动时都会被加载：
 
-### A. 项目基础信息与技术栈归一 (Project Info)
-明确指出项目所使用的语言、核心框架、数据库及 UI 组件库的版本。最重要的是**归一化技术选型**，防止 AI 引入不相关的依赖。例如：“本项目统一使用 Vue 3 + Ant Design Vue，严禁无故混用 Element Plus”。
+* **CLAUDE.md 文件**：由**你编写**的规则与约束。内容是指令与规范，作用范围可以是项目、用户或整个组织。
+* **自动记忆（Auto Memory）**：由 **Claude 自动写入**的笔记。Claude 根据你的纠正与偏好，自动在 `~/.claude/projects/<project>/memory/MEMORY.md` 中积累知识，无需你手动维护。
 
-### B. 常用环境命令 (Commands & Environment)
-列出具体的构建、运行、测试和 Lint 命令。Agent 具有执行 Shell 命令的能力，写明 these 命令后，Agent 在修改完代码后能够**自我闭环验证**。如果代码通不过 Lint 或测试，它会自行修复后再交付，极大降低了人工介入频率。
+两者的核心区别如下表所示：
 
-### C. 架构约束与公共组件基线 (Architecture & Base Components)
-告诉 AI 你的目录结构规范（如业务逻辑必须封装于 `src/services/`）以及 API 返回的统一数据契约。特别要指出**强制绑定的标准组件库**，严禁 AI 编写内联 style 或硬编码非 Token 的颜色与圆角。
+| 维度 | CLAUDE.md 文件 | 自动记忆（Auto Memory） |
+| --- | --- | --- |
+| **谁来写** | 你 | Claude 自动写入 |
+| **写什么** | 指令与规范 | 学习到的习惯与偏好 |
+| **作用范围** | 项目、用户或组织 | 按仓库隔离，跨 Worktree 共享 |
+| **何时加载** | 每次会话启动 | 每次会话启动（最多前 200 行或 25KB） |
+| **适合放什么** | 编码规范、工作流、项目架构 | 构建命令、调试经验、Claude 发现的偏好 |
 
-### D. 8 大避坑红线与禁令 (DO NOTs)
-记录项目绝对不能触碰的底线。比如：“严禁修改数据库迁移主键”、“严禁硬编码敏感 API Key，必须使用环境变量”、“修改后严禁将未通过单测的代码直接提交”。
+> **重要区别**：CLAUDE.md 是约束层（你来主导），Auto Memory 是学习层（Claude 自动积累）。如果需要硬性阻止某个行为（如禁止直接 push main），应该用 Hook 或 Permission 而不是 CLAUDE.md。
 
-### E. 业务守恒原则 (Business Preservation)
-硬性要求 Agent 在做任何迁移与重构时，必须 100% 完整保留原有业务的查询条件、权限按钮、页签过滤和数据契约。
+### 自动记忆（Auto Memory）的工作原理
+
+Auto Memory 默认开启。每次会话中，当 Claude 发现值得记录的信息（如你纠正了一个命令、确认了一个编码偏好），它会自动保存到本地目录：
+
+```text
+~/.claude/projects/<project>/memory/
+├── MEMORY.md          # 简洁索引，每次会话自动加载
+├── debugging.md       # 调试模式的详细笔记
+├── api-conventions.md # API 设计决策
+└── ...                # Claude 自动创建的其他主题文件
+```
+
+* `MEMORY.md` 是入口索引，每次会话自动加载其前 200 行或 25KB。
+* 详细笔记会被拆分到专题文件（如 `debugging.md`），按需读取。
+* 所有文件都是普通 Markdown，你可以随时编辑或删除。
+
+使用 `/memory` 命令可以在会话中浏览和编辑所有记忆文件。
 
 ---
 
-## 3. 标准的 MD 目录结构
+## 2. CLAUDE.md 的四层作用域
 
-以下是一个通用的、可直接复制的项目级 `AGENT.md` / `CLAUDE.md` 标准结构模板：
+`CLAUDE.md` 不是一个单一文件，而是一个**作用域层级系统**。不同位置的文件作用于不同范围，Claude Code 在启动时会按照从宽到窄的顺序依次加载它们，后加载的文件（更接近工作目录的文件）在上下文中排列靠后，优先级更高：
+
+| 作用域 | 文件位置 | 用途 | 是否共享 |
+| --- | --- | --- | --- |
+| **组织策略** | macOS: `/Library/Application Support/ClaudeCode/CLAUDE.md` | IT/DevOps 管理的全公司规范 | 同机器所有用户 |
+| **用户个人** | `~/.claude/CLAUDE.md` | 个人偏好，适用于所有项目 | 仅自己 |
+| **项目共享** | `./CLAUDE.md` 或 `./.claude/CLAUDE.md` | 团队共享的项目规范 | 通过版本控制共享给团队 |
+| **本地私有** | `./CLAUDE.local.md` | 个人项目偏好，加入 `.gitignore` | 仅自己（当前项目） |
+
+### 加载机制详解
+
+Claude Code 从**当前工作目录向上遍历**目录树，加载所有层级的 `CLAUDE.md` 和 `CLAUDE.local.md`。所有文件会被**拼接注入上下文**，而不是互相覆盖。
+
+* 子目录中的 `CLAUDE.md` 不在启动时全量加载，而是在 Claude 读取该子目录中的文件时**按需加载**。
+* `CLAUDE.local.md` 始终在同目录 `CLAUDE.md` 之后追加，你的个人备注是最后被 Claude 读取的内容。
+
+使用 `/context` 命令可以查看当前会话实际加载了哪些记忆文件。
+
+---
+
+## 3. AGENTS.md 与 CLAUDE.md 的正确关系
+
+Claude Code 读取的是 `CLAUDE.md`，**不读取** `AGENTS.md`。
+
+如果你的项目已经维护了一个供 Cursor、Aider 等其他 Agent 工具使用的 `AGENTS.md`，推荐用以下方式让 Claude Code 也能读取它，同时添加 Claude 专属指令：
 
 ```markdown
-# 项目核心指引 & 规范手册 (CLAUDE.md / AGENTS.md)
+@AGENTS.md
 
-## 项目基础信息
-- **技术栈**: React 18 (Next.js App Router) + TypeScript + Tailwind CSS + Prisma
-- **状态管理**: Zustand
-- **基础组件库**: Radix UI + shadcn/ui (位于 @/components/ui)
+## Claude Code 专属约束
 
-## 常用命令 (Commands)
-- **启动开发服务器**: `npm run dev`
-- **构建项目**: `npm run build`
-- **运行单元测试**: `npm test`
-- **代码格式化与检查**: `npm run lint`
-- **数据库同步**: `npx prisma db push`
-
-## 架构约束 (Architecture Rules)
-- **逻辑分层**: 业务数据处理与第三方服务对接必须封装在 `src/services/` 下，页面组件仅负责数据渲染与交互。
-- **数据返回**: 所有 API 统一返回格式为 `{ success: boolean, data: T, code: number, message: string }`。
-- **公共组件绑定**: 页面上的按钮、输入框、下拉框必须优先从 `@/components/ui/` 导入，禁止自行编写基础 CSS 样式。
-
-## 编码风格 (Code Style)
-- **TypeScript**: 严格启用 strict 模式，严禁显式使用 `any`，必须为所有 API 入参和出参定义 Interface/Type。
-- **命名规范**: 文件名与组件统一使用 PascalCase (如 `UserCard.tsx`)，普通函数与变量使用 camelCase。
-- **异常处理**: 所有异步请求必须包含 `try-catch` 块，并调用全局 `toast.error` 统一向用户展示。
-
-## 避坑红线 (DO NOTs)
-1. **严禁修改** `prisma/schema.prisma` 中的历史数据模型，新增字段必须通过 Migration 或经导师确认。
-2. **绝对禁止**将密码、Token 或 API Key 硬编码在代码中，必须配置在 `.env.local` 且不可提交。
-3. **严禁**在组件内部编写超过 20 行的内联 CSS 样式。
-4. **禁止**在执行修改时随意删除已有的接口参数，必须保持向下兼容。
-
-## 业务守恒原则
-- 在对旧页面进行重构或样式迁移时，必须确保以下内容 100% 对应，严禁漏写：
-  - 所有的查询字段、重置按钮以及页签的默认过滤条件。
-  - 组件绑定的权限控制标识 (如 `hasPermission('admin')`)。
+- 对 `src/billing/` 下的改动，必须进入 Plan 模式先确认方案再执行。
+- 禁止使用 `any` 类型，使用前必须在聊天中说明原因。
 ```
 
----
+也可以简单创建一个符号链接（无需额外内容时）：
 
-## 4. 真实工程实战拆解：长江电力落地方案
-
-在“长江电力新一代生产经营管理系统”这一超大型项目实战中，团队只有 4 名开发人员，却需要构建 **600+ 个页面**及极其繁琐的业务流程。
-
-为了让 12 个异构协作团队在没有口头对齐的情况下，依然能写出完全一致的代码，团队制定了统一的 `AGENTS.md` 基线。
-
-在长江电力的实战中，`AGENTS.md` 沉淀了以下高级工程法则：
-
-### 规则 1：Skill 路由与任务映射
-在大型工程中，如果让一个通用 coding 助手直接生成复杂页面，效果往往很差。长江电力将不同的任务强行路由给专属的“Agent Skills”（类似于特定的小助手工具），例如：“新增 Vue 页面必须调用 `frontend-page-builder` Skill”，让专用的模型与指令干专业的事。
-
-### 规则 2：公共组件的“组件状态表”强绑定
-为了杜绝开发人员和 AI 随意使用开源的第三方组件或自己手写内联 CSS，`AGENTS.md` 确立了组件的 **Fact Order (源码事实优先级)**。
-当 AI 尝试寻找一个组件时，必须遵循以下优先级来引用：
-> 组件状态表 > `index.ts` 导出 > Vue 源码 > Design Tokens > 业务页面 > 文档。
-
-AI 会被强制从 `@/components` 导入 stable 状态的组件（如 `DsPage`，`DsFormGrid`，`DsDataTable`）。最终在 `AGENTS.md` 的强约束下，系统 1,156 个业务视图中有 1,021 个深度绑定了 `Ds*` 规范库，覆盖率高达 88.3%。
-
----
-
-## 5. 如何使用与日常演进？
-
-### A. 命名与等效关系
-在不同的 Agent 生态中，有些工具倾向于读取 `.cursorrules`，有些工具如 Claude Code 默认感知 `CLAUDE.md`，有些智能体平台感知 `AGENT.md`。
-这三者在核心解析权重与写法上**完全等效**。在实际项目中，你可以将它们配置为**符号链接 (Symlink)**：
 ```bash
 ln -s AGENTS.md CLAUDE.md
-ln -s AGENTS.md .cursorrules
 ```
-这样，不管团队成员使用什么 IDE (Cursor) 还是命令行 CLI (Claude Code)，都可以共享同一份项目规范手册。
 
-### B. 动态演进的“Living Doc”机制
-`AGENT.md` 绝对不是写完就一劳永逸的静态文档，而是一个**与项目共同成长的 Living Doc**。
+运行后，执行 `/context` 确认 `CLAUDE.md` 出现在 **Memory files** 列表中即为成功。
 
-Vibe Coding 的核心心法之一就是**“持续改进闭环”**：
-1. **AI 犯错**：在一次任务中，AI 写出了不符合预期的冗余代码，或者导致了编译报错。
-2. **记录原因**：人工排查出 root cause（例如某组件升级了，参数名已改变，但 AI 还在用老参数名）。
-3. **增加 Rule**：不要只在聊天框里教训它，而是把这条红线**立刻写进 `AGENT.md`**。
-4. **自动避免**：下一次 AI 重新拉取上下文时，就会自动读取这一最新规则，以后自动避免同样的错误。
+> **注意**：`@path` 导入语法会在会话启动时将文件内容展开注入上下文。如果被导入的文件路径在工作目录之外（如家目录），首次使用时 Claude Code 会弹出授权确认对话框。
 
-通过这种“AI 犯错 → 记录原因 → 增加 Rule → 以后自动避免”的闭环，你不仅是在完成当下的任务，更是在**把 AI 犯错的成本沉淀为项目长期的工程化资产**。这才是专业 Vibe Coding 研发体系的最核心杠杆。
+---
+
+## 4. 快速上手：用 /init 自动生成 CLAUDE.md
+
+不知道从何写起？Claude Code 提供了 `/init` 命令，它会自动分析你的代码库，并生成包含构建命令、测试指令和项目约定的初始 `CLAUDE.md`：
+
+```bash
+# 在项目根目录启动 Claude Code 后，输入：
+/init
+```
+
+* 如果项目中已有 `CLAUDE.md`，`/init` 会给出优化建议而不是覆盖。
+* 设置环境变量 `CLAUDE_CODE_NEW_INIT=1` 可开启交互式多阶段初始化流程：先探索代码库，再通过问答填补信息空白，最后展示方案供你审阅后才写入文件。
+* `CLAUDE_CODE_NEW_INIT=1` 模式下，`/init` 还会自动读取 `.cursor/rules/`、`.cursorrules`、`AGENTS.md` 等其他 Agent 工具的规则文件，将相关内容整合进来。
+
+生成后，用 `/doctor` 命令可以让 Claude 检查 `CLAUDE.md` 是否过大，并提出裁剪建议（删除可以从代码库直接推断的内容，如目录结构、依赖列表等）。
+
+---
+
+## 5. 应该包含哪些核心内容？
+
+一个合格的 `CLAUDE.md` 只包含**模型无法从已有源码中自行推断出来的约束与规范**。官方建议控制在 **200 行以内**——超过这个长度，上下文消耗增大，Claude 的遵从度反而下降。
+
+内容应聚焦在以下几个维度：
+
+### 常用命令（Commands）
+
+列出构建、运行、测试和 Lint 的具体 Shell 命令。Claude 有执行 Shell 命令的能力，写明这些命令后，它修改代码后会自行在终端验证，大幅降低人工介入频率。
+
+```markdown
+## 常用命令
+- 启动开发服务器: `npm run dev`
+- 构建项目: `npm run build`
+- 运行单测: `npm test`
+- 代码检查: `npm run lint`
+- 数据库迁移: `npx prisma db push`
+```
+
+### 技术栈与架构约束（Architecture）
+
+统一技术选型，防止 AI 引入不相关的依赖。告知目录规范和 API 契约：
+
+```markdown
+## 技术栈
+- React 18 (Next.js App Router) + TypeScript strict 模式 + Tailwind CSS
+- 状态管理: Zustand
+- 组件库: shadcn/ui，位于 @/components/ui
+
+## 架构约束
+- 业务逻辑封装在 src/services/，页面组件只做渲染
+- API 统一返回格式: { success: boolean, data: T, code: number, message: string }
+- 按钮/输入框/下拉框必须从 @/components/ui/ 导入，禁止手写基础 CSS
+```
+
+### 编码风格（Code Style）
+
+写具体可验证的规则，而不是模糊描述：
+
+```markdown
+## 编码风格
+- 使用 2 空格缩进（不是 4 空格，也不是 Tab）
+- 命名: 文件与组件 PascalCase，函数与变量 camelCase
+- 禁止显式 any，所有 API 入参出参必须定义 Interface/Type
+- 异步请求必须包含 try-catch，错误统一调用 toast.error()
+```
+
+### 避坑红线（DO NOTs）
+
+记录项目绝对不能触碰的底线：
+
+```markdown
+## 禁止事项
+- 严禁修改 prisma/schema.prisma 历史主键，新增字段必须通过 Migration
+- 禁止将 Token、密码或 API Key 硬编码在代码中，必须使用 .env.local
+- 禁止在组件内写超过 20 行内联 CSS
+- 修改接口时禁止删除已有参数，必须保持向下兼容
+```
+
+### 业务守恒原则（Preservation）
+
+对重构与迁移任务设置最高优先级的业务完整性要求：
+
+```markdown
+## 业务守恒
+- 重构或样式迁移时，必须 100% 保留：
+  - 所有查询字段、重置按钮与页签默认过滤条件
+  - 权限控制标识（如 hasPermission('admin')）
+  - 所有接口字段与数据契约，严禁凭空幻觉删减
+```
+
+---
+
+## 6. 用 .claude/rules/ 实现精细化规则管理
+
+当项目较大时，把所有规则堆在一个 `CLAUDE.md` 里很快会失控。官方提供了 `.claude/rules/` 目录来实现**模块化规则管理**：
+
+```text
+your-project/
+├── CLAUDE.md                 # 主指引文件（简洁，控制在 50 行内）
+└── .claude/
+    └── rules/
+        ├── code-style.md     # 编码风格规范
+        ├── testing.md        # 测试约定
+        ├── security.md       # 安全要求
+        └── frontend/
+            └── components.md # 组件专属规则
+```
+
+### 路径限定规则（Path-scoped Rules）
+
+规则文件可以通过 YAML frontmatter 将作用范围限定到特定文件路径。只有当 Claude 读取匹配路径的文件时，该规则才会被加载，节省上下文空间：
+
+```markdown
+---
+paths:
+  - "src/api/**/*.ts"
+  - "lib/**/*.ts"
+---
+
+## API 开发规范
+
+- 所有 API 端点必须包含输入校验
+- 使用标准错误响应格式 { code, message, data }
+- 必须包含 OpenAPI 注释文档
+```
+
+常用的 glob 匹配模式：
+
+| 模式 | 匹配范围 |
+| --- | --- |
+| `**/*.ts` | 任意目录下所有 TypeScript 文件 |
+| `src/**/*` | src/ 目录下所有文件 |
+| `*.md` | 项目根目录的 Markdown 文件 |
+| `src/components/*.tsx` | 特定目录下的 React 组件 |
+
+---
+
+## 7. 完整模板：可直接复制使用
+
+以下是一个通用的、控制在 200 行以内的 `CLAUDE.md` 标准模板，适合大多数前端项目：
+
+```markdown
+# 项目核心指引 (CLAUDE.md)
+
+<!-- 维护者备注：此文件在 Claude 上下文中加载，HTML注释不计 Token -->
+
+## 常用命令
+- 启动: `npm run dev`
+- 构建: `npm run build`
+- 测试: `npm test`（提交前必须通过）
+- Lint: `npm run lint`
+
+## 技术栈
+- React 18 + TypeScript (strict) + Tailwind CSS + Prisma
+- 状态管理: Zustand
+- UI 组件: shadcn/ui（@/components/ui）
+
+## 架构约束
+- 业务逻辑封装于 src/services/，禁止在组件内直接调用 API
+- API 返回格式: `{ success: boolean, data: T, code: number, message: string }`
+- 组件必须从 @/components/ui/ 导入，禁止手写内联样式基础组件
+
+## 编码规范
+- 2 空格缩进，PascalCase 组件名，camelCase 函数名
+- 禁止显式 any，所有 API 参数必须定义 Type
+- 异步操作必须 try-catch，错误调用 toast.error()
+
+## 禁止事项
+- 禁止修改 prisma/schema.prisma 的历史主键定义
+- 禁止硬编码密钥，必须用 .env.local 环境变量
+- 禁止修改接口时删除已有参数，保持向下兼容
+- 修改后未通过单测，禁止提交
+
+## 业务守恒
+- 重构/迁移时，100% 保留：查询字段、权限标识、接口契约
+
+## 导入补充规范
+@docs/git-workflow.md
+```
+
+> **小技巧**：CLAUDE.md 中的 HTML 注释（`<!-- ... -->`）会在注入上下文前被自动过滤，不消耗 Token。可以用来给人类维护者留下备注。
+
+---
+
+## 8. 实战案例：长江电力 600+ 页面的约束体系
+
+在"长江电力新一代生产经营管理系统"实战中，团队只有 4 名开发人员，却需要在 12 个异构协作团队共同参与的情况下，构建 **600+ 个页面**且保持 100% 规范一致。
+
+核心解法就是将所有工程约束沉淀进 `AGENTS.md`（通过软链映射至 `CLAUDE.md`），建立了三层约束体系：
+
+### 第一层：Skill 路由与任务分流
+
+大型工程不能让一个通用 coding 助手干所有事。项目在 `AGENTS.md` 中明确了任务路由规则，将不同类型任务路由给专属的 Agent Skills：
+
+```markdown
+## Skill 路由规则
+
+- 新增 Vue 业务页面 → 调用 `frontend-page-builder` Skill
+- 样式审查与迁移 → 调用 `design-review` Skill
+- 组件封装与复用 → 调用 `component-refactor` Skill
+
+## 源码事实优先级（Fact Order）
+组件状态表 > index.ts 导出 > Vue 源码 > Design Tokens > 业务页面 > 文档
+```
+
+### 第二层：公共组件基线绑定
+
+为杜绝 AI 和开发者随意使用开源组件或手写内联 CSS，`AGENTS.md` 强制要求使用 stable 状态的 `Ds*` 规范库：
+
+```markdown
+## 组件基线约束
+
+- 列表页面必须使用 DsPage + DsDataTable（禁止手搭分页逻辑）
+- 表单使用 DsFormGrid（禁止 flex/grid 手排布）
+- 状态标签使用 DsStatusTag（禁止自定义彩色标签）
+- 严禁内联 style，严禁硬编码颜色/圆角值，严禁覆盖 .ant-* 全局类
+```
+
+### 第三层：业务守恒硬约束
+
+重构与迁移是最容易出错的场景。项目在 `AGENTS.md` 中设置了最高级别的业务守恒要求：
+
+```markdown
+## 业务守恒原则（最高优先级）
+
+在重构或样式迁移时，下列内容必须 100% 保留，违反视为高优 Bug：
+- 所有查询字段与重置按钮的默认条件
+- 所有权限按钮标识（v-permission, hasPermission）
+- 接口入参与响应字段契约，严禁凭空幻觉删减
+- 页签、抽屉、弹窗的触发条件与数据绑定
+```
+
+**结果**：在 `AGENTS.md` 的约束下，系统 1,156 个业务视图中有 1,021 个深度绑定了 `Ds*` 规范库，组件覆盖率高达 **88.3%**，整体研发周期从传统模式的 650 人天压缩至 **176 人天**。
+
+---
+
+## 9. 日常演进：把 AI 犯错成本变成工程资产
+
+`CLAUDE.md` 绝不是写完就束之高阁的文档，而是一个**与项目共同成长的 Living Doc**。
+
+官方文档给出了最佳添加时机：当 Claude 犯了同样的错误第二次、代码审查发现了 Claude 应该已知的问题、或者你在聊天框里输入了和上次会话完全相同的纠正语句时，就应该立刻将其写入 `CLAUDE.md`。
+
+核心心法是**"持续改进闭环"**：
+
+> AI 犯错 → 排查根因 → 把红线写进 CLAUDE.md → 下次会话自动遵守
+
+每一次 AI 犯错，你不只是在修复一个 Bug，更是在**把修复成本变成项目永久的工程化资产**。只要这个规则在 `CLAUDE.md` 里，以后这个错误就不会再发生。
+
+### 排查指令速查
+
+当你怀疑 Claude 没有读取 `CLAUDE.md` 规范时：
+
+```bash
+# 在会话中检查哪些记忆文件被加载了
+/context
+
+# 浏览和编辑所有记忆文件（CLAUDE.md + Auto Memory）
+/memory
+
+# 检查 CLAUDE.md 是否过大，获取裁剪建议
+/doctor
+```
+
+常见排查项：
+* 运行 `/context`，确认 `CLAUDE.md` 出现在 **Memory files** 列表中。
+* 检查相关 `CLAUDE.md` 是否在 Claude Code 的加载路径中。
+* 把指令写得更具体，例如"使用 2 空格缩进"比"格式化好看"有效得多。
+* 检查多个 CLAUDE.md 文件之间是否存在相互矛盾的指令。
+
+> 如果某个操作必须在特定时机强制执行（如提交前必须运行 Lint），应该使用 **Hook** 而不是 `CLAUDE.md`。Hook 以 Shell 命令形式在固定生命周期事件中执行，不依赖 Claude 的主观判断。
 </pre>
-      <a class="back-deck" href="../index.html#/4/3">返回 PPT：CLAUDE.md & AGENTS.md 最佳实践 ↗</a>
+      <a class="back-deck" href="../index.html#/5/11">返回 PPT：CLAUDE.md &amp; AGENTS.md 最佳实践 ↗</a>
     </article>
   </main>
   <footer class="site-footer">VibeCoding 实战总结 · 延伸阅读</footer>

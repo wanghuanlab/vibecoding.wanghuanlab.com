@@ -62,6 +62,7 @@ a { color: inherit; }
 .article-card.model { background: var(--blue); }
 .article-card.agent-md { background: var(--mint); }
 .article-card.context-guide { background: var(--lilac); }
+.article-card.best-practices { background: var(--gold); }
 .article-number { font-family: var(--mono); font-size: 12px; font-weight: 900; }
 .article-card h3 { margin: auto 0 10px; font-size: 30px; line-height: 1.18; letter-spacing: -.035em; }
 .article-card p { margin: 0; font-size: 15px; }

@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VibeCoding 最佳实践：高质量 AI 工程的 17 条原则</title>
+  <link rel="stylesheet" href="../assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="index.html">/&gt; VIBECODING / NOTES</a>
+    <a class="header-link" href="index.html">文章目录 ←</a>
+  </header>
+  <main class="page-shell article-page">
+    <article class="article-main">
+      <p class="eyebrow">ENGINEERING MANAGEMENT / BEST PRACTICES</p>
+      <h1>VibeCoding 最佳实践：高质量 AI 工程的 17 条原则</h1>
+      <pre class="source-article">VibeCoding 真正的最佳实践，不是"把需求丢给 AI，让它一直写"，而是把 AI 变成一个**受约束、可验证、可回滚的工程执行器**。
+
+高质量 VibeCoding 可以总结成一个核心公式：
+
+> **高质量 VibeCoding = 好上下文 × 小步任务 × 明确约束 × 自动验证 × 持续纠偏**
+
+其中任何一个接近 0，最终效果都会明显下降。
+
+---
+
+## 1. 最大的认知转变：不要把 AI 当"代码生成器"
+
+传统用法是：
+
+> 我提需求 → AI 写代码 → 我检查代码
+
+更成熟的 VibeCoding 是：
+
+> 我定义目标、边界和验收标准 → AI 自己阅读代码、设计方案、修改、测试 → 我检查结果和关键决策
+
+也就是说，人应该逐渐从 **Coder** 变成：
+
+**Architect + Product Owner + Reviewer**
+
+AI 则承担：
+
+**Researcher + Coder + Tester + Refactorer**
+
+这是 VibeCoding 效率提升最大的地方。
+
+---
+
+## 2. 一个任务不要直接从 Prompt 开始，要先建立 Context
+
+例如你要改一个 Spring Boot 项目。
+
+比较差的 Prompt 是：
+
+> 给订单系统增加取消订单功能。
+
+AI 会开始猜：
+
+* Order 实体在哪里？
+* 状态枚举是什么？
+* 有没有工作流？
+* 有没有事务？
+* 有没有退款？
+* API 风格是什么？
+* DTO 怎么定义？
+* 异常怎么处理？
+
+猜得越多，返工越多。
+
+更好的方式是先让 AI：
+
+> 阅读 Order 相关 Controller、Service、Entity、Repository、状态枚举和测试代码，理解当前订单状态流转。
+> 暂时不要修改代码。
+> 输出：
+>
+> 1. 当前订单取消相关逻辑
+> 2. 涉及文件
+> 3. 状态约束
+> 4. 实现方案
+> 5. 潜在风险
+
+然后第二步：
+
+> 按刚才方案实现，保持现有架构和编码风格，不引入新的框架。
+
+这里有一个非常重要的原则：
+
+**Read → Plan → Code → Verify**
+
+不要直接：
+
+**Prompt → Code**
+
+---
+
+## 3. 最佳任务粒度：一个 Prompt 完成一个"可验证闭环"
+
+VibeCoding 最大的问题之一就是任务太大。
+
+例如：
+
+> 帮我开发一个设备管理系统，包括设备台账、巡检、缺陷、检修、技改……
+
+这是典型的低质量 VibeCoding。
+
+应该拆成：
+
+```text
+设备管理
+ ├─ 设备台账
+ │   ├─ 数据模型
+ │   ├─ CRUD API
+ │   ├─ 查询条件
+ │   └─ 权限
+ │
+ ├─ 巡检
+ │   ├─ 巡检模板
+ │   ├─ 巡检计划
+ │   ├─ 巡检任务
+ │   └─ 巡检结果
+ │
+ └─ 缺陷
+     ├─ 缺陷登记
+     ├─ 缺陷流转
+     └─ 缺陷关闭
+```
+
+再进一步拆成：
+
+> 实现"创建设备"API，并补充单元测试。
+
+这就是一个非常好的 Agent Task。
+
+理想粒度应该满足：
+
+> **AI 改完以后，可以通过一个明确方法判断"完成/没完成"。**
+
+比如：
+
+* 一个接口
+* 一个 Bug
+* 一个页面
+* 一个组件
+* 一个 SQL 优化
+* 一个重构
+* 一组测试
+
+而不是"一个系统"。
+
+---
+
+## 4. Prompt 最好包含 5 个信息
+
+高质量 Prompt 基本都可以抽象成：
+
+**Goal + Context + Constraints + Acceptance + Scope**
+
+例如：
+
+```text
+目标：
+增加订单取消接口。
+
+上下文：
+订单状态定义在 OrderStatus.java，
+业务逻辑主要位于 OrderServiceImpl。
+
+约束：
+1. Java 17
+2. Spring Boot 3
+3. 不新增第三方依赖
+4. 保持现有异常处理方式
+5. 不修改数据库表结构
+
+验收标准：
+1. CREATED、PAID 状态可以取消
+2. SHIPPED 状态不能取消
+3. 重复取消必须幂等
+4. 添加单元测试
+5. mvn test 必须通过
+
+范围：
+只修改订单模块，不修改支付模块。
+```
+
+这种 Prompt 的真正价值是：
+
+**减少 AI 的决策空间。**
+
+AI 决策空间越大：
+
+> Token ↑ / 随机性 ↑ / 错误率 ↑ / 返工 ↑
+
+所以 VibeCoding 的本质之一就是：
+
+> **通过上下文工程降低搜索空间。**
+
+---
+
+## 5. Rules 负责"长期约束"，Prompt 负责"当前任务"
+
+这是很多人容易混淆的地方。
+
+例如这些东西应该放 Rules：
+
+```text
+- 默认使用 Java 17
+- Controller 不直接访问 Repository
+- DTO 使用 record
+- Service 必须有接口
+- 数据库使用 PostgreSQL
+- 不允许 Lombok @Data
+- 所有时间使用 LocalDateTime
+- 禁止修改 migration 历史文件
+- 修改代码必须补测试
+```
+
+而这些应该放 Prompt：
+
+> 给 UserService 增加修改密码功能。
+
+一个非常好的划分原则：
+
+| 内容 | 放哪里 |
+| --- | --- |
+| 长期工程规范 | Rules |
+| 架构约束 | Rules |
+| 技术栈 | Rules |
+| 编码风格 | Rules |
+| 当前任务 | Prompt |
+| 当前验收条件 | Prompt |
+| 当前特殊限制 | Prompt |
+
+Rules 的价值其实是：
+
+> **把重复 Token 转化成持久上下文。**
+
+---
+
+## 6. 不要让 AI 一直"补丁式修复"
+
+这是 VibeCoding 最常见的失控模式：
+
+```text
+AI写代码 → 报错 → 修 → 另一个报错 → 继续修 → 测试失败 → 再修 → 架构开始变形
+```
+
+最后形成：**AI Technical Debt**
+
+看到连续 2～3 次 patch 修复失败时，不应该继续说：
+
+> 再修一下。
+
+应该切换：
+
+> 停止继续修改。分析当前失败的根本原因，说明之前方案为什么失败，并重新设计解决方案。
+
+这一步非常重要，我把它叫：**Reset Reasoning**
+
+否则 AI 很容易进入局部最优：
+
+> "保住刚才的代码，再打一层补丁。"
+
+---
+
+## 7. VibeCoding 一定要让"验证"自动化
+
+这是最关键的最佳实践之一。
+
+> **AI 自己说"已经完成"几乎没有价值。**
+
+真正有价值的是：
+
+```text
+compile success / test success / lint success / typecheck success / integration test success
+```
+
+所以应该尽可能建立：
+
+```text
+AI修改 → Compile → Unit Test → Integration Test → Lint → AI检查diff
+```
+
+例如 Java 项目：
+
+```bash
+mvn clean test
+```
+
+前端：
+
+```bash
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+```
+
+然后告诉 Agent：
+
+> 完成修改以后必须执行测试。如果失败，分析并修复；不要通过删除测试或降低测试标准解决问题。
+
+这一句话价值非常高。
+
+---
+
+## 8. Tests 实际上是 AI 最好的"需求说明书"
+
+传统开发：测试是为了防止 Bug。
+
+VibeCoding：**测试还是 AI 的反馈系统。**
+
+例如：
+
+```java
+@Test
+void shouldRejectCancelWhenOrderAlreadyShipped() {
+}
+```
+
+AI 一看就知道业务规则。
+
+因此在 AI Coding 时代，测试的重要性反而进一步增加。
+
+理想模式甚至是：
+
+```text
+先定义验收测试 → AI实现代码 → AI运行测试 → 测试通过
+```
+
+这比写三页需求文档有时候更加有效。
+
+---
+
+## 9. 高频使用 Diff，而不是疯狂阅读整个代码文件
+
+VibeCoding 后，人最大的工作量不应该变成：
+
+> 阅读 AI 生成的 3000 行代码。
+
+应该重点看：**Diff。**
+
+重点检查五件事：
+
+1. 有没有改不该改的文件
+2. 有没有改变公共接口
+3. 有没有偷偷改变业务语义
+4. 有没有新增不必要依赖
+5. 有没有明显过度设计
+
+也就是说：
+
+> AI 负责 Code，人重点 Review Decision
+
+真正值得人看的往往不是：
+
+```java
+if (user == null) ...
+```
+
+而是：
+
+> 为什么新建这个抽象层？为什么修改数据库模型？为什么引入 Redis？为什么改接口兼容性？
+
+---
+
+## 10. Git Commit 应该成为 VibeCoding 的"存档点"
+
+VibeCoding 很容易：
+
+> 越改越多 → 最后不敢回退。
+
+所以最佳实践是：
+
+```text
+一个逻辑任务 → 验证通过 → commit → 下一任务
+```
+
+例如：
+
+```text
+feat: add device inspection API
+fix: prevent duplicate inspection tasks
+refactor: extract inspection validation
+test: add inspection service tests
+```
+
+这意味着每次 AI Coding 都存在一个：**Known Good State**
+
+出了问题直接回滚。
+
+不要让 AI 连续工作几十个文件之后才第一次 commit。
+
+---
+
+## 11. 一个会话不要无限聊下去
+
+长会话有一个隐藏问题：
+
+> 上下文不是越多越好。
+
+会出现 **Context Pollution**（旧需求、旧方案、旧代码、旧错误不断占据 Context Window）。
+
+典型现象：
+
+* AI 引用已经删除的代码
+* AI 继续执行旧要求
+* 开始忘记当前目标
+* 修改范围越来越大
+* Token 消耗越来越高
+
+所以建议：
+
+```text
+一个 Feature / Bug / Refactor ≈ 一个 Coding Session
+```
+
+完成后：commit → 新 Session
+
+新会话让 AI 重新读取当前代码，通常比继续聊 100 个回合更加可靠。
+
+---
+
+## 12. Explore 和 Execute 最好分开
+
+我推荐一种两阶段工作流。
+
+**第一阶段：Explore**
+
+只允许：读代码 / 搜索 / 分析 / 设计 / 输出方案，**不允许修改**。
+
+**第二阶段：Execute**
+
+按照确认后的方案：修改代码 / 测试 / 修复 / Review。
+
+这能解决一个很严重的问题：
+
+> AI 一边理解问题，一边修改代码。
+
+人在第一次看一个陌生系统时一般也不会打开第一个文件就开始大规模重构，AI 同样如此。
+
+---
+
+## 13. 大任务可以采用 Plan → Tasks → Agents
+
+VibeCoding 更成熟之后，推荐这样的结构：
+
+```text
+                Requirement
+                     │
+                     ▼
+                  Planner
+                     │
+         ┌───────────┼───────────┐
+         ▼           ▼           ▼
+      Task A       Task B       Task C
+         │           │           │
+      Agent A      Agent B      Agent C
+         │           │           │
+         └───────────┼───────────┘
+                     ▼
+                  Review
+                     │
+                     ▼
+                   Test
+```
+
+例如"做一个用户权限模块"可以拆：
+
+```text
+Task 1 数据模型 / Task 2 Repository / Task 3 Service / Task 4 API / Task 5 权限 / Task 6 Test
+```
+
+但有一个原则：
+
+> **并行任务必须低耦合。**
+
+否则多个 Agent 同时修改同一文件，冲突反而会降低效率。
+
+---
+
+## 14. AI 应该尽量"检索"，少靠记忆
+
+比如问：
+
+> Spring Security 这个项目怎么实现鉴权？
+
+最好的方式不是让 AI 凭训练数据回答，而是：
+
+> 搜索当前项目 SecurityFilterChain、AuthenticationProvider、JWT Filter 和相关配置，再回答。
+
+VibeCoding 最可靠的信息优先级应该是：
+
+```text
+当前代码 > 项目文档 > 官方文档 > Rules > 模型自身知识
+```
+
+因为：
+
+> **Repository 才是当前系统的事实来源。**
+
+---
+
+## 15. 避免"顺手优化"
+
+一个非常值得放进 Rules 的规则：
+
+> 不要修改与当前任务无关的代码。
+
+例如只是修"用户名查询 Bug"，AI 却顺便重命名 UserService、修改 DTO、升级依赖、格式化整个项目、重构 Repository、修改 Exception，结果一个 20 行修改，Diff 变成 1500 行。
+
+这会严重提高 Review 成本。
+
+推荐的一句规则：
+
+> **Prefer minimal, localized changes.**
+
+即：**最小修改原则。**
+
+---
+
+## 16. VibeCoding 有一个非常重要的"不可能三角"
+
+```text
+              速度
+              ▲
+             / \
+            /   \
+           /     \
+          /       \
+         /         \
+    质量 ────────── 可控性
+```
+
+如果加入 Token / 成本，实际上就是一个多维优化问题。
+
+真正成熟的使用方式是：**根据任务风险动态调整 Agent 深度。**
+
+| 任务 | AI模式 |
+| --- | --- |
+| 改文案 | 极速 |
+| CSS调整 | 极速 |
+| CRUD | 普通 |
+| Bug | 普通 |
+| 核心业务逻辑 | 深度 |
+| 数据库迁移 | 深度 |
+| 权限系统 | 深度 |
+| 架构重构 | 深度 |
+
+这个思路比"永远开最强模型"重要得多。
+
+---
+
+## 17. 最终形成一套成熟的 VibeCoding Workflow
+
+```text
+① Requirement  →  定义业务目标
+② Explore      →  AI 阅读代码
+③ Plan         →  AI 输出实施方案
+④ Task Breakdown → 拆成可验证小任务
+⑤ Implement    →  AI 修改代码
+⑥ Verify       →  Build / Test / Lint
+⑦ Review       →  检查 Diff + 架构决策
+⑧ Commit       →  建立 Known Good State
+⑨ New Session  →  开始下一个 Feature
+```
+
+真正高效之后，一天的开发可能变成：
+
+```text
+30% 需求 / 架构 / Task设计
+15% 给AI上下文
+15% Review方案
+20% Review Diff
+10% 验证
+10% Coding
+```
+
+## 结语
+
+**VibeCoding 能力最终不是 Prompt Engineering，而是 Engineering Management。**
+
+你实际上是在管理一个速度极快、知识很广，但**容易自作主张、会犯错、没有天然工程边界感的虚拟开发团队**。
+
+而 Rules、Context、Plan、Task、Test、Git，本质上分别是在解决：
+
+> **Rules 管纪律 / Context 管认知 / Plan 管方向 / Task 管粒度 / Test 管质量 / Git 管风险**
+
+如果这六样东西建立起来，才算真正从"让 AI 帮我写代码"，进入了 **AI 原生的软件工程方式**。
+</pre>
+      <a class="back-deck" href="../index.html#/8/2">返回 PPT：Q&amp;A 环节 ↗</a>
+    </article>
+  </main>
+  <footer class="site-footer">VibeCoding 实战总结 · 延伸阅读</footer>
+  <script src="render-markdown.js"></script>
+</body>
+</html>
