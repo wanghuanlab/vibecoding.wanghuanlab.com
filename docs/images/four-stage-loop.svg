@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 540" width="1080" height="540" style="background:#f7f0dc; font-family:'Inter', 'PingFang SC', sans-serif;">
+  <style>
+    .card { fill:#fff9e9; stroke:#1c1b17; stroke-width:2; rx:8; }
+    .stage-title { font-size:16px; font-weight:900; fill:#1c1b17; }
+    .badge-blue { fill:#b9d9ed; stroke:#1c1b17; stroke-width:1.5; rx:4; font-size:12px; font-weight:800; fill-text:#1c1b17; }
+    .badge-gold { fill:#f5d363; stroke:#1c1b17; stroke-width:1.5; rx:4; font-size:12px; font-weight:800; }
+    .badge-orange { fill:#f3b1a2; stroke:#1c1b17; stroke-width:1.5; rx:4; font-size:12px; font-weight:800; }
+    .badge-green { fill:#b9dec5; stroke:#1c1b17; stroke-width:1.5; rx:4; font-size:12px; font-weight:800; }
+    .arrow { stroke:#1c1b17; stroke-width:2; fill:none; marker-end:url(#arrowhead); }
+    .dashed-arrow { stroke:#e86652; stroke-width:2; stroke-dasharray:4,4; fill:none; marker-end:url(#red-arrowhead); }
+    .text-sm { font-size:11px; fill:#444444; }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1c1b17" />
+    </marker>
+    <marker id="red-arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#e86652" />
+    </marker>
+  </defs>
+
+  <!-- Main Title -->
+  <text x="540" y="35" font-size="22" font-weight="900" text-anchor="middle" fill="#1c1b17">AI Coding 驱动系统重构 — 四阶段全流程闭环</text>
+
+  <!-- Stage 1: 规划阶段 -->
+  <rect x="20" y="60" width="230" height="450" class="card" />
+  <rect x="35" y="75" width="90" height="26" class="badge-blue" /><text x="80" y="92" text-anchor="middle" font-size="13" font-weight="800">1. 规划阶段</text>
+  
+  <g transform="translate(35, 115)">
+    <rect x="0" y="0" width="200" height="32" class="card" style="fill:#ffffff;" />
+    <text x="15" y="21" font-size="12" font-weight="800">🎯 目标定义</text>
+    <text x="100" y="21" class="text-sm">原则 / 约束</text>
+
+    <rect x="0" y="42" width="200" height="32" class="card" style="fill:#ffffff;" />
+    <text x="15" y="63" font-size="12" font-weight="800">🔍 系统扫描</text>
+    <text x="100" y="63" class="text-sm">架构 / 风险</text>
+
+    <rect x="0" y="84" width="200" height="32" class="card" style="fill:#ffffff;" />
+    <text x="15" y="105" font-size="12" font-weight="800">📊 指标基线</text>
+    <text x="100" y="105" class="text-sm">基线 / 监控</text>
+  </g>
+  <text x="35" y="255" font-size="12" font-weight="800" fill="#1c1b17">核心输出产物：</text>
+  <text x="35" y="275" class="text-sm">• 重构目标说明文档</text>
+  <text x="35" y="293" class="text-sm">• 成功指标定义表</text>
+  <text x="35" y="311" class="text-sm">• 系统架构与调用链路图</text>
+  <text x="35" y="329" class="text-sm">• 问题与风险清单</text>
+  <text x="35" y="347" class="text-sm">• 监控与报警配置面板</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 250 280 L 270 280" class="arrow" />
+
+  <!-- Stage 2: 设计阶段 -->
+  <rect x="270" y="60" width="230" height="450" class="card" />
+  <rect x="285" y="75" width="90" height="26" class="badge-gold" /><text x="330" y="92" text-anchor="middle" font-size="13" font-weight="800">2. 设计阶段</text>
+
+  <g transform="translate(285, 115)">
+    <rect x="0" y="0" width="200" height="42" class="card" style="fill:#ffffff;" />
+    <text x="15" y="26" font-size="13" font-weight="800">📄 方案设计</text>
+    <text x="105" y="26" class="text-sm">架构 / 回滚</text>
+
+    <rect x="0" y="54" width="200" height="42" class="card" style="fill:#ffffff;" />
+    <text x="15" y="80" font-size="13" font-weight="800">🧩 任务拆解</text>
+    <text x="105" y="80" class="text-sm">Milestone / Task</text>
+  </g>
+  <text x="285" y="235" font-size="12" font-weight="800" fill="#1c1b17">核心输出产物：</text>
+  <text x="285" y="255" class="text-sm">• 重构技术方案文档</text>
+  <text x="285" y="273" class="text-sm">• 回滚与兜底方案</text>
+  <text x="285" y="291" class="text-sm">• Phase / Task 总览表</text>
+  <text x="285" y="309" class="text-sm">• Task Graph 依赖图</text>
+  <text x="285" y="327" class="text-sm">• Task Spec 规格书</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 500 280 L 520 280" class="arrow" />
+
+  <!-- Stage 3: 执行阶段 (Highlight Box) -->
+  <rect x="520" y="60" width="330" height="450" class="card" style="fill:#fff4e6; stroke:#e86652; stroke-width:2.5;" />
+  <rect x="535" y="75" width="100" height="26" class="badge-orange" /><text x="585" y="92" text-anchor="middle" font-size="13" font-weight="800">3. 执行阶段 (Loop)</text>
+
+  <!-- AI Loop box inside Stage 3 -->
+  <g transform="translate(535, 115)">
+    <rect x="0" y="0" width="300" height="235" class="card" style="fill:#ffffff; stroke:#1c1b17;" />
+    <rect x="10" y="10" width="120" height="22" class="badge-gold" /><text x="70" y="25" text-anchor="middle" font-size="11" font-weight="800">🤖 AI Coding 自动循环</text>
+
+    <rect x="10" y="42" width="85" height="32" class="card" style="fill:#e8f4f8;" />
+    <text x="52.5" y="62" text-anchor="middle" font-size="11" font-weight="800">输入 Task</text>
+
+    <path d="M 95 58 L 115 58" class="arrow" />
+    <rect x="115" y="42" width="80" height="32" class="card" style="fill:#b9dec5;" />
+    <text x="155" y="62" text-anchor="middle" font-size="11" font-weight="800">AI 执行修改</text>
+
+    <path d="M 195 58 L 215 58" class="arrow" />
+    <rect x="215" y="42" width="75" height="32" class="card" style="fill:#f5d363;" />
+    <text x="252.5" y="62" text-anchor="middle" font-size="11" font-weight="800">双测验证</text>
+
+    <!-- Branch: Pass or Fail -->
+    <path d="M 252.5 74 L 252.5 90" class="arrow" />
+
+    <rect x="205" y="90" width="85" height="28" class="card" style="fill:#b9dec5;" />
+    <text x="247.5" y="108" text-anchor="middle" font-size="11" font-weight="800">✅ 通过: 记录</text>
+    <path d="M 205 104 L 10 104 L 10 74" class="arrow" />
+    <text x="100" y="100" font-size="10" fill="#4a9e78" font-weight="800">进入下一个 Task</text>
+
+    <rect x="205" y="130" width="85" height="28" class="card" style="fill:#f3b1a2;" />
+    <text x="247.5" y="148" text-anchor="middle" font-size="11" font-weight="800">❌ 失败: 重试</text>
+
+    <!-- Retry logic -->
+    <rect x="75" y="130" width="115" height="28" class="card" style="fill:#fff9e9;" />
+    <text x="132.5" y="148" text-anchor="middle" font-size="10" font-weight="800">分析原因 (≤3次)</text>
+    <path d="M 205 144 L 190 144" class="arrow" />
+
+    <!-- Human gate -->
+    <rect x="75" y="175" width="215" height="32" class="card" style="fill:#f8c96d; stroke:#1c1b17;" />
+    <text x="182.5" y="195" text-anchor="middle" font-size="11" font-weight="900">🛑 人工确认 (Human Gate)</text>
+    <path d="M 132.5 158 L 132.5 175" class="dashed-arrow" />
+  </g>
+
+  <text x="535" y="375" font-size="12" font-weight="800" fill="#1c1b17">核心输出产物：</text>
+  <text x="535" y="395" class="text-sm">• Task 执行记录表与改动摘要</text>
+  <text x="535" y="413" class="text-sm">• 编译 / 单测 / 自动化测试结果</text>
+  <text x="535" y="431" class="text-sm">• 代码 Diff 分析与问题修复记录</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 850 280 L 870 280" class="arrow" />
+
+  <!-- Stage 4: 验收阶段 -->
+  <rect x="870" y="60" width="190" height="450" class="card" />
+  <rect x="885" y="75" width="90" height="26" class="badge-green" /><text x="930" y="92" text-anchor="middle" font-size="13" font-weight="800">4. 验收阶段</text>
+
+  <g transform="translate(885, 115)">
+    <rect x="0" y="0" width="160" height="32" class="card" style="fill:#ffffff;" />
+    <text x="10" y="21" font-size="12" font-weight="800">👥 影子双跑</text>
+    <rect x="0" y="42" width="160" height="32" class="card" style="fill:#ffffff;" />
+    <text x="10" y="63" font-size="12" font-weight="800">📈 灰度切流</text>
+    <rect x="0" y="84" width="160" height="32" class="card" style="fill:#ffffff;" />
+    <text x="10" y="105" font-size="12" font-weight="800">🛡️ 异常止损</text>
+  </g>
+
+  <text x="885" y="255" font-size="12" font-weight="800" fill="#1c1b17">核心输出产物：</text>
+  <text x="885" y="275" class="text-sm">• 终态验收报告</text>
+  <text x="885" y="293" class="text-sm">• 生产行为一致性证据</text>
+  <text x="885" y="311" class="text-sm">• QPS / 延迟对比表</text>
+  <text x="885" y="329" class="text-sm">• 资源收敛效果</text>
+</svg>

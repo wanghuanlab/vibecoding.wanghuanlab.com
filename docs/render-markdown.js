@@ -30,6 +30,12 @@
         continue;
       }
       if (/^---+$/.test(line.trim())) { html.push('<hr>'); index += 1; continue; }
+      const imgMatch = line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+      if (imgMatch) {
+        html.push(`<figure class="md-figure"><img src="${escapeHtml(imgMatch[2])}" alt="${escapeHtml(imgMatch[1])}"><figcaption>${inline(imgMatch[1])}</figcaption></figure>`);
+        index += 1;
+        continue;
+      }
       if (line.startsWith('>')) {
         const quote = [];
         while (index < lines.length && lines[index].startsWith('>')) quote.push(lines[index++].replace(/^>\s?/, ''));

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" style="background:#f7f0dc; font-family:'Inter', 'PingFang SC', sans-serif;">
+  <style>
+    .card { fill:#fff9e9; stroke:#1c1b17; stroke-width:2; rx:8; }
+    .card-blue { fill:#e8f4f8; stroke:#1c1b17; stroke-width:2.5; rx:8; }
+    .card-gold { fill:#fff4e6; stroke:#1c1b17; stroke-width:2.5; rx:8; }
+    .title { font-size:18px; font-weight:900; fill:#1c1b17; }
+    .item-text { font-size:13px; font-weight:700; fill:#1c1b17; }
+    .circle-btn { fill:#ffffff; stroke:#1c1b17; stroke-width:2; }
+  </style>
+
+  <!-- Left Card: Human -->
+  <rect x="30" y="30" width="400" height="340" class="card-blue" />
+  <text x="60" y="70" font-size="20" font-weight="900" fill="#527c9e">👤 人类工程师 (Human)</text>
+  <text x="60" y="95" font-size="14" font-weight="800" fill="#1c1b17">核心职责：方向与风险判断 (Architect &amp; PO)</text>
+
+  <g transform="translate(60, 125)">
+    <rect x="0" y="0" width="340" height="36" class="card" style="fill:#ffffff;" />
+    <text x="15" y="23" class="item-text">🎯 目标定义 — 明确业务要求与重构期望</text>
+
+    <rect x="0" y="46" width="340" height="36" class="card" style="fill:#ffffff;" />
+    <text x="15" y="69" class="item-text">🚧 边界划定 — 限制不可触碰代码与安全红线</text>
+
+    <rect x="0" y="92" width="340" height="36" class="card" style="fill:#ffffff;" />
+    <text x="15" y="115" class="item-text">🏗️ 架构判断 — 技术方案选择与范式取舍</text>
+
+    <rect x="0" y="138" width="340" height="36" class="card" style="fill:#ffffff;" />
+    <text x="15" y="161" class="item-text">🛡️ 风险接受 — 评估遗留风险与异常兜底</text>
+
+    <rect x="0" y="184" width="340" height="36" class="card" style="fill:#ffffff;" />
+    <text x="15" y="207" class="item-text">🚀 上线决策 — 决定发布切换与推进停止</text>
+  </g>
+
+  <!-- Center Divider Pillar -->
+  <line x1="480" y1="30" x2="480" y2="370" stroke="#1c1b17" stroke-width="2" stroke-dasharray="6,6" />
+
+  <circle cx="480" cy="150" r="30" class="circle-btn" style="fill:#b9d9ed;" />
+  <text x="480" y="155" font-size="13" font-weight="900" text-anchor="middle" fill="#1c1b17">判断</text>
+
+  <circle cx="480" cy="250" r="30" class="circle-btn" style="fill:#f5d363;" />
+  <text x="480" y="255" font-size="13" font-weight="900" text-anchor="middle" fill="#1c1b17">执行</text>
+
+  <!-- Right Card: AI Agent -->
+  <rect x="530" y="30" width="400" height="340" class="card-gold" />
+  <text x="560" y="70" font-size="20" font-weight="900" fill="#e86652">🤖 AI 辅助代理 (Agent)</text>
+  <text x="560" y="95" font-size="14" font-weight="800" fill="#1c1b17">核心职责：高频执行与产物沉淀 (Coder &amp; Tester)</text>
+
+  <g transform="translate(560, 125)">
+    <rect x="0" y="0" width="340" height="36" class="card" style="fill:#ffffff;" />
+    <text x="15" y="23" class="item-text">🔍 代码扫描 — 上下文检索与链路梳理</text>
+
+    <rect x="0" y="46" width="340" height="36" class="card" style="fill:#ffffff;" />
+    <text x="15" y="69" class="item-text">💡 方案辅助 — 生成初版草案与 Task 拆解</text>
+
+    <rect x="0" y="92" width="340" height="36" class="card" style="fill:#ffffff;" />
+    <text x="15" y="115" class="item-text">💻 代码修改 — 按照 Task Spec 执行重构</text>
+
+    <rect x="0" y="138" width="340" height="36" class="card" style="fill:#ffffff;" />
+    <text x="15" y="161" class="item-text">🧪 测试执行 — 运行编译、单测与双测验证</text>
+
+    <rect x="0" y="184" width="340" height="36" class="card" style="fill:#ffffff;" />
+    <text x="15" y="207" class="item-text">📝 报告沉淀 — 记录 Diff 、问题与测试证据</text>
+  </g>
+</svg>

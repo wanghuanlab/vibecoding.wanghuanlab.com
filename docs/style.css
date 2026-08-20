@@ -63,6 +63,7 @@ a { color: inherit; }
 .article-card.agent-md { background: var(--mint); }
 .article-card.context-guide { background: var(--lilac); }
 .article-card.best-practices { background: var(--gold); }
+.article-card.harness-loop { background: var(--blue); }
 .article-number { font-family: var(--mono); font-size: 12px; font-weight: 900; }
 .article-card h3 { margin: auto 0 10px; font-size: 30px; line-height: 1.18; letter-spacing: -.035em; }
 .article-card p { margin: 0; font-size: 15px; }
@@ -132,6 +133,9 @@ a { color: inherit; }
 .markdown-body .md-table th, .markdown-body .md-table td { padding: 10px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
 .markdown-body .md-table th { background: var(--ink); color: #fff9e9; }
 .markdown-body hr { margin: 34px 0; border: 0; border-top: 2px solid var(--ink); }
+.markdown-body .md-figure { margin: 36px 0; text-align: center; }
+.markdown-body .md-figure img { max-width: 100%; height: auto; border: 2px solid var(--ink); border-radius: 8px; box-shadow: 6px 6px 0 var(--ink); background: var(--paper); display: block; margin: 0 auto; }
+.markdown-body .md-figure figcaption { margin-top: 12px; font-size: 13.5px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
 @media (max-width: 760px) {
   .site-header { padding: 10px 5vw; }.hero { padding: 58px 0 40px; }.article-list { grid-template-columns: 1fr; }.article-page { display: block; padding-top: 48px; }.toc { display: none; }.dimension-flow { grid-template-columns: 1fr; }.dimension { min-height: 56px; }.triangle-figure { height: 310px; }.triangle-shape { width: 230px; height: 184px; }.vertex.quality { left: -8px; }.vertex.cost { right: -8px; }
 }
