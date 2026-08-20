@@ -1236,6 +1236,175 @@
       line-height: 1.48;
     }
     .framework-conclusion strong { color: #263f52; }
+
+    /* ── Chapter 1: VibeCoding Work-Loop (1.2) ─────────────────────────── */
+    .vc-loop-grid {
+      display: grid;
+      grid-template-columns: 1fr 28px 1fr 28px 1fr 28px 1fr;
+      gap: 0 6px;
+      align-items: stretch;
+      margin-top: 14px;
+    }
+    .vc-loop-step {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 14px 14px 12px;
+      border: 3px solid #1c1b17;
+      border-radius: 8px;
+      box-shadow: 4px 4px 0 #1c1b17;
+      color: #1c1b17;
+    }
+    .vc-loop-step.is-step1 { background: #f8c96d; }
+    .vc-loop-step.is-step2 { background: #b9dec5; }
+    .vc-loop-step.is-step3 { background: #a9c8df; }
+    .vc-loop-step.is-step4 { background: #f3b9ae; }
+    .vc-loop-num {
+      font-family: var(--font-code);
+      font-size: .52em;
+      font-weight: 900;
+      opacity: .6;
+      margin-bottom: 6px;
+    }
+    .vc-loop-icon { font-size: 1.3em; margin-bottom: 6px; }
+    .vc-loop-title {
+      font-family: Georgia, 'Songti SC', serif;
+      font-size: .72em;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+    .vc-loop-role {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 8px;
+      padding: 3px 7px;
+      background: rgba(255,249,233,.76);
+      border: 1.5px solid #1c1b17;
+      border-radius: 999px;
+      font-size: .48em;
+      font-weight: 800;
+    }
+    .vc-loop-desc { font-size: .54em; font-weight: 700; line-height: 1.35; color: #2e2d28; }
+    .vc-loop-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      font-weight: 900;
+      color: #1c1b17;
+      padding-top: 12px;
+    }
+    .vc-prompt-example {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: #273d4c;
+      color: #fff8e6;
+      border: 3px solid #1c1b17;
+      border-radius: 8px;
+      box-shadow: 4px 4px 0 #1c1b17;
+    }
+    .vc-prompt-label {
+      font-family: var(--font-code);
+      font-size: .55em;
+      font-weight: 900;
+      color: #8ac9a5;
+      margin-bottom: 6px;
+      letter-spacing: .04em;
+    }
+    .vc-prompt-body { font-size: .6em; line-height: 1.5; color: #e8deca; }
+    .vc-prompt-body code {
+      background: rgba(138,201,165,.18);
+      color: #8ac9a5;
+      border: 1px solid rgba(138,201,165,.4);
+      border-radius: 3px;
+      padding: .05em .22em;
+    }
+    @media (max-width: 900px) {
+      .vc-loop-grid { grid-template-columns: 1fr; }
+      .vc-loop-arrow { display: none; }
+    }
+
+    /* ── Chapter 1: Role Evolution (1.3) ────────────────────────────────── */
+    .role-evolution-grid {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      gap: 0 10px;
+      align-items: center;
+      margin-top: 14px;
+    }
+    .role-card {
+      padding: 16px 18px 14px;
+      border: 3px solid #1c1b17;
+      border-radius: 9px;
+      box-shadow: 5px 5px 0 #1c1b17;
+      color: #1c1b17;
+    }
+    .role-card.is-old { background: #f3b9ae; }
+    .role-card.is-new { background: #b9dec5; }
+    .role-card-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 2px dashed rgba(28,27,23,.35);
+    }
+    .role-icon-wrap {
+      display: inline-flex;
+      width: 38px; height: 38px; flex: 0 0 38px;
+      align-items: center; justify-content: center;
+      border: 2px solid #1c1b17;
+      border-radius: 50%;
+      font-size: 1em;
+    }
+    .role-icon-wrap.is-old { background: #e86652; color: #fff9e9; }
+    .role-icon-wrap.is-new { background: #527c9e; color: #fff9e9; }
+    .role-name { font-family: Georgia,'Songti SC',serif; font-size: .75em; font-weight: 900; line-height: 1.2; }
+    .role-en { font-family: var(--font-code); font-size: .48em; font-weight: 700; opacity: .7; margin-top: 2px; }
+    .role-duties { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+    .role-duties li { display: flex; align-items: flex-start; gap: 7px; font-size: .57em; font-weight: 700; line-height: 1.3; color: #2e2d28; }
+    .role-duties li i { margin-top: 2px; flex: 0 0 12px; font-size: .9em; }
+    .role-card.is-old .role-duties li i { color: #e86652; }
+    .role-card.is-new .role-duties li i { color: #527c9e; }
+    .role-arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; }
+    .role-arrow-line { width: 3px; height: 40px; background: #1c1b17; }
+    .role-arrow-label { font-family: var(--font-code); font-size: .42em; font-weight: 900; line-height: 1.3; color: #1c1b17; }
+    .role-arrow-head { font-size: 1.6em; font-weight: 900; color: #1c1b17; line-height: 1; }
+    .role-tagline {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 14px; padding: 11px 16px;
+      background: #f5d363; border: 3px solid #1c1b17;
+      border-radius: 7px; box-shadow: 4px 4px 0 #1c1b17;
+      font-size: .66em; font-weight: 700; color: #1c1b17; line-height: 1.4;
+    }
+    .role-tagline i { font-size: 1.2em; color: #e86652; flex: 0 0 auto; }
+    @media (max-width: 900px) {
+      .role-evolution-grid { grid-template-columns: 1fr; }
+      .role-arrow { flex-direction: row; }
+      .role-arrow-line { width: 30px; height: 3px; }
+    }
+
+    /* ── Chapter 1: Principle examples & checklist (1.4) ────────────────── */
+    .principle-example {
+      margin-top: 10px; padding: 7px 10px;
+      background: rgba(255,249,233,.7);
+      border: 2px dashed rgba(28,27,23,.4);
+      border-radius: 5px;
+      font-size: .54em; font-weight: 700; line-height: 1.4; color: #2e2d28;
+    }
+    .principle-example i { color: #e58d4e; margin-right: 4px; }
+    .principle-checklist { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+    .principle-check-item {
+      display: flex; align-items: center; gap: 7px;
+      padding: 5px 8px;
+      background: rgba(255,249,233,.7);
+      border: 1.5px solid rgba(28,27,23,.3);
+      border-radius: 5px;
+      font-size: .55em; font-weight: 800; color: #1c1b17;
+    }
+    .principle-check-item i { color: #527c9e; }
   </style>
 </head>
 <body>
@@ -1392,34 +1561,141 @@
           <aside class="notes">对比点：开发者角色已经从纯手作者，转变为“意图表达者”与“质量把控者”。</aside>
         </section>
 
-        <!-- 1.2 核心理念 -->
+        <!-- 1.2 VibeCoding 典型工作循环 -->
         <section>
-          <h2>VibeCoding 核心理念</h2>
-          <div class="quote-card fragment" style="text-align: center; margin-top: 40px;">
+          <h2>一个任务，VibeCoding 怎么做？</h2>
+          <p style="margin: 0 0 18px; font-size: .78em; color: var(--text-muted);">以「新增批量导出 CSV 功能」为例，看完整闭环如何运转</p>
+          <div class="vc-loop-grid">
+            <div class="vc-loop-step is-step1 fragment">
+              <div class="vc-loop-num">01</div>
+              <div class="vc-loop-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+              <div class="vc-loop-title">表达意图</div>
+              <div class="vc-loop-role"><i class="fa-solid fa-user"></i> 你来做</div>
+              <div class="vc-loop-desc">用自然语言写清楚需求、边界与约束，喂给 AI</div>
+            </div>
+            <div class="vc-loop-arrow fragment">→</div>
+            <div class="vc-loop-step is-step2 fragment">
+              <div class="vc-loop-num">02</div>
+              <div class="vc-loop-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+              <div class="vc-loop-title">AI 生成代码</div>
+              <div class="vc-loop-role"><i class="fa-solid fa-robot"></i> AI 来做</div>
+              <div class="vc-loop-desc">模型读取上下文，自动生成实现、补充测试用例</div>
+            </div>
+            <div class="vc-loop-arrow fragment">→</div>
+            <div class="vc-loop-step is-step3 fragment">
+              <div class="vc-loop-num">03</div>
+              <div class="vc-loop-icon"><i class="fa-solid fa-code-compare"></i></div>
+              <div class="vc-loop-title">审查 Diff</div>
+              <div class="vc-loop-role"><i class="fa-solid fa-user"></i> 你来做</div>
+              <div class="vc-loop-desc">逐块 Review，关注架构合规、边界覆盖与安全风险</div>
+            </div>
+            <div class="vc-loop-arrow fragment">→</div>
+            <div class="vc-loop-step is-step4 fragment">
+              <div class="vc-loop-num">04</div>
+              <div class="vc-loop-icon"><i class="fa-solid fa-circle-check"></i></div>
+              <div class="vc-loop-title">验收 / 迭代</div>
+              <div class="vc-loop-role"><i class="fa-solid fa-arrows-rotate"></i> 协同</div>
+              <div class="vc-loop-desc">测试通过则合入；有问题直接反馈 AI，重新生成</div>
+            </div>
+          </div>
+          <div class="vc-prompt-example fragment">
+            <div class="vc-prompt-label"><i class="fa-solid fa-terminal"></i> 真实 Prompt 示例（第 01 步）</div>
+            <div class="vc-prompt-body">在 <code>tasks</code> 模块新增批量导出 CSV 接口，支持 <code>fields[]</code> 参数过滤列，输出需含表头行；不影响现有分页查询接口；新增对应单元测试覆盖空列表与超大数据集边界场景。</div>
+          </div>
+          <aside class="notes">循环核心：人做判断，AI做执行——4步里有两步是人在把关，不是把代码全权交给 AI。</aside>
+        </section>
+
+        <!-- 1.3 开发者角色演变图谱 -->
+        <section>
+          <h2>开发者角色，发生了什么变化？</h2>
+          <p style="margin: 0 0 20px; font-size: .78em; color: var(--text-muted);">VibeCoding 不是"让 AI 替代你写代码"，而是把你的能力杠杆化</p>
+          <div class="role-evolution-grid">
+            <div class="role-card is-old fragment">
+              <div class="role-card-head">
+                <span class="role-icon-wrap is-old"><i class="fa-solid fa-keyboard"></i></span>
+                <div>
+                  <div class="role-name">传统开发者</div>
+                  <div class="role-en">Craftsman · 手工匠人</div>
+                </div>
+              </div>
+              <ul class="role-duties">
+                <li><i class="fa-solid fa-circle-dot"></i> 专注语法 / API 细节记忆</li>
+                <li><i class="fa-solid fa-circle-dot"></i> 检索文档、StackOverflow</li>
+                <li><i class="fa-solid fa-circle-dot"></i> 手动追栈调试</li>
+                <li><i class="fa-solid fa-circle-dot"></i> 逐行键入实现细节</li>
+                <li><i class="fa-solid fa-circle-dot"></i> 速度受限于打字 / 记忆</li>
+              </ul>
+            </div>
+            <div class="role-arrow fragment">
+              <div class="role-arrow-line"></div>
+              <div class="role-arrow-label">VibeCoding<br>范式转变</div>
+              <div class="role-arrow-head">→</div>
+            </div>
+            <div class="role-card is-new fragment">
+              <div class="role-card-head">
+                <span class="role-icon-wrap is-new"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                <div>
+                  <div class="role-name">意图表达者 + 审查验收者</div>
+                  <div class="role-en">Director &amp; Reviewer</div>
+                </div>
+              </div>
+              <ul class="role-duties">
+                <li><i class="fa-solid fa-circle-check"></i> 拆解需求，构建清晰上下文</li>
+                <li><i class="fa-solid fa-circle-check"></i> 把关架构合规与安全边界</li>
+                <li><i class="fa-solid fa-circle-check"></i> 审查 Diff，验收测试结果</li>
+                <li><i class="fa-solid fa-circle-check"></i> 将错误日志快速反馈给 AI</li>
+                <li><i class="fa-solid fa-circle-check"></i> 速度取决于需求清晰度</li>
+              </ul>
+            </div>
+          </div>
+          <div class="role-tagline fragment">
+            <i class="fa-solid fa-bolt"></i>
+            编程能力不被削弱，而是被<strong>杠杆化</strong>——你的判断力，现在能驱动 10× 的代码产出
+          </div>
+          <aside class="notes">回答"我还需要会写代码吗"：会写代码的人用 VibeCoding 更厉害，审查能力和架构判断力仍是核心竞争力。</aside>
+        </section>
+
+        <!-- 1.4 核心理念（具体化） -->
+        <section>
+          <h2>VibeCoding 三条核心理念</h2>
+          <div class="quote-card fragment" style="text-align: center; margin-top: 20px;">
             <i class="fa-solid fa-quote-left" style="color: var(--accent-blue); font-size: 1.5em; display: block; margin-bottom: 10px;"></i>
             “用自然语言驱动代码生成，开发者转型为<span style="color: var(--accent-blue); font-weight: bold;">意图表达者</span>与<span style="color: var(--accent-green); font-weight: bold;">审查验收者</span>。”
           </div>
 
-          <div class="grid-3" style="margin-top: 30px;">
+          <div class="grid-3" style="margin-top: 22px;">
             <div class="vibe-card fragment">
               <h4><i class="fa-solid fa-bullseye list-item-icon"></i> 1. 意图高密度输出</h4>
-              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
-                精准使用自然语言定义业务目标、边界条件与约束逻辑，取代繁琐的代码细节手写。
+              <p style="font-size: 0.78em; color: var(--text-muted); margin-top: 8px;">
+                精准的自然语言 Prompt 取代繁琐手写——业务目标、边界条件、约束逻辑一次性说清楚。
               </p>
+              <div class="principle-example">
+                <i class="fa-solid fa-lightbulb"></i>
+                例："支持字段过滤，输出含表头，不影响现有分页接口，补边界测试"
+              </div>
             </div>
 
             <div class="vibe-card fragment">
               <h4><i class="fa-solid fa-layer-group list-item-icon"></i> 2. 上下文决定质量</h4>
-              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
-                AI 模型的表现上限取决于给定的 Context（项目结构、规则文件、特定 API 示例）。
+              <p style="font-size: 0.78em; color: var(--text-muted); margin-top: 8px;">
+                相同任务：配置了规范文件（<code>CLAUDE.md</code>）的对话 vs 空白对话，生成质量差异显著。
               </p>
+              <div class="principle-example">
+                <i class="fa-solid fa-lightbulb"></i>
+                项目结构 + 规则文件 + API 示例 = AI 的工作上下文
+              </div>
             </div>
 
             <div class="vibe-card fragment">
               <h4><i class="fa-solid fa-clipboard-check list-item-icon"></i> 3. 闭环质量审查</h4>
-              <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 10px;">
-                AI 负责初稿生成，人类负责单元测试、代码 Diff 逐行 Review 及架构合规校验。
+              <p style="font-size: 0.78em; color: var(--text-muted); margin-top: 8px;">
+                AI 生成初稿，人把关验收——三步不省略：
               </p>
+              <div class="principle-checklist">
+                <div class="principle-check-item"><i class="fa-solid fa-check"></i> Diff 逐块 Review</div>
+                <div class="principle-check-item"><i class="fa-solid fa-check"></i> 单测跑通</div>
+                <div class="principle-check-item"><i class="fa-solid fa-check"></i> Lint / 类型检查通过</div>
+              </div>
             </div>
           </div>
         </section>
