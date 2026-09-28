@@ -122,11 +122,11 @@ if [[ "$SKIP_DEPLOY" == true ]]; then
 else
   echo ""
   echo ">>> [步骤 3/3] 执行生产服务器原子更新部署"
-  DEPLOY_ARGS=()
   if [[ "$DRY_RUN" == true ]]; then
-    DEPLOY_ARGS+=(--dry-run)
+    "$PROJECT_ROOT/scripts/deploy.sh" --dry-run
+  else
+    "$PROJECT_ROOT/scripts/deploy.sh"
   fi
-  "$PROJECT_ROOT/scripts/deploy.sh" "${DEPLOY_ARGS[@]}"
 fi
 
 echo ""
