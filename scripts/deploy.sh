@@ -107,8 +107,11 @@ echo "  - 暂存目录: $REMOTE_STAGE"
 # 清理远端残留并创建暂存目录
 ssh "${SSH_ARGS[@]}" "$SSH_USER@$SSH_HOST" "mkdir -p '$REMOTE_SITE_DIR' '$REMOTE_STAGE'"
 
-# 流式上传解压
-COPYFILE_DISABLE=1 tar -czf - \
+# 流式上传解压（过滤 macOS 扩展属性避免远端 tar 报警）
+TAR_FLAGS=(-czf -)
+tar --no-xattrs --version >/dev/null 2>&1 && TAR_FLAGS=(--no-xattrs "${TAR_FLAGS[@]}")
+
+COPYFILE_DISABLE=1 tar "${TAR_FLAGS[@]}" \
   --exclude='.DS_Store' \
   --exclude='.git' \
   --exclude='.claude' \
