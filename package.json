@@ -1,0 +1,18 @@
+{
+  "name": "vibecoding.wanghuanlab.com",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VibeCoding 工程化最佳实践与演讲文稿",
+  "scripts": {
+    "ship": "./scripts/ship.sh",
+    "deploy": "./scripts/deploy.sh",
+    "inspect:server": "./scripts/inspect-server.sh"
+  },
+  "keywords": [
+    "vibecoding",
+    "ai-agent",
+    "engineering"
+  ],
+  "author": "wanghuan",
+  "license": "ISC"
+}
