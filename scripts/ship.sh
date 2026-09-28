@@ -51,13 +51,23 @@ if [[ "$INSPECT_ONLY" == true ]]; then
   exit 0
 fi
 
+# 步骤 0: 自动更新全站呈现日期
+if [[ "$DRY_RUN" == true ]]; then
+  echo ""
+  echo ">>> [步骤 0/4] 模拟检查全站展示日期"
+else
+  echo ""
+  echo ">>> [步骤 0/4] 自动更新全站呈现日期"
+  "$PROJECT_ROOT/scripts/update-dates.sh"
+fi
+
 # 步骤 1: Git 提交与推送
 if [[ "$SKIP_GIT" == true ]]; then
   echo ""
-  echo ">>> [步骤 1/3] 跳过 Git 提交与推送 (--skip-git)"
+  echo ">>> [步骤 1/4] 跳过 Git 提交与推送 (--skip-git)"
 else
   echo ""
-  echo ">>> [步骤 1/3] 检查并执行 Git 提交与推送"
+  echo ">>> [步骤 1/4] 检查并执行 Git 提交与推送"
   
   if [[ -n "$(git status --porcelain)" ]]; then
     echo "  工作区发现未提交改动："
@@ -108,7 +118,7 @@ fi
 
 # 步骤 2: 部署前环境探测
 echo ""
-echo ">>> [步骤 2/3] 探测服务器老版本现状"
+echo ">>> [步骤 2/4] 探测服务器老版本现状"
 if [[ "$DRY_RUN" == true ]]; then
   echo "  [Dry-Run] 跳过实际探测"
 else
@@ -118,10 +128,10 @@ fi
 # 步骤 3: 生产部署
 if [[ "$SKIP_DEPLOY" == true ]]; then
   echo ""
-  echo ">>> [步骤 3/3] 跳过服务器部署 (--skip-deploy)"
+  echo ">>> [步骤 3/4] 跳过服务器部署 (--skip-deploy)"
 else
   echo ""
-  echo ">>> [步骤 3/3] 执行生产服务器原子更新部署"
+  echo ">>> [步骤 3/4] 执行生产服务器原子更新部署"
   if [[ "$DRY_RUN" == true ]]; then
     "$PROJECT_ROOT/scripts/deploy.sh" --dry-run
   else

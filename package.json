@@ -6,7 +6,8 @@
   "scripts": {
     "ship": "./scripts/ship.sh",
     "deploy": "./scripts/deploy.sh",
-    "inspect:server": "./scripts/inspect-server.sh"
+    "inspect:server": "./scripts/inspect-server.sh",
+    "update-dates": "./scripts/update-dates.sh"
   },
   "keywords": [
     "vibecoding",

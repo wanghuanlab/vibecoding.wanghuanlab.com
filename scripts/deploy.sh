@@ -60,6 +60,11 @@ done
 
 cd "$PROJECT_ROOT"
 
+# 自动同步全站呈现日期
+if [[ -f "$PROJECT_ROOT/scripts/update-dates.sh" ]]; then
+  "$PROJECT_ROOT/scripts/update-dates.sh"
+fi
+
 if [[ ! -f "$PROJECT_ROOT/index.html" ]]; then
   echo "错误：未在 $PROJECT_ROOT 找到 index.html" >&2
   exit 1
